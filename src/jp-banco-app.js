@@ -30,13 +30,33 @@
     return a.duracao >= 999 ? 'Projeto' : a.duracao + ' min';
   }
 
+  /* Faixa pode ser lista: os materiais do acervo foram feitos para idades mistas
+     e travá-los em uma faixa só seria mentir no filtro. */
+  function faixasDe(a) { return arr(a.faixa); }
+  function faixaPrincipal(a) { return faixasDe(a)[0]; }
+
+  function faixaCompacta(a) {
+    var fs = faixasDe(a);
+    if (fs.length === 1) return T.faixa[fs[0]].rotulo;
+    var nums = [], fam = false;
+    fs.forEach(function (f) {
+      if (f === 'familia') { fam = true; return; }
+      f.split('-').forEach(function (n) { nums.push(parseInt(n, 10)); });
+    });
+    if (!nums.length) return T.faixa.familia.rotulo;
+    return Math.min.apply(null, nums) + ' a ' + Math.max.apply(null, nums) + ' anos' +
+           (fam ? ' e famílias' : '');
+  }
+
+  function ehAcervo(a) { return !!a.acervo; }
+
   /* ------------------------------------------------------------- validação
      Falha alto e cedo: uma ficha com chave fora da taxonomia é erro de dados,
      e é melhor descobrir no console do que descobrir com a professora em sala. */
   function validarDados() {
     var erros = [];
     var chaves = {
-      faixa: T.faixa, formato: T.formato, preparo: T.preparo,
+      formato: T.formato, preparo: T.preparo,
       grupo: T.grupo, sensibilidade: T.sensibilidade, eixo: T.eixos, tela: T.tela
     };
     var vistos = {};
@@ -49,6 +69,8 @@
       Object.keys(chaves).forEach(function (k) {
         if (a[k] != null && !chaves[k][a[k]]) erros.push(onde + ': ' + k + ' "' + a[k] + '" fora da taxonomia');
       });
+      faixasDe(a).forEach(function (f) { if (!T.faixa[f]) erros.push(onde + ': faixa "' + f + '" fora da taxonomia'); });
+      if (!faixasDe(a).length) erros.push(onde + ': sem faixa');
       arr(a.situacao).forEach(function (s) { if (!T.situacao[s]) erros.push(onde + ': situacao "' + s + '" fora da taxonomia'); });
       arr(a.contexto).forEach(function (c) { if (!T.contexto[c]) erros.push(onde + ': contexto "' + c + '" fora da taxonomia'); });
       arr(a.selos).forEach(function (s) { if (!T.selos[s]) erros.push(onde + ': selo "' + s + '" fora da taxonomia'); });
@@ -56,8 +78,23 @@
       if (a.eixo && a.nivel && (a.nivel < 1 || a.nivel > T.eixos[a.eixo].niveis.length)) {
         erros.push(onde + ': nivel ' + a.nivel + ' fora da faixa do eixo ' + a.eixo);
       }
-      ['provocacao', 'missao', 'virada', 'insight', 'insightCurto', 'transferencia', 'protecao', 'evidencia'].forEach(function (c) {
+      /* Item do acervo aponta para material que já existe e tem contrato próprio. */
+      var obrigatorias = ehAcervo(a)
+        ? ['insightCurto', 'link', 'linkRotulo', 'fonte', 'oQueE', 'comoUsar', 'protecao', 'observar']
+        : ['provocacao', 'missao', 'virada', 'insight', 'insightCurto', 'transferencia', 'protecao', 'evidencia'];
+      obrigatorias.forEach(function (c) {
         if (!a[c]) erros.push(onde + ': falta a seção obrigatória "' + c + '"');
+      });
+      if (ehAcervo(a) && !/^https:\/\//.test(a.link || '')) erros.push(onde + ': link precisa ser https');
+    });
+
+    /* Segunda passada: "combina com" tem que apontar para ficha que existe,
+       senão o banco promete uma ligação e entrega um link quebrado. */
+    var ids = ATIV.map(function (a) { return a.id; });
+    ATIV.forEach(function (a) {
+      arr(a.combinaCom).forEach(function (c) {
+        if (ids.indexOf(c.id) < 0) erros.push('ficha "' + a.id + '": combinaCom aponta para "' + c.id + '", que não existe');
+        if (c.id === a.id) erros.push('ficha "' + a.id + '": combinaCom aponta para ela mesma');
       });
     });
     if (erros.length) console.warn('[Banco JP] ' + erros.length + ' problema(s) nos dados:\n' + erros.join('\n'));
@@ -66,7 +103,7 @@
 
   /* ---------------------------------------------------------------- estado */
   var E = {
-    perfil: null, ficha: null, colecao: null, nivel: null, busca: '', ordem: 'faixa',
+    perfil: null, ficha: null, colecao: null, nivel: null, busca: '', ordem: 'faixa', tipo: null,
     faixa: [], situacao: [], contexto: [], tela: [], formato: [],
     disciplina: [], preparo: [], grupo: [], eixo: [], selos: [],
     duracao: null, filtrosAbertos: false, versao: 'escola'
@@ -93,6 +130,7 @@
       else if (k === 'nivel') E.nivel = parseInt(v, 10);
       else if (k === 'busca') E.busca = v;
       else if (k === 'ordem') E.ordem = v;
+      else if (k === 'tipo') E.tipo = v;
       else if (k === 'duracao') E.duracao = parseInt(v, 10);
       else if (MULTI.indexOf(k) >= 0) E[k] = v.split(',').filter(Boolean);
     });
@@ -107,6 +145,7 @@
     if (E.nivel) p.push('nivel=' + E.nivel);
     if (E.busca) p.push('busca=' + encodeURIComponent(E.busca));
     if (E.ordem && E.ordem !== 'faixa') p.push('ordem=' + E.ordem);
+    if (E.tipo) p.push('tipo=' + E.tipo);
     if (E.duracao) p.push('duracao=' + E.duracao);
     MULTI.forEach(function (k) { if (E[k].length) p.push(k + '=' + E[k].map(encodeURIComponent).join(',')); });
     var novo = '#/' + p.join('&');
@@ -134,7 +173,8 @@
   function textoBuscavel(a) {
     if (a._busca) return a._busca;
     var partes = [a.titulo, a.chamada, a.insightCurto, a.insight, a.formatoDetalhe,
-                  T.faixa[a.faixa].rotulo, T.faixa[a.faixa].escolar]
+                  a.fonte, (ehAcervo(a) ? 'material do acervo' : 'ficha')]
+      .concat(faixasDe(a).map(function (f) { return T.faixa[f].rotulo + ' ' + T.faixa[f].escolar; }))
       .concat(arr(a.disciplinas))
       .concat(arr(a.situacao).map(function (s) { return T.situacao[s]; }))
       .concat(arr(a.selos).map(function (s) { return T.selos[s].rotulo; }))
@@ -159,7 +199,8 @@
       return true;
     },
     busca:      function (a) { return !E.busca || textoBuscavel(a).indexOf(norm(E.busca)) >= 0; },
-    faixa:      function (a) { return !E.faixa.length || E.faixa.indexOf(a.faixa) >= 0; },
+    faixa:      function (a) { return !E.faixa.length || faixasDe(a).some(function (f) { return E.faixa.indexOf(f) >= 0; }); },
+    tipo:       function (a) { return !E.tipo || (E.tipo === 'acervo' ? ehAcervo(a) : !ehAcervo(a)); },
     duracao:    function (a) { return !E.duracao || duracaoMin(a) <= E.duracao; },
     tela:       function (a) { return !E.tela.length || E.tela.indexOf(a.tela) >= 0; },
     formato:    function (a) { return !E.formato.length || E.formato.indexOf(a.formato) >= 0; },
@@ -182,7 +223,7 @@
       lst.sort(function (x, y) { return peso[x.preparo] - peso[y.preparo] || x.n - y.n; });
     } else {
       lst.sort(function (x, y) {
-        var fx = T.faixa[x.faixa].ordem - T.faixa[y.faixa].ordem;
+        var fx = T.faixa[faixaPrincipal(x)].ordem - T.faixa[faixaPrincipal(y)].ordem;
         return fx !== 0 ? fx : x.n - y.n;
       });
     }
@@ -207,7 +248,7 @@
   function contarOpcao(campo, valor) {
     var base = filtrar(campo);
     return base.filter(function (a) {
-      if (campo === 'faixa')      return a.faixa === valor;
+      if (campo === 'faixa')      return faixasDe(a).indexOf(valor) >= 0;
       if (campo === 'tela')       return a.tela === valor;
       if (campo === 'formato')    return a.formato === valor;
       if (campo === 'preparo')    return a.preparo === valor;
@@ -237,7 +278,7 @@
 
   function ativos() {
     var n = MULTI.reduce(function (s, k) { return s + E[k].length; }, 0);
-    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0);
+    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0) + (E.tipo ? 1 : 0);
   }
 
   /* ----------------------------------------------------------- componentes */
@@ -277,6 +318,7 @@
     if (E.busca) add('“' + E.busca + '”', 'busca');
     if (E.colecao) { var c = colecaoPorId(E.colecao); if (c) add(c.icone + ' ' + c.rotulo, 'colecao'); }
     if (E.perfil) add(T.perfil[E.perfil].rotulo, 'perfil');
+    if (E.tipo) add(E.tipo === 'acervo' ? 'Materiais já publicados' : 'Fichas do banco', 'tipo');
     if (E.duracao) {
       var d = T.duracao.filter(function (x) { return x.valor === E.duracao; })[0];
       add(d ? d.rotulo : E.duracao + ' min', 'duracao');
@@ -385,6 +427,16 @@
         '<div class="jp-filtros-corpo">' +
           '<p class="jp-filtros-dica">O número em cada opção é quantas atividades ela deixa. ' +
           'Opções apagadas ficariam sem resultado com o que já está marcado.</p>' +
+          grupoFiltro('Tipo de material', ['ficha|Fichas do banco', 'acervo|Materiais já publicados'].map(function (o) {
+            var v = o.split('|'), on = E.tipo === v[0];
+            var q = ATIV.filter(function (a) {
+              return (v[0] === 'acervo' ? ehAcervo(a) : !ehAcervo(a)) &&
+                Object.keys(PREDICADOS).every(function (k) { return k === 'tipo' || PREDICADOS[k](a); });
+            }).length;
+            return '<button type="button" class="jp-chip" data-campo="tipo" data-valor="' + esc(v[0]) + '"' +
+              ' aria-pressed="' + on + '"' + ((!on && q === 0) ? ' disabled data-zero="1"' : '') + '>' +
+              esc(v[1]) + '<span class="jp-chip-n">' + q + '</span></button>';
+          }).join(''), 'ficha tem roteiro e kit aqui dentro') +
           grupoFiltro('Faixa etária e ano escolar', chips('faixa', T.faixa)) +
           grupoFiltro('Situação real', chips('situacao', T.situacao), 'o que trouxe você aqui') +
           grupoFiltro('Onde vai ser usada', chips('contexto', T.contexto)) +
@@ -410,9 +462,10 @@
        Professor escolhe atividade pelo aprendizado, não pelo formato. */
     var cards = res.length ? res.map(function (a) {
       return '<button type="button" class="jp-card" data-ficha="' + esc(a.id) + '">' +
+        (ehAcervo(a) ? '<span class="jp-acervo-tag"><span aria-hidden="true">🔗</span> Material do acervo</span>' : '') +
         '<span class="jp-card-t">' + esc(a.titulo) + '</span>' +
         '<span class="jp-card-meta">' +
-          '<span><span aria-hidden="true">📚</span> ' + esc(T.faixa[a.faixa].rotulo) + '</span>' +
+          '<span><span aria-hidden="true">📚</span> ' + esc(faixaCompacta(a)) + '</span>' +
           '<span><span aria-hidden="true">⏱️</span> ' + esc(duracaoCurtaTexto(a)) + '</span>' +
           '<span><span aria-hidden="true">🎲</span> ' + esc((a.formatoDetalhe || T.formato[a.formato]).toLowerCase()) + '</span>' +
         '</span>' +
@@ -556,7 +609,9 @@
       var eixo = T.eixos[k];
       var passos = eixo.niveis.map(function (txt, i) {
         var nivel = i + 1;
-        var quantas = ATIV.filter(function (a) { return a.eixo === k && a.nivel === nivel; }).length;
+        /* Acervo fica fora: a progressão descreve fichas cuja estrutura foi
+           escrita e verificada aqui dentro. */
+        var quantas = ATIV.filter(function (a) { return !ehAcervo(a) && a.eixo === k && a.nivel === nivel; }).length;
         var vazio = quantas ? '' : ' data-vazio="1" disabled';
         var seta = i < eixo.niveis.length - 1 ? '<span class="jp-seta" aria-hidden="true">↓</span>' : '';
         return '<div class="jp-passo">' +
@@ -643,7 +698,7 @@
       return '<p style="margin-bottom:10px"><b style="color:#273975">' + esc(d[1]) + '.</b> ' + esc(d[2]) + '</p>';
     }).join('');
 
-    if (!a.versoes.jovem && T.faixa[a.faixa] && !T.faixa[a.faixa].autonomia) {
+    if (!a.versoes.jovem && T.faixa[faixaPrincipal(a)] && !T.faixa[faixaPrincipal(a)].autonomia) {
       todas += '<p style="color:#6b7280;font-size:.9rem">Nesta faixa não existe versão autônoma. ' +
         'A criança participa sempre com um adulto.</p>';
     }
@@ -651,7 +706,7 @@
     return '<div class="jp-bloco"><div class="jp-bloco-t">Escola, casa e jovem</div>' +
       '<div class="jp-abas" role="tablist">' + abas + '</div>' +
       '<p class="jp-nao-imprime">' + esc(atual[2]) + '</p>' +
-      (!a.versoes.jovem && T.faixa[a.faixa] && !T.faixa[a.faixa].autonomia
+      (!a.versoes.jovem && T.faixa[faixaPrincipal(a)] && !T.faixa[faixaPrincipal(a)].autonomia
         ? '<p class="jp-nao-imprime" style="color:#6b7280;font-size:.9rem;margin-top:10px">Nesta faixa não existe ' +
           'versão autônoma. A criança participa sempre com um adulto.</p>' : '') +
       '<div class="jp-versao-print">' + todas + '</div></div>';
@@ -673,10 +728,78 @@
       '<div class="jp-imp-corpo" hidden>' + corpo + '</div></div>';
   }
 
-  function telaFicha(a) {
+  /* Ficha de material do acervo. Não inventa roteiro nem kit: aponta para o
+     material que existe e acrescenta o que o banco sabe fazer, que é dizer
+     para quem serve, quando usar e com qual atividade ele combina. */
+  function telaAcervo(a) {
     var sens = T.sensibilidade[a.sensibilidade];
     var dados = [
-      ['Faixa', T.faixa[a.faixa].rotulo + (T.faixa[a.faixa].escolar ? ', ' + T.faixa[a.faixa].escolar : '')],
+      ['Faixa', faixasDe(a).map(function (f) { return T.faixa[f].rotulo; }).join(' · ')],
+      ['Duração', duracaoTexto(a)],
+      ['Formato', a.formatoDetalhe || T.formato[a.formato]],
+      ['Tela', T.tela[a.tela]],
+      ['Grupo', T.grupo[a.grupo]],
+      ['Preparação', T.preparo[a.preparo].rotulo + ', ' + T.preparo[a.preparo].detalhe],
+      ['Onde usar', arr(a.contexto).map(function (c) { return T.contexto[c]; }).join(', ')],
+      ['Tema', arr(a.situacao).map(function (s) { return T.situacao[s]; }).join(', ')],
+      ['Origem', a.fonte]
+    ].map(function (d) {
+      return '<div class="jp-dado"><dt>' + esc(d[0]) + '</dt><dd>' + esc(d[1]) + '</dd></div>';
+    }).join('');
+
+    var combina = arr(a.combinaCom).map(function (c) {
+      var alvo = achar(c.id);
+      if (!alvo) return '';
+      return '<li><button type="button" class="jp-combina" data-ficha="' + esc(alvo.id) + '">' +
+        '<b>' + esc(alvo.titulo) + '</b>' +
+        '<span>' + esc(c.por) + '</span></button></li>';
+    }).join('');
+
+    return '<div class="jp-wrap"><div class="jp-ficha">' +
+      '<button type="button" class="jp-voltar" data-acao="voltar">&larr; Voltar ao banco</button>' +
+
+      '<div class="jp-ficha-cab">' +
+        '<div class="jp-ficha-n"><span class="jp-acervo-tag"><span aria-hidden="true">🔗</span> Material do acervo</span>' +
+          ' &middot; ' + esc(a.fonte) + '</div>' +
+        '<h1>' + esc(a.titulo) + '</h1>' +
+        '<p class="jp-lede">' + esc(a.chamada) + '</p>' +
+        '<div class="jp-selos" style="margin-top:14px">' + selosHTML(a) + '</div>' +
+        '<dl class="jp-ficha-dados">' + dados + '</dl>' +
+      '</div>' +
+
+      (sens.aviso ? '<div class="jp-aviso"><b>Sensibilidade ' + esc(sens.rotulo.toLowerCase()) + '.</b> ' + esc(sens.aviso) + '</div>' : '') +
+
+      '<div class="jp-ficha-acoes jp-nao-imprime">' +
+        '<a class="jp-btn jp-btn-p" href="' + esc(a.link) + '" target="_blank" rel="noopener noreferrer">' +
+          esc(a.linkRotulo) + ' <span aria-hidden="true">↗</span></a>' +
+        '<button type="button" class="jp-btn jp-btn-o" data-acao="copiar">Copiar link desta página</button>' +
+      '</div>' +
+
+      bloco('O que é', '<p>' + esc(a.oQueE) + '</p>') +
+      bloco('Como usar', '<p>' + esc(a.comoUsar) + '</p>') +
+      (combina ? bloco('Combina com estas atividades do banco',
+        '<p class="jp-nao-imprime" style="color:#6b7280;font-size:.9rem;margin-bottom:12px">' +
+        'O material abre o assunto. Estas fichas dão estrutura, roteiro e material pronto.</p>' +
+        '<ul class="jp-combinas">' + combina + '</ul>') : '') +
+
+      bloco('Cuidados', esc(a.protecao), 'jp-protecao') +
+      bloco('BNCC e UNESCO', bnccHTML(a)) +
+      bloco('O que observar', '<p>' + esc(a.observar) + '</p>') +
+
+      '<div class="jp-acervo-nota">Este material foi publicado pelo Juventude Privada e está ' +
+      'listado aqui com orientação de uso. O conteúdo completo está no próprio material, ' +
+      'no botão acima.</div>' +
+
+      '<div class="jp-print-rodape">Juventude Privada &middot; Banco de Atividades e Ferramentas Educacionais &middot; ' +
+      esc(a.titulo) + (window.JP.SITE ? ' &middot; ' + esc(window.JP.SITE) : '') + '</div>' +
+    '</div></div>';
+  }
+
+  function telaFicha(a) {
+    if (ehAcervo(a)) return telaAcervo(a);
+    var sens = T.sensibilidade[a.sensibilidade];
+    var dados = [
+      ['Faixa', faixasDe(a).map(function (f) { return T.faixa[f].rotulo; }).join(' · ')],
       ['Duração', duracaoTexto(a)],
       ['Formato', a.formatoDetalhe || T.formato[a.formato]],
       ['Tela', T.tela[a.tela]],
@@ -694,7 +817,8 @@
       '<button type="button" class="jp-voltar" data-acao="voltar">&larr; Voltar ao banco</button>' +
 
       '<div class="jp-ficha-cab">' +
-        '<div class="jp-ficha-n">Ficha ' + a.n + ' &middot; ' + esc(T.faixa[a.faixa].rotulo) + '</div>' +
+        '<div class="jp-ficha-n">' + (ehAcervo(a) ? 'Material do acervo' : 'Ficha ' + a.n) +
+          ' &middot; ' + esc(faixaCompacta(a)) + '</div>' +
         '<h1>' + esc(a.titulo) + '</h1>' +
         '<p class="jp-lede">' + esc(a.chamada) + '</p>' +
         '<div class="jp-selos" style="margin-top:14px">' + selosHTML(a) + '</div>' +
@@ -773,6 +897,7 @@
         else if (campo === 'nivel') E.nivel = null;
         else if (campo === 'colecao') E.colecao = null;
         else if (campo === 'perfil') E.perfil = null;
+        else if (campo === 'tipo') E.tipo = null;
         else if (el.dataset.valor != null) alternar(campo, el.dataset.valor);
         else E[campo] = [];
         return render();
@@ -797,6 +922,8 @@
         if (el.dataset.campo === 'duracao') {
           var v = parseInt(el.dataset.valor, 10);
           E.duracao = (E.duracao === v) ? null : v;
+        } else if (el.dataset.campo === 'tipo') {
+          E.tipo = (E.tipo === el.dataset.valor) ? null : el.dataset.valor;
         } else {
           alternar(el.dataset.campo, el.dataset.valor);
         }
@@ -826,7 +953,7 @@
         case 'limpar':
           MULTI.forEach(function (k) { E[k] = []; });
           E.duracao = null; E.perfil = null; E.colecao = null; E.nivel = null;
-          E.busca = ''; E.ordem = 'faixa';
+          E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
           return render();
         case 'voltar': E.ficha = null; return render(true);
         case 'imprimir': return window.print();
@@ -879,7 +1006,7 @@
       if (escrevendoHash) return;
       MULTI.forEach(function (k) { E[k] = []; });
       E.duracao = null; E.perfil = null; E.ficha = null; E.colecao = null; E.nivel = null;
-      E.busca = ''; E.ordem = 'faixa';
+      E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
       lerHash(); render();
     });
   }

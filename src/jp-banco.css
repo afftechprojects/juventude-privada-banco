@@ -292,6 +292,35 @@
   color: var(--jp-suave); white-space: nowrap;
 }
 
+/* ============================== acervo =================================
+   Materiais que o projeto já publicou. Precisam ser reconhecíveis à
+   distância, sem parecer menos importantes que as fichas.               */
+#jp-banco .jp-acervo-tag {
+  display: inline-flex; align-items: center; gap: 5px; align-self: flex-start;
+  font-size: .68rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 500;
+  color: #0f6d77; background: var(--jp-ciano-luz);
+  padding: 3px 10px; border-radius: 4px;
+}
+#jp-banco .jp-card:has(.jp-acervo-tag) { border-left: 3px solid var(--jp-ciano); }
+#jp-banco .jp-card:has(.jp-acervo-tag) .jp-card-insight { background: var(--jp-ciano-luz); }
+#jp-banco .jp-card:has(.jp-acervo-tag):hover .jp-card-insight { background: #d5f2f5; }
+
+#jp-banco .jp-combinas { display: grid; gap: 10px; }
+#jp-banco .jp-combina {
+  width: 100%; text-align: left; display: grid; gap: 4px;
+  border: 1px solid var(--jp-linha); border-left: 3px solid var(--jp-ambar);
+  border-radius: 6px; padding: 14px 16px;
+  transition: border-color .12s, background .12s;
+}
+#jp-banco .jp-combina:hover { border-color: var(--jp-navy); background: var(--jp-navy-luz); }
+#jp-banco .jp-combina b { color: var(--jp-navy); font-weight: 500; }
+#jp-banco .jp-combina span { font-size: .9rem; color: var(--jp-suave); }
+
+#jp-banco .jp-acervo-nota {
+  border-top: 1px solid var(--jp-linha); padding-top: 18px; margin-top: 10px;
+  font-size: .86rem; color: var(--jp-suave); max-width: 72ch;
+}
+
 #jp-banco .jp-selos { display: flex; flex-wrap: wrap; gap: 6px; }
 #jp-banco .jp-selo {
   font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 500;

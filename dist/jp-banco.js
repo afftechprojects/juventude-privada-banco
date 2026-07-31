@@ -7070,6 +7070,215 @@ window.JP.ATIVIDADES.push(
 );
 
 
+/* Materiais que o Juventude Privada já publicou, integrados ao banco.
+
+   Estes itens são diferentes das 57 fichas: eles apontam para um material que já
+   existe, e não trazem roteiro nem kit escritos aqui. Por isso levam `acervo: true`,
+   têm campos próprios, e NÃO contam no mapa de progressão: a progressão descreve
+   fichas cuja estrutura foi escrita e verificada aqui dentro.
+
+   O campo `faixa` aceita lista, porque estes materiais foram feitos para idades
+   mistas de propósito e travá-los em uma faixa só seria mentir no filtro. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 58 */
+{
+  id: 'acervo-cartas-digitais-puxa-papo',
+  acervo: true,
+  fonte: 'Original Juventude Privada',
+  link: 'https://www.juventudeprivada.org/cartas-digitais-puxa-papo',
+  linkRotulo: 'Abrir as cartas digitais',
+  insightCurto: 'Uma pergunta boa abre uma conversa que um sermão fecha.',
+  n: 58,
+  titulo: 'Cartas Digitais Puxa Papo',
+  chamada: '16 cartas que puxam conversa sobre privacidade, sem precisar de impressora.',
+  faixa: ['9-10', '11-14', 'familia'],
+  duracao: 20,
+  formato: 'jogo',
+  formatoDetalhe: 'Cartas digitais para clicar no navegador',
+  contexto: ['escola', 'casa'],
+  tela: 'com-tela',
+  situacao: ['dados', 'consentimento', 'foto'],
+  disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
+  preparo: 'nenhum',
+  grupo: 'pequeno',
+  eixo: 'privacidade',
+  nivel: 1,
+  sensibilidade: 'baixa',
+  selos: ['pronta-amanha'],
+
+  bncc: {
+    principal: { codigo: 'EF05CO08', texto: 'Acessar as informações na Internet de forma crítica para distinguir os conteúdos confiáveis de não confiáveis.' },
+    secundaria: { codigo: 'EF08CO08', texto: 'Distinguir os tipos de dados pessoais que são solicitados em espaços digitais e os riscos associados.' },
+    nota: 'Alinhamento indicativo, a partir dos temas das cartas. Como a conversa é aberta, a habilidade efetivamente trabalhada depende de quais cartas forem sorteadas.'
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Iniciar e sustentar conversa sobre práticas digitais cotidianas em contexto familiar ou escolar.' },
+
+  oQueE: 'Versão digital das cartas Puxa Papo, para jogar direto no navegador, sem imprimir nada. São 16 cartas: a pessoa clica em uma e ela abre uma pergunta que puxa conversa sobre práticas online, proteção de dados e cidadania digital. Funciona melhor no computador. Três exemplos das cartas: "qual o último aplicativo que você utilizou, para quê ele serve?", "você sabe o que é privacidade?" e "se você deleta uma foto que postou em uma rede social, dá para ter certeza que ela foi excluída para sempre da internet?".',
+
+  comoUsar: 'É o material mais fácil de aplicar do acervo inteiro: abre e joga, sem preparo nenhum. Funciona muito bem como aquecimento de 15 a 20 minutos antes de uma atividade mais estruturada do banco, e como fechamento de reunião de responsáveis. A regra que faz diferença é a mesma das fichas: quem conduz responde também, e responde primeiro nas cartas mais difíceis. Adulto que só pergunta transforma o jogo em interrogatório.',
+
+  combinaCom: [
+    { id: 'foto-viajante', por: 'a carta sobre apagar foto da rede social é exatamente a pergunta que "A foto viajante" responde com as cartas de cópia.' },
+    { id: 'mochila-dos-dados', por: 'a carta "você sabe o que é privacidade" abre bem, e "A mochila dos dados" dá a resposta em forma de jogo, com a virada do contexto.' },
+    { id: 'noite-das-permissoes', por: 'a carta sobre o último aplicativo usado leva direto à conversa sobre o que aquele aplicativo pediu.' }
+  ],
+
+  protecao: 'As cartas fazem perguntas abertas e algumas puxam experiência pessoal. Combine antes que ninguém é obrigado a responder e que dá para passar a vez sem justificar. Em sala, não insistir com quem passar. Não usar as respostas de ninguém como exemplo depois.',
+
+  observar: 'A conversa continua depois que a carta acaba, e alguém traz uma situação que não estava na pergunta. Quando isso acontece, o material fez o que tinha para fazer.'
+},
+
+/* ==================================================================== 59 */
+{
+  id: 'acervo-puxa-papo-impresso',
+  acervo: true,
+  fonte: 'Original Juventude Privada',
+  link: 'https://drive.google.com/file/d/14xq7sCB5SlwIGJluIaul6PJypp_3sVw4/view?usp=sharing',
+  linkRotulo: 'Baixar o jogo para imprimir',
+  insightCurto: 'Uma pergunta boa abre uma conversa que um sermão fecha.',
+  n: 59,
+  titulo: 'Jogo Puxa Papo (para imprimir)',
+  chamada: 'As mesmas conversas das cartas digitais, em papel, para onde não tem tela.',
+  faixa: ['6-8', '9-10', 'familia'],
+  duracao: 20,
+  formato: 'jogo',
+  formatoDetalhe: 'Cartas para imprimir e recortar',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['dados', 'consentimento'],
+  disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
+  preparo: 'baixo',
+  grupo: 'pequeno',
+  eixo: 'privacidade',
+  nivel: 1,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF03CO09', texto: 'Reconhecer o potencial impacto do compartilhamento de informações pessoais ou de seus pares em meio digital.' },
+    secundaria: { codigo: 'EF01CO07', texto: 'Conhecer as possibilidades de uso seguro das tecnologias computacionais para proteção dos dados pessoais e para garantir a própria segurança.' },
+    nota: 'Alinhamento indicativo, a partir dos temas das cartas. A habilidade efetivamente trabalhada depende de quais cartas saírem.'
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Iniciar e sustentar conversa sobre práticas digitais cotidianas em contexto familiar ou escolar.' },
+
+  oQueE: 'O Puxa Papo original, em PDF para imprimir e recortar. A proposta é um momento de descontração em formato de jogo, com um objetivo só: começar conversas significativas entre familiares, amigos, educadores e alunos, e estimular o aprendizado das crianças sobre privacidade, proteção de dados e cidadania digital.',
+
+  comoUsar: 'É a escolha certa quando a turma não tem acesso a computador, quando a escola restringe aparelho pessoal, ou em qualquer roda no chão. Imprima em papel mais grosso se for usar muitas vezes. Como as cartas são conversa aberta e não têm resposta certa, ele encaixa bem no começo de um bimestre, para descobrir o que a turma já pensa antes de você escolher qual ficha do banco aplicar depois.',
+
+  combinaCom: [
+    { id: 'mochila-dos-dados', por: 'as duas usam cartas e conversa em grupo pequeno, e "A mochila dos dados" dá a estrutura que o Puxa Papo deixa aberta de propósito.' },
+    { id: 'foto-viajante', por: 'para 6 a 8 anos, o Puxa Papo abre o assunto e "A foto viajante" mostra o que acontece com a imagem depois.' },
+    { id: 'acordo-de-imagens-da-familia', por: 'em reunião de responsáveis, o Puxa Papo aquece a sala e o acordo de imagens é o produto que a família leva para casa.' }
+  ],
+
+  protecao: 'Mesmo cuidado da versão digital: ninguém é obrigado a responder, dá para passar a vez sem justificar, e nenhuma resposta vira exemplo depois. Com crianças de 6 a 8 anos, o adulto lê as cartas em voz alta e responde junto.',
+
+  observar: 'As crianças começam a fazer perguntas umas às outras, sem esperar a próxima carta.'
+},
+
+/* ==================================================================== 60 */
+{
+  id: 'acervo-eu-nunca',
+  acervo: true,
+  fonte: 'Original Juventude Privada',
+  link: 'https://www.juventudeprivada.org/jogo-eu-nunca',
+  linkRotulo: 'Abrir o jogo Eu Nunca',
+  insightCurto: 'Quase todo mundo já fez. Descobrir isso junto tira a vergonha e abre a conversa.',
+  n: 60,
+  titulo: 'Eu Nunca da Privacidade e Cidadania Digital',
+  chamada: 'O jogo do "eu nunca" aplicado a ações digitais do dia a dia.',
+  faixa: ['11-14', '15-17', 'familia'],
+  duracao: 30,
+  formato: 'jogo',
+  formatoDetalhe: 'Jogo de rodada em grupo',
+  contexto: ['escola', 'casa'],
+  tela: 'hibrido',
+  situacao: ['dados', 'consentimento', 'foto'],
+  disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
+  preparo: 'baixo',
+  grupo: 'turma',
+  eixo: 'privacidade',
+  nivel: 2,
+  sensibilidade: 'media',
+  selos: [],
+
+  bncc: {
+    principal: { codigo: 'EF08CO10', texto: 'Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.' },
+    secundaria: { codigo: 'EF08CO07', texto: 'Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.' },
+    nota: 'Alinhamento indicativo, a partir do tema e do formato. A página do material não detalha as frases do jogo.'
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Reconhecer práticas digitais próprias como comuns e discutíveis, em vez de individuais e vergonhosas.' },
+
+  oQueE: 'Jogo educativo para jogar com alunos, amigos ou familiares, no formato conhecido do "eu nunca": alguém lê uma frase e quem já fez aquilo se marca. Aqui as frases são ações digitais cotidianas, e o objetivo declarado é compreender a importância da proteção da privacidade e da cidadania digital responsável, através de conversas e reflexões. Está hospedado no Canva. As frases específicas do jogo estão no próprio material, e não na página que o apresenta.',
+
+  comoUsar: 'A força deste formato é social: quando metade da sala se marca na mesma frase, a pessoa que se marcou sozinha para de se sentir sozinha, e a conversa deixa de ser sobre erro individual. É por isso que ele funciona melhor com 11 anos ou mais, quando a vergonha já pesa. O que decide o resultado é o que o adulto faz depois de cada frase: se a rodada só passa, vira brincadeira; se a pergunta "por que a gente faz isso?" vem antes da próxima frase, vira aula. Reserve mais tempo para o depois do que para o jogo.',
+
+  combinaCom: [
+    { id: 'escape-room-padroes-manipulativos', por: 'o Eu Nunca revela quantos já caíram em algum truque, e o escape room mostra que cair não é desatenção, é projeto.' },
+    { id: 'ia-na-tarefa', por: 'se houver frase sobre uso de IA, ela abre a conversa que o mapa das escolhas organiza.' },
+    { id: 'ensaio-do-golpe', por: 'em família, o Eu Nunca desarma a vergonha de contar que quase caiu, que é o que o ensaio precisa para funcionar.' }
+  ],
+
+  protecao: 'Este formato expõe comportamento próprio por natureza, e é aí que mora o cuidado. Combine antes que ninguém é obrigado a se marcar e que ninguém comenta a marcação de outra pessoa. Nunca contar quem se marcou em quê, nem em tom de brincadeira. Se aparecer frase que toque em situação de exposição ou constrangimento real, não pressionar ninguém a falar. Não usar com turmas em conflito.',
+
+  observar: 'Alguém comenta em voz alta, sem ser perguntado, por que faz aquilo. É o sinal de que o jogo saiu da contagem e virou conversa.'
+},
+
+/* ==================================================================== 61 */
+{
+  id: 'acervo-datamundi',
+  acervo: true,
+  fonte: 'Parceiro',
+  link: 'https://drive.google.com/file/d/14KKrbij14M4ncMto-je-rpIyNgl5HIJe/view?usp=sharing',
+  linkRotulo: 'Baixar o Datamundi',
+  insightCurto: 'Dá para aprender sobre golpe, dado e notícia falsa no mesmo tabuleiro.',
+  n: 61,
+  titulo: 'Jogo Datamundi',
+  chamada: 'Jogo de tabuleiro sobre privacidade, dados, notícia falsa e segurança na internet.',
+  faixa: ['9-10', '11-14', 'familia'],
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Combine uma condição de fim antes de começar, como número de rodadas ou tempo de relógio, em vez de jogar até alguém vencer. Assim cabe em uma aula e ninguém fica com a partida pela metade.',
+  formato: 'jogo',
+  formatoDetalhe: 'Jogo de tabuleiro para imprimir',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['dados', 'informacao', 'golpe'],
+  disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'privacidade',
+  nivel: 2,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF08CO10', texto: 'Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.' },
+    secundaria: { codigo: 'EF09CO10', texto: 'Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.' },
+    nota: 'Alinhamento indicativo, a partir dos temas declarados pelo material.'
+  },
+  unesco: { dimensao: 'etica', competencia: 'Relacionar privacidade, segurança e qualidade da informação como temas de um mesmo campo.' },
+
+  oQueE: 'Jogo para aprender sobre privacidade, proteção de dados, notícia falsa, cidadania digital e segurança na internet, jogando com família e amigos. Vem em PDF para imprimir e montar.',
+
+  comoUsar: 'É o material do acervo com maior alcance temático: cobre em uma partida assuntos que no banco estão distribuídos em fichas diferentes. Isso é vantagem e limite ao mesmo tempo. Vantagem para abrir um bimestre e mapear o repertório da turma. Limite porque nenhum tema é aprofundado, e por isso ele funciona melhor como porta de entrada do que como fechamento. Como toda partida de tabuleiro tende a estourar o tempo de aula, combine antes onde ela termina.',
+
+  combinaCom: [
+    { id: 'nao-adivinhe-verifique', por: 'a parte de notícia falsa do Datamundi levanta o assunto, e o protocolo de quatro passos entrega o método que o jogo não tem tempo de dar.' },
+    { id: 'pare-feche-ou-conte', por: 'para 9 e 10 anos, depois do tema de golpe no tabuleiro, a corrida de decisões transforma o assunto em procedimento.' },
+    { id: 'perfil-que-o-app-inventou', por: 'o jogo cita proteção de dados de forma ampla, e a ficha da Bia mostra especificamente a diferença entre o que foi observado e o que foi deduzido.' }
+  ],
+
+  protecao: 'Material de parceiro, com conteúdo próprio: leia antes de aplicar e confira se a linguagem e os exemplos servem para a sua turma. Vale a regra geral do banco, que é não pedir dado real, relato pessoal nem exemplo da vida de ninguém durante a partida.',
+
+  observar: 'Ao fim da partida, a turma consegue dizer qual dos temas ela quer entender melhor. Essa resposta é a melhor pauta possível para escolher a próxima ficha do banco.'
+}
+
+);
+
+
 /* Banco de Atividades e Ferramentas Educacionais — Juventude Privada
    App de filtro. Sem dependências. Monta em #jp-banco.
    Carregar depois de 00-taxonomia.js e dos arquivos de dados. */
@@ -7102,13 +7311,33 @@ window.JP.ATIVIDADES.push(
     return a.duracao >= 999 ? 'Projeto' : a.duracao + ' min';
   }
 
+  /* Faixa pode ser lista: os materiais do acervo foram feitos para idades mistas
+     e travá-los em uma faixa só seria mentir no filtro. */
+  function faixasDe(a) { return arr(a.faixa); }
+  function faixaPrincipal(a) { return faixasDe(a)[0]; }
+
+  function faixaCompacta(a) {
+    var fs = faixasDe(a);
+    if (fs.length === 1) return T.faixa[fs[0]].rotulo;
+    var nums = [], fam = false;
+    fs.forEach(function (f) {
+      if (f === 'familia') { fam = true; return; }
+      f.split('-').forEach(function (n) { nums.push(parseInt(n, 10)); });
+    });
+    if (!nums.length) return T.faixa.familia.rotulo;
+    return Math.min.apply(null, nums) + ' a ' + Math.max.apply(null, nums) + ' anos' +
+           (fam ? ' e famílias' : '');
+  }
+
+  function ehAcervo(a) { return !!a.acervo; }
+
   /* ------------------------------------------------------------- validação
      Falha alto e cedo: uma ficha com chave fora da taxonomia é erro de dados,
      e é melhor descobrir no console do que descobrir com a professora em sala. */
   function validarDados() {
     var erros = [];
     var chaves = {
-      faixa: T.faixa, formato: T.formato, preparo: T.preparo,
+      formato: T.formato, preparo: T.preparo,
       grupo: T.grupo, sensibilidade: T.sensibilidade, eixo: T.eixos, tela: T.tela
     };
     var vistos = {};
@@ -7121,6 +7350,8 @@ window.JP.ATIVIDADES.push(
       Object.keys(chaves).forEach(function (k) {
         if (a[k] != null && !chaves[k][a[k]]) erros.push(onde + ': ' + k + ' "' + a[k] + '" fora da taxonomia');
       });
+      faixasDe(a).forEach(function (f) { if (!T.faixa[f]) erros.push(onde + ': faixa "' + f + '" fora da taxonomia'); });
+      if (!faixasDe(a).length) erros.push(onde + ': sem faixa');
       arr(a.situacao).forEach(function (s) { if (!T.situacao[s]) erros.push(onde + ': situacao "' + s + '" fora da taxonomia'); });
       arr(a.contexto).forEach(function (c) { if (!T.contexto[c]) erros.push(onde + ': contexto "' + c + '" fora da taxonomia'); });
       arr(a.selos).forEach(function (s) { if (!T.selos[s]) erros.push(onde + ': selo "' + s + '" fora da taxonomia'); });
@@ -7128,8 +7359,23 @@ window.JP.ATIVIDADES.push(
       if (a.eixo && a.nivel && (a.nivel < 1 || a.nivel > T.eixos[a.eixo].niveis.length)) {
         erros.push(onde + ': nivel ' + a.nivel + ' fora da faixa do eixo ' + a.eixo);
       }
-      ['provocacao', 'missao', 'virada', 'insight', 'insightCurto', 'transferencia', 'protecao', 'evidencia'].forEach(function (c) {
+      /* Item do acervo aponta para material que já existe e tem contrato próprio. */
+      var obrigatorias = ehAcervo(a)
+        ? ['insightCurto', 'link', 'linkRotulo', 'fonte', 'oQueE', 'comoUsar', 'protecao', 'observar']
+        : ['provocacao', 'missao', 'virada', 'insight', 'insightCurto', 'transferencia', 'protecao', 'evidencia'];
+      obrigatorias.forEach(function (c) {
         if (!a[c]) erros.push(onde + ': falta a seção obrigatória "' + c + '"');
+      });
+      if (ehAcervo(a) && !/^https:\/\//.test(a.link || '')) erros.push(onde + ': link precisa ser https');
+    });
+
+    /* Segunda passada: "combina com" tem que apontar para ficha que existe,
+       senão o banco promete uma ligação e entrega um link quebrado. */
+    var ids = ATIV.map(function (a) { return a.id; });
+    ATIV.forEach(function (a) {
+      arr(a.combinaCom).forEach(function (c) {
+        if (ids.indexOf(c.id) < 0) erros.push('ficha "' + a.id + '": combinaCom aponta para "' + c.id + '", que não existe');
+        if (c.id === a.id) erros.push('ficha "' + a.id + '": combinaCom aponta para ela mesma');
       });
     });
     if (erros.length) console.warn('[Banco JP] ' + erros.length + ' problema(s) nos dados:\n' + erros.join('\n'));
@@ -7138,7 +7384,7 @@ window.JP.ATIVIDADES.push(
 
   /* ---------------------------------------------------------------- estado */
   var E = {
-    perfil: null, ficha: null, colecao: null, nivel: null, busca: '', ordem: 'faixa',
+    perfil: null, ficha: null, colecao: null, nivel: null, busca: '', ordem: 'faixa', tipo: null,
     faixa: [], situacao: [], contexto: [], tela: [], formato: [],
     disciplina: [], preparo: [], grupo: [], eixo: [], selos: [],
     duracao: null, filtrosAbertos: false, versao: 'escola'
@@ -7165,6 +7411,7 @@ window.JP.ATIVIDADES.push(
       else if (k === 'nivel') E.nivel = parseInt(v, 10);
       else if (k === 'busca') E.busca = v;
       else if (k === 'ordem') E.ordem = v;
+      else if (k === 'tipo') E.tipo = v;
       else if (k === 'duracao') E.duracao = parseInt(v, 10);
       else if (MULTI.indexOf(k) >= 0) E[k] = v.split(',').filter(Boolean);
     });
@@ -7179,6 +7426,7 @@ window.JP.ATIVIDADES.push(
     if (E.nivel) p.push('nivel=' + E.nivel);
     if (E.busca) p.push('busca=' + encodeURIComponent(E.busca));
     if (E.ordem && E.ordem !== 'faixa') p.push('ordem=' + E.ordem);
+    if (E.tipo) p.push('tipo=' + E.tipo);
     if (E.duracao) p.push('duracao=' + E.duracao);
     MULTI.forEach(function (k) { if (E[k].length) p.push(k + '=' + E[k].map(encodeURIComponent).join(',')); });
     var novo = '#/' + p.join('&');
@@ -7206,7 +7454,8 @@ window.JP.ATIVIDADES.push(
   function textoBuscavel(a) {
     if (a._busca) return a._busca;
     var partes = [a.titulo, a.chamada, a.insightCurto, a.insight, a.formatoDetalhe,
-                  T.faixa[a.faixa].rotulo, T.faixa[a.faixa].escolar]
+                  a.fonte, (ehAcervo(a) ? 'material do acervo' : 'ficha')]
+      .concat(faixasDe(a).map(function (f) { return T.faixa[f].rotulo + ' ' + T.faixa[f].escolar; }))
       .concat(arr(a.disciplinas))
       .concat(arr(a.situacao).map(function (s) { return T.situacao[s]; }))
       .concat(arr(a.selos).map(function (s) { return T.selos[s].rotulo; }))
@@ -7231,7 +7480,8 @@ window.JP.ATIVIDADES.push(
       return true;
     },
     busca:      function (a) { return !E.busca || textoBuscavel(a).indexOf(norm(E.busca)) >= 0; },
-    faixa:      function (a) { return !E.faixa.length || E.faixa.indexOf(a.faixa) >= 0; },
+    faixa:      function (a) { return !E.faixa.length || faixasDe(a).some(function (f) { return E.faixa.indexOf(f) >= 0; }); },
+    tipo:       function (a) { return !E.tipo || (E.tipo === 'acervo' ? ehAcervo(a) : !ehAcervo(a)); },
     duracao:    function (a) { return !E.duracao || duracaoMin(a) <= E.duracao; },
     tela:       function (a) { return !E.tela.length || E.tela.indexOf(a.tela) >= 0; },
     formato:    function (a) { return !E.formato.length || E.formato.indexOf(a.formato) >= 0; },
@@ -7254,7 +7504,7 @@ window.JP.ATIVIDADES.push(
       lst.sort(function (x, y) { return peso[x.preparo] - peso[y.preparo] || x.n - y.n; });
     } else {
       lst.sort(function (x, y) {
-        var fx = T.faixa[x.faixa].ordem - T.faixa[y.faixa].ordem;
+        var fx = T.faixa[faixaPrincipal(x)].ordem - T.faixa[faixaPrincipal(y)].ordem;
         return fx !== 0 ? fx : x.n - y.n;
       });
     }
@@ -7279,7 +7529,7 @@ window.JP.ATIVIDADES.push(
   function contarOpcao(campo, valor) {
     var base = filtrar(campo);
     return base.filter(function (a) {
-      if (campo === 'faixa')      return a.faixa === valor;
+      if (campo === 'faixa')      return faixasDe(a).indexOf(valor) >= 0;
       if (campo === 'tela')       return a.tela === valor;
       if (campo === 'formato')    return a.formato === valor;
       if (campo === 'preparo')    return a.preparo === valor;
@@ -7309,7 +7559,7 @@ window.JP.ATIVIDADES.push(
 
   function ativos() {
     var n = MULTI.reduce(function (s, k) { return s + E[k].length; }, 0);
-    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0);
+    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0) + (E.tipo ? 1 : 0);
   }
 
   /* ----------------------------------------------------------- componentes */
@@ -7349,6 +7599,7 @@ window.JP.ATIVIDADES.push(
     if (E.busca) add('“' + E.busca + '”', 'busca');
     if (E.colecao) { var c = colecaoPorId(E.colecao); if (c) add(c.icone + ' ' + c.rotulo, 'colecao'); }
     if (E.perfil) add(T.perfil[E.perfil].rotulo, 'perfil');
+    if (E.tipo) add(E.tipo === 'acervo' ? 'Materiais já publicados' : 'Fichas do banco', 'tipo');
     if (E.duracao) {
       var d = T.duracao.filter(function (x) { return x.valor === E.duracao; })[0];
       add(d ? d.rotulo : E.duracao + ' min', 'duracao');
@@ -7457,6 +7708,16 @@ window.JP.ATIVIDADES.push(
         '<div class="jp-filtros-corpo">' +
           '<p class="jp-filtros-dica">O número em cada opção é quantas atividades ela deixa. ' +
           'Opções apagadas ficariam sem resultado com o que já está marcado.</p>' +
+          grupoFiltro('Tipo de material', ['ficha|Fichas do banco', 'acervo|Materiais já publicados'].map(function (o) {
+            var v = o.split('|'), on = E.tipo === v[0];
+            var q = ATIV.filter(function (a) {
+              return (v[0] === 'acervo' ? ehAcervo(a) : !ehAcervo(a)) &&
+                Object.keys(PREDICADOS).every(function (k) { return k === 'tipo' || PREDICADOS[k](a); });
+            }).length;
+            return '<button type="button" class="jp-chip" data-campo="tipo" data-valor="' + esc(v[0]) + '"' +
+              ' aria-pressed="' + on + '"' + ((!on && q === 0) ? ' disabled data-zero="1"' : '') + '>' +
+              esc(v[1]) + '<span class="jp-chip-n">' + q + '</span></button>';
+          }).join(''), 'ficha tem roteiro e kit aqui dentro') +
           grupoFiltro('Faixa etária e ano escolar', chips('faixa', T.faixa)) +
           grupoFiltro('Situação real', chips('situacao', T.situacao), 'o que trouxe você aqui') +
           grupoFiltro('Onde vai ser usada', chips('contexto', T.contexto)) +
@@ -7482,9 +7743,10 @@ window.JP.ATIVIDADES.push(
        Professor escolhe atividade pelo aprendizado, não pelo formato. */
     var cards = res.length ? res.map(function (a) {
       return '<button type="button" class="jp-card" data-ficha="' + esc(a.id) + '">' +
+        (ehAcervo(a) ? '<span class="jp-acervo-tag"><span aria-hidden="true">🔗</span> Material do acervo</span>' : '') +
         '<span class="jp-card-t">' + esc(a.titulo) + '</span>' +
         '<span class="jp-card-meta">' +
-          '<span><span aria-hidden="true">📚</span> ' + esc(T.faixa[a.faixa].rotulo) + '</span>' +
+          '<span><span aria-hidden="true">📚</span> ' + esc(faixaCompacta(a)) + '</span>' +
           '<span><span aria-hidden="true">⏱️</span> ' + esc(duracaoCurtaTexto(a)) + '</span>' +
           '<span><span aria-hidden="true">🎲</span> ' + esc((a.formatoDetalhe || T.formato[a.formato]).toLowerCase()) + '</span>' +
         '</span>' +
@@ -7628,7 +7890,9 @@ window.JP.ATIVIDADES.push(
       var eixo = T.eixos[k];
       var passos = eixo.niveis.map(function (txt, i) {
         var nivel = i + 1;
-        var quantas = ATIV.filter(function (a) { return a.eixo === k && a.nivel === nivel; }).length;
+        /* Acervo fica fora: a progressão descreve fichas cuja estrutura foi
+           escrita e verificada aqui dentro. */
+        var quantas = ATIV.filter(function (a) { return !ehAcervo(a) && a.eixo === k && a.nivel === nivel; }).length;
         var vazio = quantas ? '' : ' data-vazio="1" disabled';
         var seta = i < eixo.niveis.length - 1 ? '<span class="jp-seta" aria-hidden="true">↓</span>' : '';
         return '<div class="jp-passo">' +
@@ -7715,7 +7979,7 @@ window.JP.ATIVIDADES.push(
       return '<p style="margin-bottom:10px"><b style="color:#273975">' + esc(d[1]) + '.</b> ' + esc(d[2]) + '</p>';
     }).join('');
 
-    if (!a.versoes.jovem && T.faixa[a.faixa] && !T.faixa[a.faixa].autonomia) {
+    if (!a.versoes.jovem && T.faixa[faixaPrincipal(a)] && !T.faixa[faixaPrincipal(a)].autonomia) {
       todas += '<p style="color:#6b7280;font-size:.9rem">Nesta faixa não existe versão autônoma. ' +
         'A criança participa sempre com um adulto.</p>';
     }
@@ -7723,7 +7987,7 @@ window.JP.ATIVIDADES.push(
     return '<div class="jp-bloco"><div class="jp-bloco-t">Escola, casa e jovem</div>' +
       '<div class="jp-abas" role="tablist">' + abas + '</div>' +
       '<p class="jp-nao-imprime">' + esc(atual[2]) + '</p>' +
-      (!a.versoes.jovem && T.faixa[a.faixa] && !T.faixa[a.faixa].autonomia
+      (!a.versoes.jovem && T.faixa[faixaPrincipal(a)] && !T.faixa[faixaPrincipal(a)].autonomia
         ? '<p class="jp-nao-imprime" style="color:#6b7280;font-size:.9rem;margin-top:10px">Nesta faixa não existe ' +
           'versão autônoma. A criança participa sempre com um adulto.</p>' : '') +
       '<div class="jp-versao-print">' + todas + '</div></div>';
@@ -7745,10 +8009,78 @@ window.JP.ATIVIDADES.push(
       '<div class="jp-imp-corpo" hidden>' + corpo + '</div></div>';
   }
 
-  function telaFicha(a) {
+  /* Ficha de material do acervo. Não inventa roteiro nem kit: aponta para o
+     material que existe e acrescenta o que o banco sabe fazer, que é dizer
+     para quem serve, quando usar e com qual atividade ele combina. */
+  function telaAcervo(a) {
     var sens = T.sensibilidade[a.sensibilidade];
     var dados = [
-      ['Faixa', T.faixa[a.faixa].rotulo + (T.faixa[a.faixa].escolar ? ', ' + T.faixa[a.faixa].escolar : '')],
+      ['Faixa', faixasDe(a).map(function (f) { return T.faixa[f].rotulo; }).join(' · ')],
+      ['Duração', duracaoTexto(a)],
+      ['Formato', a.formatoDetalhe || T.formato[a.formato]],
+      ['Tela', T.tela[a.tela]],
+      ['Grupo', T.grupo[a.grupo]],
+      ['Preparação', T.preparo[a.preparo].rotulo + ', ' + T.preparo[a.preparo].detalhe],
+      ['Onde usar', arr(a.contexto).map(function (c) { return T.contexto[c]; }).join(', ')],
+      ['Tema', arr(a.situacao).map(function (s) { return T.situacao[s]; }).join(', ')],
+      ['Origem', a.fonte]
+    ].map(function (d) {
+      return '<div class="jp-dado"><dt>' + esc(d[0]) + '</dt><dd>' + esc(d[1]) + '</dd></div>';
+    }).join('');
+
+    var combina = arr(a.combinaCom).map(function (c) {
+      var alvo = achar(c.id);
+      if (!alvo) return '';
+      return '<li><button type="button" class="jp-combina" data-ficha="' + esc(alvo.id) + '">' +
+        '<b>' + esc(alvo.titulo) + '</b>' +
+        '<span>' + esc(c.por) + '</span></button></li>';
+    }).join('');
+
+    return '<div class="jp-wrap"><div class="jp-ficha">' +
+      '<button type="button" class="jp-voltar" data-acao="voltar">&larr; Voltar ao banco</button>' +
+
+      '<div class="jp-ficha-cab">' +
+        '<div class="jp-ficha-n"><span class="jp-acervo-tag"><span aria-hidden="true">🔗</span> Material do acervo</span>' +
+          ' &middot; ' + esc(a.fonte) + '</div>' +
+        '<h1>' + esc(a.titulo) + '</h1>' +
+        '<p class="jp-lede">' + esc(a.chamada) + '</p>' +
+        '<div class="jp-selos" style="margin-top:14px">' + selosHTML(a) + '</div>' +
+        '<dl class="jp-ficha-dados">' + dados + '</dl>' +
+      '</div>' +
+
+      (sens.aviso ? '<div class="jp-aviso"><b>Sensibilidade ' + esc(sens.rotulo.toLowerCase()) + '.</b> ' + esc(sens.aviso) + '</div>' : '') +
+
+      '<div class="jp-ficha-acoes jp-nao-imprime">' +
+        '<a class="jp-btn jp-btn-p" href="' + esc(a.link) + '" target="_blank" rel="noopener noreferrer">' +
+          esc(a.linkRotulo) + ' <span aria-hidden="true">↗</span></a>' +
+        '<button type="button" class="jp-btn jp-btn-o" data-acao="copiar">Copiar link desta página</button>' +
+      '</div>' +
+
+      bloco('O que é', '<p>' + esc(a.oQueE) + '</p>') +
+      bloco('Como usar', '<p>' + esc(a.comoUsar) + '</p>') +
+      (combina ? bloco('Combina com estas atividades do banco',
+        '<p class="jp-nao-imprime" style="color:#6b7280;font-size:.9rem;margin-bottom:12px">' +
+        'O material abre o assunto. Estas fichas dão estrutura, roteiro e material pronto.</p>' +
+        '<ul class="jp-combinas">' + combina + '</ul>') : '') +
+
+      bloco('Cuidados', esc(a.protecao), 'jp-protecao') +
+      bloco('BNCC e UNESCO', bnccHTML(a)) +
+      bloco('O que observar', '<p>' + esc(a.observar) + '</p>') +
+
+      '<div class="jp-acervo-nota">Este material foi publicado pelo Juventude Privada e está ' +
+      'listado aqui com orientação de uso. O conteúdo completo está no próprio material, ' +
+      'no botão acima.</div>' +
+
+      '<div class="jp-print-rodape">Juventude Privada &middot; Banco de Atividades e Ferramentas Educacionais &middot; ' +
+      esc(a.titulo) + (window.JP.SITE ? ' &middot; ' + esc(window.JP.SITE) : '') + '</div>' +
+    '</div></div>';
+  }
+
+  function telaFicha(a) {
+    if (ehAcervo(a)) return telaAcervo(a);
+    var sens = T.sensibilidade[a.sensibilidade];
+    var dados = [
+      ['Faixa', faixasDe(a).map(function (f) { return T.faixa[f].rotulo; }).join(' · ')],
       ['Duração', duracaoTexto(a)],
       ['Formato', a.formatoDetalhe || T.formato[a.formato]],
       ['Tela', T.tela[a.tela]],
@@ -7766,7 +8098,8 @@ window.JP.ATIVIDADES.push(
       '<button type="button" class="jp-voltar" data-acao="voltar">&larr; Voltar ao banco</button>' +
 
       '<div class="jp-ficha-cab">' +
-        '<div class="jp-ficha-n">Ficha ' + a.n + ' &middot; ' + esc(T.faixa[a.faixa].rotulo) + '</div>' +
+        '<div class="jp-ficha-n">' + (ehAcervo(a) ? 'Material do acervo' : 'Ficha ' + a.n) +
+          ' &middot; ' + esc(faixaCompacta(a)) + '</div>' +
         '<h1>' + esc(a.titulo) + '</h1>' +
         '<p class="jp-lede">' + esc(a.chamada) + '</p>' +
         '<div class="jp-selos" style="margin-top:14px">' + selosHTML(a) + '</div>' +
@@ -7845,6 +8178,7 @@ window.JP.ATIVIDADES.push(
         else if (campo === 'nivel') E.nivel = null;
         else if (campo === 'colecao') E.colecao = null;
         else if (campo === 'perfil') E.perfil = null;
+        else if (campo === 'tipo') E.tipo = null;
         else if (el.dataset.valor != null) alternar(campo, el.dataset.valor);
         else E[campo] = [];
         return render();
@@ -7869,6 +8203,8 @@ window.JP.ATIVIDADES.push(
         if (el.dataset.campo === 'duracao') {
           var v = parseInt(el.dataset.valor, 10);
           E.duracao = (E.duracao === v) ? null : v;
+        } else if (el.dataset.campo === 'tipo') {
+          E.tipo = (E.tipo === el.dataset.valor) ? null : el.dataset.valor;
         } else {
           alternar(el.dataset.campo, el.dataset.valor);
         }
@@ -7898,7 +8234,7 @@ window.JP.ATIVIDADES.push(
         case 'limpar':
           MULTI.forEach(function (k) { E[k] = []; });
           E.duracao = null; E.perfil = null; E.colecao = null; E.nivel = null;
-          E.busca = ''; E.ordem = 'faixa';
+          E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
           return render();
         case 'voltar': E.ficha = null; return render(true);
         case 'imprimir': return window.print();
@@ -7951,7 +8287,7 @@ window.JP.ATIVIDADES.push(
       if (escrevendoHash) return;
       MULTI.forEach(function (k) { E[k] = []; });
       E.duracao = null; E.perfil = null; E.ficha = null; E.colecao = null; E.nivel = null;
-      E.busca = ''; E.ordem = 'faixa';
+      E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
       lerHash(); render();
     });
   }

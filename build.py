@@ -25,6 +25,7 @@ ORDEM_DADOS = [
     '04-11a14.js', '05-15a17.js', '06-familia.js',
     '07-infantil-lote2.js', '08-6a8-lote2.js', '09-9a10-lote2.js', '10-11a14-lote2.js', '11-15a17-lote2.js',
     '12-infantil-lote3.js', '13-6a8-lote3.js', '14-9a10-lote3.js', '15-11a14-lote3.js', '16-15a17-lote3.js',
+    '17-acervo.js',
 ]
 
 LIMITE_EMBED = 45000  # o Webflow aceita 50 mil por Embed; deixamos folga
@@ -67,8 +68,8 @@ def main():
         '<link rel="stylesheet" href="%s/jp-banco.css">\n'
         '<div id="jp-banco"></div>\n'
         '<script>window.JP = window.JP || {}; '
-        'window.JP.SITE = "juventudeprivada.webflow.io"; '
-        '/* troque pelo dominio publicado: aparece no rodape das folhas impressas */</script>\n'
+        'window.JP.SITE = "juventudeprivada.org"; '
+        '/* aparece no rodape das folhas impressas */</script>\n'
         '<script src="%s/jp-banco.js" defer></script>\n' % (base, base)
     )
     escrever(os.path.join(DIST, 'embed-hospedado.html'), embed)
