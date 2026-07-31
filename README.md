@@ -40,20 +40,24 @@ Dentro do container, arraste o elemento **Embed** (painel Add, seção Component
 
 Escolha uma das duas rotas:
 
-#### Rota A, com hospedagem (recomendada)
+#### Rota A, com hospedagem — JÁ ESTÁ NO AR
 
-Um Embed só, e atualizar o banco depois não exige mexer no Webflow.
+O repositório e o GitHub Pages já estão publicados e funcionando:
 
-1. Suba a pasta `dist/` para um repositório no GitHub e ative o **GitHub Pages**
-   (Settings → Pages → Deploy from branch → `main` → `/root`).
-2. Rode o build apontando para o endereço publicado:
-   ```bash
-   python build.py --base https://SEU-USUARIO.github.io/SEU-REPO/dist
-   ```
-3. Cole no Embed o conteúdo de `dist/embed-hospedado.html`. São 6 linhas.
+- repositório: https://github.com/afftechprojects/juventude-privada-banco
+- arquivos servidos em: https://afftechprojects.github.io/juventude-privada-banco/dist/
 
-Para publicar uma ficha nova depois: edite `src/dados/`, rode `python build.py`, dê push.
-O site atualiza sozinho, sem tocar no Webflow.
+Basta colar no Embed o conteúdo de `dist/embed-hospedado.html`, que já aponta para lá.
+
+**Para publicar uma ficha nova depois**, sem tocar no Webflow:
+
+```bash
+python build.py --base https://afftechprojects.github.io/juventude-privada-banco/dist
+git add -A && git commit -m "nova ficha" && git push
+```
+
+O site atualiza sozinho em um ou dois minutos. Se demorar a aparecer, é cache do navegador:
+abra em aba anônima para conferir.
 
 #### Rota B, sem hospedagem nenhuma
 
