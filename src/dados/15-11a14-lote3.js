@@ -25,7 +25,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'consentimento',
   nivel: 4,
   sensibilidade: 'alta',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     principal: { codigo: 'EF08CO07', texto: 'Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.' },
@@ -298,7 +298,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'ia',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EF09CO10', texto: 'Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.' },
@@ -365,7 +365,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Envelope de verificação (a virada)',
       tipo: 'gabarito',
-      corpo: 'Conferindo a RESPOSTA D, afirmação por afirmação:\n\n1. "Irradiação entre 4,5 e 6,0 kWh/m² por dia" — CORRETO, é a ordem de grandeza reconhecida para o Brasil.\n\n2. "Uma das maiores do mundo" — CORRETO.\n\n3. "Geração distribuída ultrapassou 25 GW" — NÚMERO INSTÁVEL. Esse valor muda a cada poucos meses. A própria resposta avisa que não tem certeza, o que é o comportamento correto, mas o número está lá no texto e vai ser copiado assim mesmo. Vale discutir: o aviso resolve?\n\n4. "Custo caiu mais de 80% na última década" — PLAUSÍVEL, mas depende do recorte, da tecnologia e da região. Apresentado sem essa ressalva.\n\n5. "A fabricação consome energia e materiais" — CORRETO.\n\n6. "O descarte ainda é um problema não resolvido" — CORRETO e bem colocado.\n\n7. FONTE 1, Atlas Brasileiro de Energia Solar (INPE) — EXISTE. É uma fonte real e adequada.\n\n8. FONTE 2, "RIBEIRO, C. A. Panorama da Geração Distribuída no Brasil. Revista de Energia Sustentável, 2023" — NÃO EXISTE. Nem o artigo, nem a revista, nem a autora. A referência tem formato perfeito.\n\nRESULTADO: a melhor das quatro respostas tem um número instável apresentado como dado, uma afirmação sem a ressalva necessária, e uma fonte inventada ao lado de uma fonte real.\n\nO prompt D melhorou a forma, o escopo, o equilíbrio e até produziu um aviso de incerteza. Não melhorou a veracidade.'
+      corpo: 'Conferindo a RESPOSTA D, afirmação por afirmação:\n\n1. "Irradiação entre 4,5 e 6,0 kWh/m² por dia": CORRETO, é a ordem de grandeza reconhecida para o Brasil.\n\n2. "Uma das maiores do mundo": CORRETO.\n\n3. "Geração distribuída ultrapassou 25 GW": NÚMERO INSTÁVEL. Esse valor muda a cada poucos meses. A própria resposta avisa que não tem certeza, o que é o comportamento correto, mas o número está lá no texto e vai ser copiado assim mesmo. Vale discutir: o aviso resolve?\n\n4. "Custo caiu mais de 80% na última década": PLAUSÍVEL, mas depende do recorte, da tecnologia e da região. Apresentado sem essa ressalva.\n\n5. "A fabricação consome energia e materiais": CORRETO.\n\n6. "O descarte ainda é um problema não resolvido": CORRETO e bem colocado.\n\n7. FONTE 1, Atlas Brasileiro de Energia Solar (INPE): EXISTE. É uma fonte real e adequada.\n\n8. FONTE 2, "RIBEIRO, C. A. Panorama da Geração Distribuída no Brasil. Revista de Energia Sustentável, 2023": NÃO EXISTE. Nem o artigo, nem a revista, nem a autora. A referência tem formato perfeito.\n\nRESULTADO: a melhor das quatro respostas tem um número instável apresentado como dado, uma afirmação sem a ressalva necessária, e uma fonte inventada ao lado de uma fonte real.\n\nO prompt D melhorou a forma, o escopo, o equilíbrio e até produziu um aviso de incerteza. Não melhorou a veracidade.'
     },
     {
       titulo: 'Gabarito comentado',

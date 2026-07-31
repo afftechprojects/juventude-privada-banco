@@ -201,6 +201,25 @@ Segunda camada: o *AI Competency Framework for Students* da UNESCO, com as quatr
 
 ---
 
+## QA antes de publicar
+
+```bash
+python qa.py --estilo
+```
+
+Confere sintaxe de todos os arquivos com o `node --check`, contagem de fichas, coerência
+entre selos e dados, duração, campo `precisa`, referências cruzadas de `combinaCom`, links
+do acervo, sobras de rascunho, títulos e insights repetidos, e desvios de estilo. Sai com
+erro se achar algo que não deve ir para o ar.
+
+A checagem de sintaxe existe porque **um erro de sintaxe não dá erro visível**: o `push()`
+daquele arquivo simplesmente não roda, o console fica limpo e as atividades daquele lote
+somem do banco em silêncio. Já aconteceu, com quatro fichas.
+
+O que o QA **não** faz é conferir conta dentro de gabarito. Isso é olho humano, e vale a
+pena: três das quatro mensagens cifradas de *Segredo com cadeado* estavam erradas, e os
+índices de *O ranking invisível da escola* também.
+
 ## Como adicionar uma ficha nova
 
 1. Escolha o arquivo por faixa em `src/dados/` e acrescente o objeto seguindo o formato

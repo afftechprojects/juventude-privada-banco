@@ -138,7 +138,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'informacao',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EF05CO08', texto: 'Acessar as informações na Internet de forma crítica para distinguir os conteúdos confiáveis de não confiáveis.' },

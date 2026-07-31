@@ -29,7 +29,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'privacidade',
   nivel: 3,
   sensibilidade: 'media',
-  selos: ['pronta-amanha', 'sem-tela'],
+  selos: ['pronta-amanha'],
 
   bncc: {
     principal: { codigo: 'EF06CO08', texto: 'Compreender e utilizar diferentes formas de armazenar, manipular, compactar e recuperar arquivos, documentos e metadados.' },

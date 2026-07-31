@@ -550,7 +550,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'consumo',
   nivel: 4,
   sensibilidade: 'media',
-  selos: ['sem-tela'],
+  selos: ['pronta-amanha', 'sem-tela'],
 
   bncc: {
     nota: 'Atividade doméstica com forte componente de Matemática. Para uso escolar, a ponte é EF06CO10.',
@@ -654,7 +654,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'seguranca',
   nivel: 5,
   sensibilidade: 'alta',
-  selos: ['sem-tela', 'pronta-amanha', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     nota: 'Atividade doméstica. Para uso escolar, a ponte é EM13CO08.',

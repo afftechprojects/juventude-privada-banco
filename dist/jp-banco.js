@@ -1,7 +1,7 @@
 /* Banco de Atividades e Ferramentas Educacionais — Juventude Privada
    Arquivo gerado por build.py. Não editar aqui: edite src/ e rode o build. */
 /* Banco de Atividades e Ferramentas Educacionais — Juventude Privada
-   00-taxonomia.js — vocabulário controlado dos filtros.
+   00-taxonomia.js: vocabulário controlado dos filtros.
    Toda ficha em dados/*.js só pode usar chaves declaradas aqui.
    O app valida isso em tempo de carga (ver jp-banco-app.js → validarDados).
 */
@@ -277,7 +277,8 @@ window.JP.TAXONOMIA = {
      saiu de propósito: enquanto não houver aplicação real e registrada, é
      uma promessa que o banco não pode cumprir.                              */
   selos: {
-    'pronta-amanha': { rotulo: 'Pronta para amanhã', desc: 'Preparação baixa ou nenhuma' },
+    'pronta-amanha': { rotulo: 'Pronta para amanhã',
+                       desc: 'Preparação baixa e sem exigir combinação prévia com a coordenação' },
     'sem-tela':      { rotulo: 'Sem tela',           desc: 'Totalmente desplugada' },
     'sensivel':      { rotulo: 'Tema sensível',      desc: 'Exige protocolo de mediação' }
   },
@@ -1219,7 +1220,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Envelope da checagem (abrir só na virada)',
       tipo: 'gabarito',
-      corpo: 'Frase por frase:\n\n1. "Maior floresta tropical do mundo, cerca de 5,5 milhões de km²" — CORRETO. É um fato conferível.\n\n2. "Está presente em nove países, maior parte no Brasil" — CORRETO.\n\n3. "Pulmão do mundo, produz 20% do oxigênio do planeta" — ERRADO, e é o erro mais famoso que existe sobre a Amazônia. A floresta consome quase todo o oxigênio que produz, através da respiração das próprias plantas e da decomposição. O saldo líquido é próximo de zero. A maior parte do oxigênio do planeta vem do fitoplâncton dos oceanos. A importância da Amazônia é enorme, mas por outros motivos, principalmente o carbono estocado e o ciclo das chuvas.\n\n4. "Sem ela a humanidade não teria ar para respirar" — ERRADO, é consequência do erro anterior.\n\n5. "Aproximadamente 400 bilhões de árvores, mais de 16 mil espécies" — CORRETO, é a ordem de grandeza aceita nas estimativas científicas.\n\n6. "O lugar mais bonito do Brasil" — NÃO É ERRO, É OPINIÃO. Muitas duplas marcam como erro. Vale muito discutir a diferença.\n\n7. "O rio Amazonas é o rio mais extenso do mundo" — DISPUTADO, não é um fato assentado. Dependendo de onde se considera a nascente, o Nilo ou o Amazonas aparece em primeiro. Apresentar como certeza é o problema. Este item ensina que existe uma terceira categoria além de certo e errado.\n\n8. "Nasce no Peru" — CORRETO.\n\n9. "Despeja cerca de 20% da água doce que chega aos mares" — CORRETO, é a ordem de grandeza usualmente citada.\n\n10. "Rios voadores levam umidade para outras regiões" — CORRETO, é um fenômeno real e bem documentado.\n\n11. A FONTE — NÃO EXISTE. Não existe esse livro, essa editora nem essa autora. O nome tem a aparência exata de uma referência acadêmica: sobrenome, iniciais, título plausível, editora plausível, ano plausível. É por isso que quase ninguém marca a fonte. Este é o item mais importante da atividade.'
+      corpo: 'Frase por frase:\n\n1. "Maior floresta tropical do mundo, cerca de 5,5 milhões de km²": CORRETO. É um fato conferível.\n\n2. "Está presente em nove países, maior parte no Brasil": CORRETO.\n\n3. "Pulmão do mundo, produz 20% do oxigênio do planeta": ERRADO, e é o erro mais famoso que existe sobre a Amazônia. A floresta consome quase todo o oxigênio que produz, através da respiração das próprias plantas e da decomposição. O saldo líquido é próximo de zero. A maior parte do oxigênio do planeta vem do fitoplâncton dos oceanos. A importância da Amazônia é enorme, mas por outros motivos, principalmente o carbono estocado e o ciclo das chuvas.\n\n4. "Sem ela a humanidade não teria ar para respirar": ERRADO, é consequência do erro anterior.\n\n5. "Aproximadamente 400 bilhões de árvores, mais de 16 mil espécies": CORRETO, é a ordem de grandeza aceita nas estimativas científicas.\n\n6. "O lugar mais bonito do Brasil": NÃO É ERRO, É OPINIÃO. Muitas duplas marcam como erro. Vale muito discutir a diferença.\n\n7. "O rio Amazonas é o rio mais extenso do mundo": DISPUTADO, não é um fato assentado. Dependendo de onde se considera a nascente, o Nilo ou o Amazonas aparece em primeiro. Apresentar como certeza é o problema. Este item ensina que existe uma terceira categoria além de certo e errado.\n\n8. "Nasce no Peru": CORRETO.\n\n9. "Despeja cerca de 20% da água doce que chega aos mares": CORRETO, é a ordem de grandeza usualmente citada.\n\n10. "Rios voadores levam umidade para outras regiões": CORRETO, é um fenômeno real e bem documentado.\n\n11. A FONTE: NÃO EXISTE. Não existe esse livro, essa editora nem essa autora. O nome tem a aparência exata de uma referência acadêmica: sobrenome, iniciais, título plausível, editora plausível, ano plausível. É por isso que quase ninguém marca a fonte. Este é o item mais importante da atividade.'
     },
     {
       titulo: 'Folha de apoio para a reescrita',
@@ -1518,7 +1519,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Gabarito comentado',
       tipo: 'gabarito',
-      corpo: 'Resultados esperados no topo de cada fórmula:\n\nGRUPO A, popular: 11 (97), 07 (95), 02 (88). Feed simpático e completamente vazio de informação sobre o bairro. O post 08, sobre o posto de saúde fechando, cai para perto do fim.\n\nGRUPO B, agora: empate no topo entre 05, 10 e 12, todos com N=10, sendo dois deles anúncios e um a foto do almoço de um desconhecido. É o feed mais inútil dos cinco, e mostra que otimizar novidade pura é uma péssima ideia. O empate é proposital: obriga o grupo a inventar um critério de desempate, e a discussão sobre qual desempate escolher é uma aula inteira.\n\nGRUPO C, engajamento: 09 (112), 18 (111,5), 15 (107,5), 04 (107,5). Os quatro primeiros são exatamente os quatro posts de raiva e teoria conspiratória. Nenhum foi inventado pelo algoritmo: todos estavam lá o tempo todo. Este é o achado mais forte da atividade e vale parar nele.\n\nGRUPO D, comercial: 05 (81,9), 12 (80,3), 20 (70,3), 14 (72,6 dependendo do arredondamento). Os anúncios ocupam o topo sem que nada esteja escrito como anúncio.\n\nGRUPO E, bairro: 06 (55,2), 08 (46,8), 03 (47,2), 16 (43,8). É o único feed em que a notícia do posto de saúde aparece no topo. Vale perguntar quem teria escolhido receber esse feed, e por que nenhuma plataforma o oferece.\n\nSobre a virada: todos os grupos conseguem, e o caminho quase sempre é aumentar o peso de P ou criar um bônus fixo para o post 14. Nenhum grupo precisa mentir, remover ou esconder. A resposta honesta para "nós mentimos" é não, e é isso que torna a discussão desconfortável do jeito certo. O que aconteceu não foi mentira, foi mudança de critério sem aviso. Se algum grupo responder "sim, mentimos", pedir que aponte a frase falsa. Não vai encontrar.\n\nFechamento: a pergunta que fica não é sobre verdade, é sobre transparência. O que precisaria estar na tela? As respostas boas costumam ser: uma marcação de publicidade, e alguma indicação de por que aquele item está em primeiro.'
+      corpo: 'Resultados esperados no topo de cada fórmula:\n\nGRUPO A, popular: 11 (97), 07 (95), 02 (88). Feed simpático e completamente vazio de informação sobre o bairro. O post 08, sobre o posto de saúde fechando, cai para perto do fim.\n\nGRUPO B, agora: empate no topo entre 05, 10 e 12, todos com N=10, sendo dois deles anúncios e um a foto do almoço de um desconhecido. É o feed mais inútil dos cinco, e mostra que otimizar novidade pura é uma péssima ideia. O empate é proposital: obriga o grupo a inventar um critério de desempate, e a discussão sobre qual desempate escolher é uma aula inteira.\n\nGRUPO C, engajamento: 09 (112), 18 (111,5), 15 (107,5), 04 (107,5). Os quatro primeiros são exatamente os quatro posts de raiva e teoria conspiratória. Nenhum foi inventado pelo algoritmo: todos estavam lá o tempo todo. Este é o achado mais forte da atividade e vale parar nele.\n\nGRUPO D, comercial: 05 (80,9), 12 (80,3), 14 (72,6), 20 (70,3). Os quatro primeiros são os quatro anúncios, e nada na tela está escrito como anúncio.\n\nGRUPO E, bairro: 06 (52,8), 03 (47,2), 08 (46,8), 16 (43,8). É o único feed em que a notícia do posto de saúde aparece no topo. Vale perguntar quem teria escolhido receber esse feed, e por que nenhuma plataforma o oferece.\n\nSobre a virada: todos os grupos conseguem, e o caminho quase sempre é aumentar o peso de P ou criar um bônus fixo para o post 14. Nenhum grupo precisa mentir, remover ou esconder. A resposta honesta para "nós mentimos" é não, e é isso que torna a discussão desconfortável do jeito certo. O que aconteceu não foi mentira, foi mudança de critério sem aviso. Se algum grupo responder "sim, mentimos", pedir que aponte a frase falsa. Não vai encontrar.\n\nFechamento: a pergunta que fica não é sobre verdade, é sobre transparência. O que precisaria estar na tela? As respostas boas costumam ser: uma marcação de publicidade, e alguma indicação de por que aquele item está em primeiro.'
     }
   ],
 
@@ -2785,7 +2786,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'consumo',
   nivel: 4,
   sensibilidade: 'media',
-  selos: ['sem-tela'],
+  selos: ['pronta-amanha', 'sem-tela'],
 
   bncc: {
     nota: 'Atividade doméstica com forte componente de Matemática. Para uso escolar, a ponte é EF06CO10.',
@@ -2889,7 +2890,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'seguranca',
   nivel: 5,
   sensibilidade: 'alta',
-  selos: ['sem-tela', 'pronta-amanha', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     nota: 'Atividade doméstica. Para uso escolar, a ponte é EM13CO08.',
@@ -3302,8 +3303,8 @@ window.JP.ATIVIDADES.push(
   grupo: 'turma',
   eixo: 'seguranca',
   nivel: 1,
-  sensibilidade: 'media',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  sensibilidade: 'alta',
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     campo: 'Educação Infantil, campo de experiência "O eu, o outro e o nós"',
@@ -4067,7 +4068,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'informacao',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EF05CO08', texto: 'Acessar as informações na Internet de forma crítica para distinguir os conteúdos confiáveis de não confiáveis.' },
@@ -4755,7 +4756,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Gabarito comentado',
       tipo: 'gabarito',
-      corpo: 'ÍNDICES CALCULADOS\n1: 97,7 | 2: 91,7 | 8: 87,0 | 3: 82,4 | 4: 87,1 | 6: 71,0 | 5: 79,9 | 7: 76,7\n\nRANKING: 1 (97,7), 2 (91,7), 4 (87,1), 8 (87,0), 3 (82,4), 5 (79,9), 7 (76,7), 6 (71,0).\n\nO QUE A VIRADA REVELA\nO último colocado enfrenta uma situação familiar difícil. O penúltimo trabalha com o pai. O antepenúltimo tem uma condição de saúde com atestado. O primeiro colocado mora a duas quadras com dois responsáveis em casa.\n\nO caso 3 é o mais limpo tecnicamente: o critério de entrega digital mede acesso à internet e chama isso de engajamento. É o exemplo mais claro de proxy indevido, e costuma ser o primeiro que os grupos identificam.\n\nO caso 8 é o mais grave e o menos percebido. Um sistema que penaliza quem questiona a autoridade transforma participação em risco. Se nenhum grupo levantar, apresentar isoladamente no fim.\n\nNA REAUDITORIA, quase nenhum critério sobrevive como esforço puro. Frequência depende de saúde. Pontualidade depende de transporte e de responsabilidades de cuidado. Entrega digital depende de renda. Disciplina depende de quem registra. Tarefas é o que mais se aproxima, e ainda assim depende de ter onde estudar. Chegar a essa conclusão é o resultado esperado, e não deve ser entregue pronto.\n\nPROTOCOLO DE MEDIAÇÃO, obrigatório\n\nEsta atividade descreve, em oito envelopes, situações que provavelmente existem na turma que a está fazendo. Alguém vai se reconhecer. Por isso:\n\n. Avisar antes de começar que os oito estudantes são fictícios e que ninguém precisa comentar semelhanças.\n. Nunca perguntar quem se identificou com qual envelope.\n. Não pedir que estudantes contem por que faltam, por que se atrasam ou o que acontece em casa.\n. Não usar dados reais de frequência, disciplina ou desempenho da escola, em nenhuma hipótese, nem anonimizados.\n. Se a escola usar de fato algum sistema parecido, não nomear na aula. Tratar no plano da norma e encaminhar a discussão real à coordenação, por outro caminho.\n. Combinar com a orientação educacional antes de aplicar, e ter um encaminhamento pronto caso algum estudante procure um adulto depois.'
+      corpo: 'ÍNDICES CALCULADOS, conferidos um a um\n1: 98,2 | 2: 92,1 | 3: 84,6 | 4: 85,8 | 5: 82,8 | 6: 77,2 | 7: 74,7 | 8: 88,2\n\nRANKING: 1 (98,2), 2 (92,1), 8 (88,2), 4 (85,8), 3 (84,6), 5 (82,8), 6 (77,2), 7 (74,7).\n\nSe um grupo chegar a outros números, refaça a conta junto: a fórmula é média ponderada simples, e o erro quase sempre está em somar os pesos errado.\n\nO QUE A VIRADA REVELA\nO último colocado é o estudante 7, que ajuda o pai na feira em duas manhãs por semana e chega atrasado exatamente nesses dois dias. O penúltimo é o 6, que enfrenta uma situação difícil em casa desde março. O 5, com condição de saúde e todas as faltas justificadas por atestado, fica em sexto. O primeiro colocado mora a duas quadras da escola, com dois responsáveis em casa o dia inteiro.\n\nRepare no estudante 3, em quinto: ele entrega quase tudo, mas no papel, porque não tem internet. O critério de entrega digital sozinho já custa a ele várias posições.\n\n\n\nO caso 3 é o mais limpo tecnicamente: o critério de entrega digital mede acesso à internet e chama isso de engajamento. É o exemplo mais claro de proxy indevido, e costuma ser o primeiro que os grupos identificam.\n\nO caso 8 é o mais grave e o menos percebido. Um sistema que penaliza quem questiona a autoridade transforma participação em risco. Se nenhum grupo levantar, apresentar isoladamente no fim.\n\nNA REAUDITORIA, quase nenhum critério sobrevive como esforço puro. Frequência depende de saúde. Pontualidade depende de transporte e de responsabilidades de cuidado. Entrega digital depende de renda. Disciplina depende de quem registra. Tarefas é o que mais se aproxima, e ainda assim depende de ter onde estudar. Chegar a essa conclusão é o resultado esperado, e não deve ser entregue pronto.\n\nPROTOCOLO DE MEDIAÇÃO, obrigatório\n\nEsta atividade descreve, em oito envelopes, situações que provavelmente existem na turma que a está fazendo. Alguém vai se reconhecer. Por isso:\n\n. Avisar antes de começar que os oito estudantes são fictícios e que ninguém precisa comentar semelhanças.\n. Nunca perguntar quem se identificou com qual envelope.\n. Não pedir que estudantes contem por que faltam, por que se atrasam ou o que acontece em casa.\n. Não usar dados reais de frequência, disciplina ou desempenho da escola, em nenhuma hipótese, nem anonimizados.\n. Se a escola usar de fato algum sistema parecido, não nomear na aula. Tratar no plano da norma e encaminhar a discussão real à coordenação, por outro caminho.\n. Combinar com a orientação educacional antes de aplicar, e ter um encaminhamento pronto caso algum estudante procure um adulto depois.'
     }
   ],
 
@@ -5472,12 +5473,12 @@ window.JP.ATIVIDADES.push(
       tipo: 'cartas',
       nota: 'Cada carta com um desenho grande e a palavra embaixo, para a criança copiar na tela dela.',
       itens: [
-        'NÃO QUERO (uma mão parada) — para quando eu não quiser aquilo.',
-        'ME EXPLICA (um ponto de interrogação) — para o aplicativo contar o que ele vai fazer.',
-        'VOLTAR (uma seta para trás) — para desfazer o que eu fiz.',
-        'PEDIR AJUDA (duas pessoas) — para chamar alguém que eu confio.',
-        'PARAR (um quadrado) — para tudo parar agora.',
-        'DEPOIS (um relógio) — para eu decidir outra hora, sem pressa.'
+        'NÃO QUERO (uma mão parada): para quando eu não quiser aquilo.',
+        'ME EXPLICA (um ponto de interrogação): para o aplicativo contar o que ele vai fazer.',
+        'VOLTAR (uma seta para trás): para desfazer o que eu fiz.',
+        'PEDIR AJUDA (duas pessoas): para chamar alguém que eu confio.',
+        'PARAR (um quadrado): para tudo parar agora.',
+        'DEPOIS (um relógio): para eu decidir outra hora, sem pressa.'
       ]
     },
     {
@@ -6299,7 +6300,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'consentimento',
   nivel: 4,
   sensibilidade: 'alta',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     principal: { codigo: 'EF08CO07', texto: 'Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.' },
@@ -6572,7 +6573,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'ia',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EF09CO10', texto: 'Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.' },
@@ -6639,7 +6640,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Envelope de verificação (a virada)',
       tipo: 'gabarito',
-      corpo: 'Conferindo a RESPOSTA D, afirmação por afirmação:\n\n1. "Irradiação entre 4,5 e 6,0 kWh/m² por dia" — CORRETO, é a ordem de grandeza reconhecida para o Brasil.\n\n2. "Uma das maiores do mundo" — CORRETO.\n\n3. "Geração distribuída ultrapassou 25 GW" — NÚMERO INSTÁVEL. Esse valor muda a cada poucos meses. A própria resposta avisa que não tem certeza, o que é o comportamento correto, mas o número está lá no texto e vai ser copiado assim mesmo. Vale discutir: o aviso resolve?\n\n4. "Custo caiu mais de 80% na última década" — PLAUSÍVEL, mas depende do recorte, da tecnologia e da região. Apresentado sem essa ressalva.\n\n5. "A fabricação consome energia e materiais" — CORRETO.\n\n6. "O descarte ainda é um problema não resolvido" — CORRETO e bem colocado.\n\n7. FONTE 1, Atlas Brasileiro de Energia Solar (INPE) — EXISTE. É uma fonte real e adequada.\n\n8. FONTE 2, "RIBEIRO, C. A. Panorama da Geração Distribuída no Brasil. Revista de Energia Sustentável, 2023" — NÃO EXISTE. Nem o artigo, nem a revista, nem a autora. A referência tem formato perfeito.\n\nRESULTADO: a melhor das quatro respostas tem um número instável apresentado como dado, uma afirmação sem a ressalva necessária, e uma fonte inventada ao lado de uma fonte real.\n\nO prompt D melhorou a forma, o escopo, o equilíbrio e até produziu um aviso de incerteza. Não melhorou a veracidade.'
+      corpo: 'Conferindo a RESPOSTA D, afirmação por afirmação:\n\n1. "Irradiação entre 4,5 e 6,0 kWh/m² por dia": CORRETO, é a ordem de grandeza reconhecida para o Brasil.\n\n2. "Uma das maiores do mundo": CORRETO.\n\n3. "Geração distribuída ultrapassou 25 GW": NÚMERO INSTÁVEL. Esse valor muda a cada poucos meses. A própria resposta avisa que não tem certeza, o que é o comportamento correto, mas o número está lá no texto e vai ser copiado assim mesmo. Vale discutir: o aviso resolve?\n\n4. "Custo caiu mais de 80% na última década": PLAUSÍVEL, mas depende do recorte, da tecnologia e da região. Apresentado sem essa ressalva.\n\n5. "A fabricação consome energia e materiais": CORRETO.\n\n6. "O descarte ainda é um problema não resolvido": CORRETO e bem colocado.\n\n7. FONTE 1, Atlas Brasileiro de Energia Solar (INPE): EXISTE. É uma fonte real e adequada.\n\n8. FONTE 2, "RIBEIRO, C. A. Panorama da Geração Distribuída no Brasil. Revista de Energia Sustentável, 2023": NÃO EXISTE. Nem o artigo, nem a revista, nem a autora. A referência tem formato perfeito.\n\nRESULTADO: a melhor das quatro respostas tem um número instável apresentado como dado, uma afirmação sem a ressalva necessária, e uma fonte inventada ao lado de uma fonte real.\n\nO prompt D melhorou a forma, o escopo, o equilíbrio e até produziu um aviso de incerteza. Não melhorou a veracidade.'
     },
     {
       titulo: 'Gabarito comentado',
@@ -7253,7 +7254,7 @@ window.JP.ATIVIDADES.push(
   fonte: 'Original Juventude Privada',
   link: 'https://drive.google.com/file/d/14xq7sCB5SlwIGJluIaul6PJypp_3sVw4/view?usp=sharing',
   linkRotulo: 'Baixar o jogo para imprimir',
-  insightCurto: 'Uma pergunta boa abre uma conversa que um sermão fecha.',
+  insightCurto: 'Sem tela, sem energia e sem depender de nada: a conversa cabe numa roda no chão.',
   n: 59,
   titulo: 'Jogo Puxa Papo (para imprimir)',
   chamada: 'As mesmas conversas das cartas digitais, em papel, para onde não tem tela.',
@@ -7271,7 +7272,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'privacidade',
   nivel: 1,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: ['pronta-amanha', 'sem-tela'],
 
   bncc: {
     principal: { codigo: 'EF03CO09', texto: 'Reconhecer o potencial impacto do compartilhamento de informações pessoais ou de seus pares em meio digital.' },
@@ -7320,7 +7321,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'privacidade',
   nivel: 2,
   sensibilidade: 'media',
-  selos: [],
+  selos: ['pronta-amanha'],
 
   bncc: {
     principal: { codigo: 'EF08CO10', texto: 'Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.' },
@@ -7540,7 +7541,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'convivencia',
   nivel: 2,
   sensibilidade: 'alta',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     principal: { codigo: 'EF07CO08', texto: 'Demonstrar empatia sobre opiniões divergentes na web.' },
@@ -7663,7 +7664,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'convivencia',
   nivel: 3,
   sensibilidade: 'alta',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     principal: { codigo: 'EF07CO09', texto: 'Reconhecer e debater sobre cyberbullying.' },
@@ -8549,7 +8550,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'infraestrutura',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: ['pronta-amanha', 'sem-tela'],
 
   bncc: {
     principal: { codigo: 'EF09CO05', texto: 'Analisar técnicas de criptografia para armazenamento e transmissão de dados.' },
@@ -8602,9 +8603,9 @@ window.JP.ATIVIDADES.push(
       nota: 'Rodada 1: entregar com o deslocamento informado. Rodada 2: sem informar.',
       itens: [
         'RODADA 1, deslocamento 3: "R WHVRXUR HVWD HPEDLAR GD HVFDGD"',
-        'RODADA 1, deslocamento 5: "T RFSNJ IF UTWYF J YWJX"',
-        'RODADA 2, deslocamento desconhecido: "IWPFEQ IQ CIQVLQ FZ CILZM XZ NZQTG NM UMQK"',
-        'RODADA 2, deslocamento desconhecido: "H VHQKD GHVWD SRUWD H D FRU GR FDGHUQR"'
+        'RODADA 1, deslocamento 5: "T FWRFWNT IF XFQF JXYF FGJWYT"',
+        'RODADA 2, deslocamento desconhecido: "H JOHCL LZAH KLIHPEV KV CHZV HGBS"',
+        'RODADA 2, deslocamento desconhecido: "D VHQKD GHVWD SRUWD H D FRU GR FDGHUQR"'
       ]
     },
     {
@@ -8620,7 +8621,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Gabarito comentado',
       tipo: 'gabarito',
-      corpo: 'SOLUÇÕES\nRodada 1, desl. 3: "O TESOURO ESTA EMBAIXO DA ESCADA"\nRodada 1, desl. 5: "O ARMEI DA PORTA E TRES" (leitura: O ARMÁRIO... ajuste conforme sua versão; conferir antes de imprimir)\nRodada 2, primeira: deslocamento 25. Decifrada: "JAXGFR JR DJRWMR GA DJMAN YA OARUH OB VBRL" — conferir e ajustar antes de aplicar.\nRodada 2, segunda: deslocamento 3. Decifrada: "E SENHA DESTA PORTA E A COR DO CADERNO"\n\nATENÇÃO DO FACILITADOR: cifre você mesmo as mensagens com a roda antes de imprimir, e confira a decifragem. Cifra feita à mão erra com facilidade, e uma mensagem que não fecha frustra o grupo sem ensinar nada.\n\nPOR QUE A CIFRA DE CÉSAR É FRACA\nSó existem 25 deslocamentos possíveis, então força bruta resolve. E a frequência de letras entrega o deslocamento em poucos minutos. A rodada 2 existe para a turma descobrir isso com as próprias mãos, e não para ouvir.\n\nA ANALOGIA DO CADEADO, e seus limites\nEla é boa e é a mais usada no mundo inteiro para explicar chave pública. Vale dizer com honestidade o que ela não captura: na criptografia real, cadeado e chave são números relacionados por matemática, e a segurança vem de ser fácil multiplicar e muito difícil fatorar. A turma de 11 a 14 não precisa disso, mas se alguém perguntar, a resposta honesta é melhor que a analogia esticada.\n\nO FECHAMENTO, sobre ponta a ponta\nAs três perguntas: quem tranca, quem abre, e quem está no meio. Um aplicativo de ponta a ponta funciona como a rodada 3, e o servidor da empresa é o grupo do meio que passa a caixa sem conseguir abrir. Conectar explicitamente com "A viagem do pacote", dos 9 aos 10: lá os roteadores liam tudo, aqui não conseguem mais.\n\nSe a turma perguntar se isso quer dizer que a empresa não sabe nada, a resposta honesta é não: ela continua sabendo quem falou com quem, e a que horas. Conteúdo é uma coisa, metadado é outra, e isso liga com "A foto que carrega endereço".'
+      corpo: 'SOLUÇÕES, todas conferidas letra a letra\n\nRodada 1, deslocamento 3\n  cifrada:  R WHVRXUR HVWD HPEDLAR GD HVFDGD\n  decifrada: O TESOURO ESTA EMBAIXO DA ESCADA\n\nRodada 1, deslocamento 5\n  cifrada:  T FWRFWNT IF XFQF JXYF FGJWYT\n  decifrada: O ARMARIO DA SALA ESTA ABERTO\n\nRodada 2, primeira, deslocamento 7\n  cifrada:  H JOHCL LZAH KLIHPEV KV CHZV HGBS\n  decifrada: A CHAVE ESTA DEBAIXO DO VASO AZUL\n  pista: a letra H aparece 6 vezes, mais que qualquer outra. Se H for A, o deslocamento é 7, e o texto fecha.\n\nRodada 2, segunda, deslocamento 3\n  cifrada:  D VHQKD GHVWD SRUWD H D FRU GR FDGHUQR\n  decifrada: A SENHA DESTA PORTA E A COR DO CADERNO\n  pista: a letra D aparece 6 vezes. Se D for A, o deslocamento é 3.\n\nAs mensagens não usam acento nem cedilha, de propósito: a roda de cifra só tem as 26 letras, e acento na mensagem trava o grupo por um motivo que não tem nada a ver com criptografia.\n\nPOR QUE A CIFRA DE CÉSAR É FRACA\nSó existem 25 deslocamentos possíveis, então força bruta resolve. E a frequência de letras entrega o deslocamento em poucos minutos. A rodada 2 existe para a turma descobrir isso com as próprias mãos, e não para ouvir.\n\nA ANALOGIA DO CADEADO, e seus limites\nEla é boa e é a mais usada no mundo inteiro para explicar chave pública. Vale dizer com honestidade o que ela não captura: na criptografia real, cadeado e chave são números relacionados por matemática, e a segurança vem de ser fácil multiplicar e muito difícil fatorar. A turma de 11 a 14 não precisa disso, mas se alguém perguntar, a resposta honesta é melhor que a analogia esticada.\n\nO FECHAMENTO, sobre ponta a ponta\nAs três perguntas: quem tranca, quem abre, e quem está no meio. Um aplicativo de ponta a ponta funciona como a rodada 3, e o servidor da empresa é o grupo do meio que passa a caixa sem conseguir abrir. Conectar explicitamente com "A viagem do pacote", dos 9 aos 10: lá os roteadores liam tudo, aqui não conseguem mais.\n\nSe a turma perguntar se isso quer dizer que a empresa não sabe nada, a resposta honesta é não: ela continua sabendo quem falou com quem, e a que horas. Conteúdo é uma coisa, metadado é outra, e isso liga com "A foto que carrega endereço".'
     }
   ],
 
@@ -8634,7 +8635,7 @@ window.JP.ATIVIDADES.push(
       'Quando um aplicativo diz "ponta a ponta", quem é o grupo do meio?'
     ],
     evitar: [
-      'Entregar as mensagens sem ter conferido a cifragem. Mensagem que não fecha frustra e não ensina.',
+      'Trocar as mensagens por outras sem cifrar e conferir de novo. Mensagem que não fecha frustra o grupo e não ensina nada. As quatro do kit já estão conferidas letra a letra.',
       'Pular a rodada 2. Sem quebrar a cifra com as próprias mãos, a diferença entre fraco e forte não aparece.',
       'Esticar a analogia do cadeado além do que ela suporta. Dizer o que ela não captura é mais honesto e mais interessante.',
       'Deixar a turma sair achando que ponta a ponta significa que a empresa não sabe nada.'
@@ -8669,7 +8670,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'infraestrutura',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EF69CO12', texto: 'Analisar o consumo de tecnologia na sociedade, compreendendo criticamente o caminho da produção dos recursos bem como aspectos ligados à obsolescência e a sustentabilidade.' },
@@ -8777,7 +8778,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'infraestrutura',
   nivel: 5,
   sensibilidade: 'media',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EM13CO15', texto: 'Analisar a interação entre usuários e artefatos computacionais, abordando aspectos da experiência do usuário e promovendo reflexão sobre a qualidade do uso dos artefatos nas esferas do trabalho, do lazer e do estudo.' },
@@ -8916,7 +8917,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'privacidade',
   nivel: 3,
   sensibilidade: 'media',
-  selos: ['pronta-amanha', 'sem-tela'],
+  selos: ['pronta-amanha'],
 
   bncc: {
     principal: { codigo: 'EF06CO08', texto: 'Compreender e utilizar diferentes formas de armazenar, manipular, compactar e recuperar arquivos, documentos e metadados.' },
@@ -9984,7 +9985,9 @@ window.JP.ATIVIDADES.push(
       barraAtivos() +
 
       '<div class="jp-barra" id="jp-resultados">' +
-        '<span class="jp-conta">' +
+        /* a contagem muda a cada filtro: sem aria-live, quem usa leitor de tela
+           nao fica sabendo que o resultado mudou */
+        '<span class="jp-conta" role="status" aria-live="polite">' +
           (colecaoAtiva ? '<span aria-hidden="true">' + colecaoAtiva.icone + '</span> ' + esc(colecaoAtiva.rotulo) + ': ' : '') +
           res.length + ' atividade' + (res.length === 1 ? '' : 's') +
           '<em> de ' + ATIV.length + ' no banco</em></span>' +
@@ -10147,17 +10150,34 @@ window.JP.ATIVIDADES.push(
       '<div class="jp-versao-print">' + todas + '</div></div>';
   }
 
-  function imprimivelHTML(m, i) {
+  /* Material de tipo "cartas" sai como carta de verdade, em caixa com borda
+     tracejada, e não como lista numerada. É a diferença entre imprimir e ter
+     que copiar tudo à mão antes de recortar. */
+  function imprimivelHTML(m, i, tituloAtividade) {
     var corpo = '';
     if (m.nota) corpo += '<div class="jp-imp-nota">' + esc(m.nota) + '</div>';
-    if (m.itens) corpo += '<ol class="jp-imp-itens">' + m.itens.map(function (it) {
-      return '<li>' + esc(it) + '</li>';
-    }).join('') + '</ol>';
+
+    if (m.itens && m.tipo === 'cartas') {
+      corpo += '<div class="jp-cartas">' + m.itens.map(function (it, k) {
+        return '<div class="jp-carta">' +
+          '<span class="jp-carta-n">' + (k + 1) + '</span>' +
+          '<span class="jp-carta-txt">' + esc(it) + '</span>' +
+        '</div>';
+      }).join('') + '</div>';
+    } else if (m.itens) {
+      corpo += '<ol class="jp-imp-itens">' + m.itens.map(function (it) {
+        return '<li>' + esc(it) + '</li>';
+      }).join('') + '</ol>';
+    }
+
     if (m.corpo) corpo += '<pre>' + esc(m.corpo) + '</pre>';
+
     return '<div class="jp-imp jp-imp-material">' +
+      /* na impressão, cada material começa em página nova e leva no topo o nome
+         da atividade: folha solta sem identificação vira folha perdida */
+      '<div class="jp-imp-print-cab">' + esc(tituloAtividade || '') + '</div>' +
       '<button type="button" class="jp-imp-cab" data-imp="' + i + '" aria-expanded="false">' +
-        '<span><b>' + esc(m.titulo) + '</b> <em style="font-style:normal;font-size:.72rem;text-transform:uppercase;' +
-        'letter-spacing:.06em;color:#f09900;margin-left:8px">' + esc(m.tipo) + '</em></span>' +
+        '<span><b>' + esc(m.titulo) + '</b> <em class="jp-imp-tipo">' + esc(m.tipo) + '</em></span>' +
         '<span aria-hidden="true">+</span>' +
       '</button>' +
       '<div class="jp-imp-corpo" hidden>' + corpo + '</div></div>';
@@ -10291,7 +10311,7 @@ window.JP.ATIVIDADES.push(
       (a.imprimiveis ? bloco('Material pronto para imprimir',
         '<p class="jp-nao-imprime" style="color:#6b7280;font-size:.9rem;margin-bottom:12px">' +
         'Abra para ler, ou use "Imprimir ficha e kit" e todo o material sai junto, cada peça em uma página.</p>' +
-        a.imprimiveis.map(imprimivelHTML).join('')) : '') +
+        a.imprimiveis.map(function (m, i) { return imprimivelHTML(m, i, a.titulo); }).join('')) : '') +
 
       (a.mediacao ? bloco('Como conduzir a conversa',
         '<p style="font-size:.86rem;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Perguntas que abrem a discussão</p>' +

@@ -287,7 +287,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'infraestrutura',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: ['pronta-amanha', 'sem-tela'],
 
   bncc: {
     principal: { codigo: 'EF09CO05', texto: 'Analisar técnicas de criptografia para armazenamento e transmissão de dados.' },
@@ -340,9 +340,9 @@ window.JP.ATIVIDADES.push(
       nota: 'Rodada 1: entregar com o deslocamento informado. Rodada 2: sem informar.',
       itens: [
         'RODADA 1, deslocamento 3: "R WHVRXUR HVWD HPEDLAR GD HVFDGD"',
-        'RODADA 1, deslocamento 5: "T RFSNJ IF UTWYF J YWJX"',
-        'RODADA 2, deslocamento desconhecido: "IWPFEQ IQ CIQVLQ FZ CILZM XZ NZQTG NM UMQK"',
-        'RODADA 2, deslocamento desconhecido: "H VHQKD GHVWD SRUWD H D FRU GR FDGHUQR"'
+        'RODADA 1, deslocamento 5: "T FWRFWNT IF XFQF JXYF FGJWYT"',
+        'RODADA 2, deslocamento desconhecido: "H JOHCL LZAH KLIHPEV KV CHZV HGBS"',
+        'RODADA 2, deslocamento desconhecido: "D VHQKD GHVWD SRUWD H D FRU GR FDGHUQR"'
       ]
     },
     {
@@ -358,7 +358,7 @@ window.JP.ATIVIDADES.push(
     {
       titulo: 'Gabarito comentado',
       tipo: 'gabarito',
-      corpo: 'SOLUÇÕES\nRodada 1, desl. 3: "O TESOURO ESTA EMBAIXO DA ESCADA"\nRodada 1, desl. 5: "O ARMEI DA PORTA E TRES" (leitura: O ARMÁRIO... ajuste conforme sua versão; conferir antes de imprimir)\nRodada 2, primeira: deslocamento 25. Decifrada: "JAXGFR JR DJRWMR GA DJMAN YA OARUH OB VBRL" — conferir e ajustar antes de aplicar.\nRodada 2, segunda: deslocamento 3. Decifrada: "E SENHA DESTA PORTA E A COR DO CADERNO"\n\nATENÇÃO DO FACILITADOR: cifre você mesmo as mensagens com a roda antes de imprimir, e confira a decifragem. Cifra feita à mão erra com facilidade, e uma mensagem que não fecha frustra o grupo sem ensinar nada.\n\nPOR QUE A CIFRA DE CÉSAR É FRACA\nSó existem 25 deslocamentos possíveis, então força bruta resolve. E a frequência de letras entrega o deslocamento em poucos minutos. A rodada 2 existe para a turma descobrir isso com as próprias mãos, e não para ouvir.\n\nA ANALOGIA DO CADEADO, e seus limites\nEla é boa e é a mais usada no mundo inteiro para explicar chave pública. Vale dizer com honestidade o que ela não captura: na criptografia real, cadeado e chave são números relacionados por matemática, e a segurança vem de ser fácil multiplicar e muito difícil fatorar. A turma de 11 a 14 não precisa disso, mas se alguém perguntar, a resposta honesta é melhor que a analogia esticada.\n\nO FECHAMENTO, sobre ponta a ponta\nAs três perguntas: quem tranca, quem abre, e quem está no meio. Um aplicativo de ponta a ponta funciona como a rodada 3, e o servidor da empresa é o grupo do meio que passa a caixa sem conseguir abrir. Conectar explicitamente com "A viagem do pacote", dos 9 aos 10: lá os roteadores liam tudo, aqui não conseguem mais.\n\nSe a turma perguntar se isso quer dizer que a empresa não sabe nada, a resposta honesta é não: ela continua sabendo quem falou com quem, e a que horas. Conteúdo é uma coisa, metadado é outra, e isso liga com "A foto que carrega endereço".'
+      corpo: 'SOLUÇÕES, todas conferidas letra a letra\n\nRodada 1, deslocamento 3\n  cifrada:  R WHVRXUR HVWD HPEDLAR GD HVFDGD\n  decifrada: O TESOURO ESTA EMBAIXO DA ESCADA\n\nRodada 1, deslocamento 5\n  cifrada:  T FWRFWNT IF XFQF JXYF FGJWYT\n  decifrada: O ARMARIO DA SALA ESTA ABERTO\n\nRodada 2, primeira, deslocamento 7\n  cifrada:  H JOHCL LZAH KLIHPEV KV CHZV HGBS\n  decifrada: A CHAVE ESTA DEBAIXO DO VASO AZUL\n  pista: a letra H aparece 6 vezes, mais que qualquer outra. Se H for A, o deslocamento é 7, e o texto fecha.\n\nRodada 2, segunda, deslocamento 3\n  cifrada:  D VHQKD GHVWD SRUWD H D FRU GR FDGHUQR\n  decifrada: A SENHA DESTA PORTA E A COR DO CADERNO\n  pista: a letra D aparece 6 vezes. Se D for A, o deslocamento é 3.\n\nAs mensagens não usam acento nem cedilha, de propósito: a roda de cifra só tem as 26 letras, e acento na mensagem trava o grupo por um motivo que não tem nada a ver com criptografia.\n\nPOR QUE A CIFRA DE CÉSAR É FRACA\nSó existem 25 deslocamentos possíveis, então força bruta resolve. E a frequência de letras entrega o deslocamento em poucos minutos. A rodada 2 existe para a turma descobrir isso com as próprias mãos, e não para ouvir.\n\nA ANALOGIA DO CADEADO, e seus limites\nEla é boa e é a mais usada no mundo inteiro para explicar chave pública. Vale dizer com honestidade o que ela não captura: na criptografia real, cadeado e chave são números relacionados por matemática, e a segurança vem de ser fácil multiplicar e muito difícil fatorar. A turma de 11 a 14 não precisa disso, mas se alguém perguntar, a resposta honesta é melhor que a analogia esticada.\n\nO FECHAMENTO, sobre ponta a ponta\nAs três perguntas: quem tranca, quem abre, e quem está no meio. Um aplicativo de ponta a ponta funciona como a rodada 3, e o servidor da empresa é o grupo do meio que passa a caixa sem conseguir abrir. Conectar explicitamente com "A viagem do pacote", dos 9 aos 10: lá os roteadores liam tudo, aqui não conseguem mais.\n\nSe a turma perguntar se isso quer dizer que a empresa não sabe nada, a resposta honesta é não: ela continua sabendo quem falou com quem, e a que horas. Conteúdo é uma coisa, metadado é outra, e isso liga com "A foto que carrega endereço".'
     }
   ],
 
@@ -372,7 +372,7 @@ window.JP.ATIVIDADES.push(
       'Quando um aplicativo diz "ponta a ponta", quem é o grupo do meio?'
     ],
     evitar: [
-      'Entregar as mensagens sem ter conferido a cifragem. Mensagem que não fecha frustra e não ensina.',
+      'Trocar as mensagens por outras sem cifrar e conferir de novo. Mensagem que não fecha frustra o grupo e não ensina nada. As quatro do kit já estão conferidas letra a letra.',
       'Pular a rodada 2. Sem quebrar a cifra com as próprias mãos, a diferença entre fraco e forte não aparece.',
       'Esticar a analogia do cadeado além do que ela suporta. Dizer o que ela não captura é mais honesto e mais interessante.',
       'Deixar a turma sair achando que ponta a ponta significa que a empresa não sabe nada.'
@@ -407,7 +407,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'infraestrutura',
   nivel: 4,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EF69CO12', texto: 'Analisar o consumo de tecnologia na sociedade, compreendendo criticamente o caminho da produção dos recursos bem como aspectos ligados à obsolescência e a sustentabilidade.' },
@@ -515,7 +515,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'infraestrutura',
   nivel: 5,
   sensibilidade: 'media',
-  selos: ['sem-tela'],
+  selos: [],
 
   bncc: {
     principal: { codigo: 'EM13CO15', texto: 'Analisar a interação entre usuários e artefatos computacionais, abordando aspectos da experiência do usuário e promovendo reflexão sobre a qualidade do uso dos artefatos nas esferas do trabalho, do lazer e do estudo.' },

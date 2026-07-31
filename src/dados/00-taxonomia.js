@@ -1,5 +1,5 @@
 /* Banco de Atividades e Ferramentas Educacionais — Juventude Privada
-   00-taxonomia.js — vocabulário controlado dos filtros.
+   00-taxonomia.js: vocabulário controlado dos filtros.
    Toda ficha em dados/*.js só pode usar chaves declaradas aqui.
    O app valida isso em tempo de carga (ver jp-banco-app.js → validarDados).
 */
@@ -275,7 +275,8 @@ window.JP.TAXONOMIA = {
      saiu de propósito: enquanto não houver aplicação real e registrada, é
      uma promessa que o banco não pode cumprir.                              */
   selos: {
-    'pronta-amanha': { rotulo: 'Pronta para amanhã', desc: 'Preparação baixa ou nenhuma' },
+    'pronta-amanha': { rotulo: 'Pronta para amanhã',
+                       desc: 'Preparação baixa e sem exigir combinação prévia com a coordenação' },
     'sem-tela':      { rotulo: 'Sem tela',           desc: 'Totalmente desplugada' },
     'sensivel':      { rotulo: 'Tema sensível',      desc: 'Exige protocolo de mediação' }
   },

@@ -608,7 +608,9 @@
       barraAtivos() +
 
       '<div class="jp-barra" id="jp-resultados">' +
-        '<span class="jp-conta">' +
+        /* a contagem muda a cada filtro: sem aria-live, quem usa leitor de tela
+           nao fica sabendo que o resultado mudou */
+        '<span class="jp-conta" role="status" aria-live="polite">' +
           (colecaoAtiva ? '<span aria-hidden="true">' + colecaoAtiva.icone + '</span> ' + esc(colecaoAtiva.rotulo) + ': ' : '') +
           res.length + ' atividade' + (res.length === 1 ? '' : 's') +
           '<em> de ' + ATIV.length + ' no banco</em></span>' +
@@ -771,17 +773,34 @@
       '<div class="jp-versao-print">' + todas + '</div></div>';
   }
 
-  function imprimivelHTML(m, i) {
+  /* Material de tipo "cartas" sai como carta de verdade, em caixa com borda
+     tracejada, e não como lista numerada. É a diferença entre imprimir e ter
+     que copiar tudo à mão antes de recortar. */
+  function imprimivelHTML(m, i, tituloAtividade) {
     var corpo = '';
     if (m.nota) corpo += '<div class="jp-imp-nota">' + esc(m.nota) + '</div>';
-    if (m.itens) corpo += '<ol class="jp-imp-itens">' + m.itens.map(function (it) {
-      return '<li>' + esc(it) + '</li>';
-    }).join('') + '</ol>';
+
+    if (m.itens && m.tipo === 'cartas') {
+      corpo += '<div class="jp-cartas">' + m.itens.map(function (it, k) {
+        return '<div class="jp-carta">' +
+          '<span class="jp-carta-n">' + (k + 1) + '</span>' +
+          '<span class="jp-carta-txt">' + esc(it) + '</span>' +
+        '</div>';
+      }).join('') + '</div>';
+    } else if (m.itens) {
+      corpo += '<ol class="jp-imp-itens">' + m.itens.map(function (it) {
+        return '<li>' + esc(it) + '</li>';
+      }).join('') + '</ol>';
+    }
+
     if (m.corpo) corpo += '<pre>' + esc(m.corpo) + '</pre>';
+
     return '<div class="jp-imp jp-imp-material">' +
+      /* na impressão, cada material começa em página nova e leva no topo o nome
+         da atividade: folha solta sem identificação vira folha perdida */
+      '<div class="jp-imp-print-cab">' + esc(tituloAtividade || '') + '</div>' +
       '<button type="button" class="jp-imp-cab" data-imp="' + i + '" aria-expanded="false">' +
-        '<span><b>' + esc(m.titulo) + '</b> <em style="font-style:normal;font-size:.72rem;text-transform:uppercase;' +
-        'letter-spacing:.06em;color:#f09900;margin-left:8px">' + esc(m.tipo) + '</em></span>' +
+        '<span><b>' + esc(m.titulo) + '</b> <em class="jp-imp-tipo">' + esc(m.tipo) + '</em></span>' +
         '<span aria-hidden="true">+</span>' +
       '</button>' +
       '<div class="jp-imp-corpo" hidden>' + corpo + '</div></div>';
@@ -915,7 +934,7 @@
       (a.imprimiveis ? bloco('Material pronto para imprimir',
         '<p class="jp-nao-imprime" style="color:#6b7280;font-size:.9rem;margin-bottom:12px">' +
         'Abra para ler, ou use "Imprimir ficha e kit" e todo o material sai junto, cada peça em uma página.</p>' +
-        a.imprimiveis.map(imprimivelHTML).join('')) : '') +
+        a.imprimiveis.map(function (m, i) { return imprimivelHTML(m, i, a.titulo); }).join('')) : '') +
 
       (a.mediacao ? bloco('Como conduzir a conversa',
         '<p style="font-size:.86rem;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Perguntas que abrem a discussão</p>' +

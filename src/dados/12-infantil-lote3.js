@@ -180,12 +180,12 @@ window.JP.ATIVIDADES.push(
       tipo: 'cartas',
       nota: 'Cada carta com um desenho grande e a palavra embaixo, para a criança copiar na tela dela.',
       itens: [
-        'NÃO QUERO (uma mão parada) — para quando eu não quiser aquilo.',
-        'ME EXPLICA (um ponto de interrogação) — para o aplicativo contar o que ele vai fazer.',
-        'VOLTAR (uma seta para trás) — para desfazer o que eu fiz.',
-        'PEDIR AJUDA (duas pessoas) — para chamar alguém que eu confio.',
-        'PARAR (um quadrado) — para tudo parar agora.',
-        'DEPOIS (um relógio) — para eu decidir outra hora, sem pressa.'
+        'NÃO QUERO (uma mão parada): para quando eu não quiser aquilo.',
+        'ME EXPLICA (um ponto de interrogação): para o aplicativo contar o que ele vai fazer.',
+        'VOLTAR (uma seta para trás): para desfazer o que eu fiz.',
+        'PEDIR AJUDA (duas pessoas): para chamar alguém que eu confio.',
+        'PARAR (um quadrado): para tudo parar agora.',
+        'DEPOIS (um relógio): para eu decidir outra hora, sem pressa.'
       ]
     },
     {

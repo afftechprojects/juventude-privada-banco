@@ -140,7 +140,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'convivencia',
   nivel: 2,
   sensibilidade: 'alta',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     principal: { codigo: 'EF07CO08', texto: 'Demonstrar empatia sobre opiniões divergentes na web.' },
@@ -263,7 +263,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'convivencia',
   nivel: 3,
   sensibilidade: 'alta',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     principal: { codigo: 'EF07CO09', texto: 'Reconhecer e debater sobre cyberbullying.' },

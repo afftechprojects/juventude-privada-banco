@@ -66,7 +66,7 @@ window.JP.ATIVIDADES.push(
   fonte: 'Original Juventude Privada',
   link: 'https://drive.google.com/file/d/14xq7sCB5SlwIGJluIaul6PJypp_3sVw4/view?usp=sharing',
   linkRotulo: 'Baixar o jogo para imprimir',
-  insightCurto: 'Uma pergunta boa abre uma conversa que um sermão fecha.',
+  insightCurto: 'Sem tela, sem energia e sem depender de nada: a conversa cabe numa roda no chão.',
   n: 59,
   titulo: 'Jogo Puxa Papo (para imprimir)',
   chamada: 'As mesmas conversas das cartas digitais, em papel, para onde não tem tela.',
@@ -84,7 +84,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'privacidade',
   nivel: 1,
   sensibilidade: 'baixa',
-  selos: ['sem-tela'],
+  selos: ['pronta-amanha', 'sem-tela'],
 
   bncc: {
     principal: { codigo: 'EF03CO09', texto: 'Reconhecer o potencial impacto do compartilhamento de informações pessoais ou de seus pares em meio digital.' },
@@ -133,7 +133,7 @@ window.JP.ATIVIDADES.push(
   eixo: 'privacidade',
   nivel: 2,
   sensibilidade: 'media',
-  selos: [],
+  selos: ['pronta-amanha'],
 
   bncc: {
     principal: { codigo: 'EF08CO10', texto: 'Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.' },

@@ -333,8 +333,8 @@ window.JP.ATIVIDADES.push(
   grupo: 'turma',
   eixo: 'seguranca',
   nivel: 1,
-  sensibilidade: 'media',
-  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+  sensibilidade: 'alta',
+  selos: ['sem-tela', 'sensivel'],
 
   bncc: {
     campo: 'Educação Infantil, campo de experiência "O eu, o outro e o nós"',

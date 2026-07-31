@@ -11,7 +11,7 @@
   --jp-ciano:     #25bcca;
   --jp-ciano-luz: #e6f8fa;
   --jp-texto:     #333333;
-  --jp-suave:     #6b7280;
+  --jp-suave:     #5b6371;   /* 4,83 -> 6,0 de contraste no branco */
   --jp-linha:     #e3e6ef;
   --jp-fundo:     #ffffff;
   --jp-cinza:     #f7f8fb;
@@ -473,6 +473,29 @@
   white-space: pre-wrap; font-family: inherit; font-size: .9rem;
   background: var(--jp-cinza); border-radius: 4px; padding: 14px; margin-top: 10px;
 }
+#jp-banco .jp-imp-tipo {
+  font-style: normal; font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--jp-ambar); margin-left: 8px;
+}
+#jp-banco .jp-imp-print-cab { display: none; }
+
+/* ---- cartas de verdade, não lista numerada ---------------------------- */
+#jp-banco .jp-cartas {
+  display: grid; gap: 10px; margin-top: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+#jp-banco .jp-carta {
+  position: relative; border: 1px dashed var(--jp-navy); border-radius: 6px;
+  padding: 16px 14px 14px 34px; background: var(--jp-fundo);
+  font-size: .9rem; line-height: 1.45; min-height: 76px;
+}
+#jp-banco .jp-carta-n {
+  position: absolute; left: 10px; top: 12px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--jp-navy-luz); color: var(--jp-navy);
+  font-size: .66rem; font-weight: 500; display: grid; place-items: center;
+}
+
 #jp-banco .jp-imp-itens { counter-reset: jpi; margin-top: 10px; }
 #jp-banco .jp-imp-itens li {
   counter-increment: jpi; position: relative; padding: 8px 0 8px 34px;
@@ -525,10 +548,33 @@
 
   /* na impressão, todo material do kit fica aberto */
   #jp-banco .jp-imp-corpo { display: block !important; }
-  #jp-banco .jp-imp { border: 0; page-break-inside: avoid; break-inside: avoid; }
+  #jp-banco .jp-imp { border: 0; }
   #jp-banco .jp-imp-cab { padding-left: 0; }
+  #jp-banco .jp-imp-tipo { display: none; }
   #jp-banco .jp-imp pre { background: none; border: 1px solid #999; }
   #jp-banco .jp-imp-material { page-break-before: always; break-before: page; }
+
+  /* cada folha solta leva o nome da atividade no topo, senão o material
+     impresso vira papel sem dono na mesa dos professores */
+  #jp-banco .jp-imp-print-cab {
+    display: block !important; font-size: 8pt; letter-spacing: .08em;
+    text-transform: uppercase; color: #555; border-bottom: 1px solid #999;
+    padding-bottom: 4pt; margin-bottom: 10pt;
+  }
+
+  /* as cartas saem duas por linha, com borda tracejada para recortar,
+     e nenhuma parte no meio da página */
+  #jp-banco .jp-cartas { grid-template-columns: 1fr 1fr; gap: 6pt; }
+  #jp-banco .jp-carta {
+    border: 1px dashed #444; min-height: 20mm; padding: 8pt 8pt 8pt 20pt;
+    font-size: 10pt; page-break-inside: avoid; break-inside: avoid;
+  }
+  #jp-banco .jp-carta-n { background: none; border: 1px solid #777; color: #444; }
+  #jp-banco .jp-imp-itens li, #jp-banco .jp-roteiro li,
+  #jp-banco .jp-kit li, #jp-banco .jp-combina {
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  #jp-banco h1, #jp-banco h2, #jp-banco .jp-bloco-t { page-break-after: avoid; break-after: avoid; }
   #jp-banco .jp-versao-print { display: block !important; margin-bottom: 14px; }
 
   #jp-banco a[href]::after { content: ""; }

@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Banco de Atividades — preview local</title>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="src/jp-banco.css">
+<script>
+/* Preview local: a folha de estilo também precisa de cache-busting, senão você
+   edita o CSS e continua vendo o antigo. */
+document.write('<link rel="stylesheet" href="src/jp-banco.css?v=' + Date.now() + '">');
+</script>
 <style>
   /* Somente para o preview. No Webflow, header e rodapé são os do site. */
   body { margin:0; font-family:Rubik, sans-serif; background:#fff; }
