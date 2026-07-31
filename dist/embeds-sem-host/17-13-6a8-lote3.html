@@ -1,0 +1,370 @@
+<script>
+/* 6 a 8 anos — terceiro lote, fechando a faixa. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 45 */
+{
+  id: 'conserte-o-robo-injusto',
+  insightCurto: 'Para consertar uma máquina injusta, primeiro é preciso descobrir quem ela deixou de fora.',
+  n: 45,
+  titulo: 'Conserte o robô injusto',
+  chamada: 'O robô escolhe quem brinca. Ele nunca escolhe as mesmas quatro crianças. Descubram por quê.',
+  faixa: '6-8',
+  duracao: 35,
+  duracaoCurta: 20,
+  comoEncurtar: 'Em 20 minutos: use seis cartas de exemplo em vez de doze e vá direto à descoberta do padrão. A etapa de consertar o álbum é obrigatória, porque é ela que troca reclamação por solução.',
+  formato: 'jogo',
+  formatoDetalhe: 'Desafio de cartas em grupos',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['ia-tarefa', 'dados'],
+  disciplinas: ['Matemática', 'Ciências', 'Projeto de Vida'],
+  preparo: 'baixo',
+  grupo: 'pequeno',
+  eixo: 'ia',
+  nivel: 2,
+  sensibilidade: 'media',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF02CO01', texto: 'Criar e comparar modelos (representações) de objetos, identificando padrões e atributos essenciais.' },
+    secundaria: { codigo: 'EF03CO04', texto: 'Relacionar o conceito de informação com o de dado.' }
+  },
+  unesco: { dimensao: 'etica', competencia: 'Identificar exclusão produzida por dados de treino incompletos e propor correção.' },
+
+  provocacao: 'O Robô Escolhedor decide quem vai brincar de queimada hoje. Ele já escolheu cinco vezes. E tem quatro crianças da turma que ele nunca escolheu, nenhuma vez.',
+
+  missao: 'Descobrir a regra secreta do robô e depois consertar o álbum de exemplos dele para que a escolha fique justa.',
+
+  virada: 'Quando os grupos acham o padrão, quase sempre dizem que o robô escolhe quem corre rápido. O facilitador então vira o álbum de exemplos: o robô aprendeu vendo cinco jogos anteriores, e nesses jogos quem foi escolhido primeiro foi sempre quem já estava no time. O robô não aprendeu a escolher bons jogadores. Ele aprendeu a repetir quem já estava dentro. Consertar o robô, portanto, não é mudar a regra dele. É mudar o álbum.',
+
+  insight: 'O robô não inventou a injustiça. Ele copiou uma injustiça que já estava nos exemplos. Trocar a regra sem trocar os exemplos não resolve.',
+
+  transferencia: 'Quando uma máquina erra sempre com as mesmas pessoas, dá para perguntar duas coisas: com quais exemplos ela aprendeu, e quem não estava nesses exemplos.',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Apresentar o robô e as doze fichas das crianças da turma fictícia. Mostrar as cinco escolhas que ele já fez.' },
+    { t: '5 a 16 min',  o: 'Em grupos, descobrir a regra secreta. Cada grupo escreve o palpite antes de qualquer revelação.' },
+    { t: '16 a 22 min', o: 'A virada. Abrir o álbum de exemplos e ler os cinco jogos anteriores. Deixar os grupos relerem os próprios palpites.' },
+    { t: '22 a 30 min', o: 'Consertar. Cada grupo monta um álbum novo, escolhendo quais jogos ensinariam o robô a escolher com justiça, e escreve a regra que ele deveria seguir.' },
+    { t: '30 a 35 min', o: 'Testar os álbuns novos com as quatro crianças que nunca foram escolhidas. O robô consertado escolhe alguma delas?' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Integra Matemática, na comparação de atributos, e Projeto de Vida, na discussão sobre quem fica de fora. É a continuação natural de "Quem ensinou o robô", da Educação Infantil, e vale citar essa ligação para a turma.',
+    familia: 'Fazer com a escolha de quem senta na frente do carro ou quem escolhe o filme. Escrever quem foi escolhido nas últimas cinco vezes e olhar o padrão. Costuma render descoberta desconfortável e útil.',
+    jovem: 'A partir de 11 anos, acrescentar a pergunta: se o álbum novo for justo mas o robô continuar escolhendo poucos, qual dos dois estava errado?'
+  },
+
+  kit: [
+    { nome: 'Doze fichas de criança', tipo: 'imprimivel', desc: 'Com atributos, sem nome real.' },
+    { nome: 'As cinco escolhas do robô', tipo: 'imprimivel', desc: 'O que a turma investiga.' },
+    { nome: 'Álbum de exemplos', tipo: 'imprimivel', desc: 'A virada. Abrir só depois dos palpites.' },
+    { nome: 'Folha do álbum novo', tipo: 'imprimivel', desc: 'Para o conserto.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'A regra real e como mediar.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Doze fichas de criança da turma fictícia',
+      tipo: 'cartas',
+      nota: 'Personagens inventados. Nunca usar crianças reais da turma.',
+      itens: [
+        'A: corre rápido, joga desde o começo do ano, está sempre no pátio no recreio.',
+        'B: corre rápido, joga desde o começo do ano, está sempre no pátio.',
+        'C: corre rápido, entrou na escola em agosto, fica na biblioteca no recreio.',
+        'D: corre devagar, joga desde o começo do ano, está sempre no pátio.',
+        'E: corre rápido, joga desde o começo do ano, está sempre no pátio.',
+        'F: corre médio, entrou em agosto, fica no pátio.',
+        'G: corre rápido, entrou em agosto, fica na biblioteca.',
+        'H: usa cadeira de rodas, joga desde o começo do ano, está sempre no pátio.',
+        'I: corre médio, joga desde o começo do ano, está sempre no pátio.',
+        'J: corre rápido, entrou em outubro, fica na sala de arte no recreio.',
+        'K: corre devagar, entrou em agosto, fica no pátio.',
+        'L: corre médio, entrou em outubro, fica na biblioteca.'
+      ]
+    },
+    {
+      titulo: 'As cinco escolhas do robô',
+      tipo: 'folha',
+      corpo: 'O Robô Escolhedor já montou cinco times. Estes foram os escolhidos:\n\nJogo 1: A, B, E, D, I\nJogo 2: A, B, E, I, D\nJogo 3: B, A, E, D, I\nJogo 4: A, E, B, I, D\nJogo 5: E, A, B, D, I\n\nNunca foram escolhidos, nenhuma vez: C, F, G, H, J, K, L.\n\nQual é a regra secreta do robô?\nEscreva o palpite do seu grupo ANTES de qualquer revelação:\n____________________________________'
+    },
+    {
+      titulo: 'Álbum de exemplos do robô (a virada)',
+      tipo: 'folha',
+      corpo: 'O robô aprendeu vendo cinco jogos que aconteceram ANTES, quando quem escolhia era a turma.\n\nNesses cinco jogos, quem foi escolhido primeiro foi:\nJogo antigo 1: A, B, E, D, I\nJogo antigo 2: A, B, E, D, I\nJogo antigo 3: B, A, E, I, D\nJogo antigo 4: A, B, E, D, I\nJogo antigo 5: A, E, B, I, D\n\nO robô não sabe quem corre rápido.\nO robô não sabe quem joga bem.\n\nO robô sabe uma coisa só: quem já estava sendo escolhido antes dele existir.\n\nRepare: o D corre devagar e sempre foi escolhido. O C corre rápido e nunca foi.'
+    },
+    {
+      titulo: 'Folha do álbum novo',
+      tipo: 'folha',
+      corpo: 'Nosso grupo vai consertar o robô.\n\n1. O QUE O ROBÔ ESTAVA COPIANDO:\n____________________________________\n\n2. QUEM FICOU DE FORA, e por qual motivo cada um:\nC ficou de fora porque ____________________\nH ficou de fora porque ____________________\nJ ficou de fora porque ____________________\n\n3. NOSSO ÁLBUM NOVO. Escrevam cinco times que ensinariam o robô a escolher com justiça:\nTime 1: ____________________\nTime 2: ____________________\nTime 3: ____________________\nTime 4: ____________________\nTime 5: ____________________\n\n4. A REGRA que a gente quer que o robô siga:\n____________________________________\n\n5. TESTE: com o nosso álbum novo, o robô escolheria o C? ( ) sim ( ) não\nE o H? ( ) sim ( ) não\nSe não, o que ainda falta?\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'A REGRA REAL DO ROBÔ: repetir quem já era escolhido antes. Ele não olha velocidade, não olha habilidade, não olha nada além do histórico.\n\nO PALPITE ERRADO MAIS COMUM é "ele escolhe quem corre rápido". Ele é desmentido por dois casos plantados de propósito:\n. o D corre devagar e é escolhido sempre;\n. o C corre rápido e nunca foi escolhido.\nSe algum grupo perceber essa contradição antes da virada, celebrar: é exatamente o raciocínio que a atividade quer formar.\n\nOS TRÊS MOTIVOS DE EXCLUSÃO são diferentes e vale separar:\n. C, G, J e L entraram depois. Não estavam nos exemplos porque ainda não existiam ali.\n. F e K entraram em agosto e ficam no pátio, e mesmo assim nunca entram: o histórico pesa mais que a presença.\n. H usa cadeira de rodas e nunca aparece nos exemplos antigos. Este é o caso mais importante e o que exige mais mediação.\n\nSOBRE O CASO H\nNão apresentar como cota nem como favor. A pergunta certa é: por que ninguém escolheu o H nos jogos antigos, e a queimada podia ser jogada de um jeito em que ele participasse? Turmas de 7 e 8 anos costumam propor mudar a brincadeira, e não só a escolha. É a melhor solução possível e vale registrar no cartaz: às vezes o conserto não é no robô, é no jogo.\n\nO QUE OBSERVA UM BOM CONSERTO\nGrupos que só trocam nomes no álbum sem mudar a lógica continuam com o mesmo problema em outra roupa. A pergunta 5, do teste, existe para revelar isso. Se o álbum novo do grupo ainda não escolhe o C nem o H, o conserto não funcionou, e descobrir isso vale mais que acertar de primeira.\n\nNÃO usar nomes de crianças reais da turma em nenhuma etapa, nem para "ficar mais divertido".'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'O robô escolhe quem corre rápido? E o D, que corre devagar?',
+      'O que o robô estava copiando?',
+      'Por que o C nunca foi escolhido, se ele corre rápido?',
+      'Trocar a regra do robô resolve, ou precisa trocar o álbum?',
+      'E o H? Dá para consertar o robô, ou precisa mudar a brincadeira?'
+    ],
+    evitar: [
+      'Abrir o álbum antes dos palpites escritos. O palpite errado é o motor da virada.',
+      'Usar nomes reais de crianças da turma nas fichas. Isso transformaria a atividade em exposição de colegas.',
+      'Tratar o caso do H como caridade. A pergunta é sobre como a brincadeira foi desenhada, não sobre bondade.',
+      'Aceitar conserto sem teste. Sem a pergunta 5, o grupo sai achando que resolveu.'
+    ]
+  },
+
+  protecao: 'As doze crianças são personagens fictícios identificados por letras. Nunca usar nomes, características ou dados reais de estudantes da turma, nem de forma anonimizada. Não pedir que a turma discuta quem é escolhido por último nas brincadeiras reais da escola: se o tema surgir espontaneamente, acolher e tratar em outro momento, com a orientação educacional.',
+
+  evidencia: 'O grupo identifica que a regra do robô era repetir o histórico, aponta pelo menos dois motivos distintos de exclusão, e testa o álbum novo verificando se ele passa a incluir quem ficava de fora.'
+},
+
+/* ==================================================================== 46 */
+{
+  id: 'senha-do-personagem',
+  insightCurto: 'Senha boa é longa e imprevisível. Trocar A por 4 não engana ninguém, muito menos um computador.',
+  n: 46,
+  titulo: 'A senha do personagem',
+  chamada: 'A turma cria senhas para personagens e descobre quais um computador adivinha em segundos.',
+  faixa: '6-8',
+  duracao: 30,
+  duracaoCurta: 20,
+  comoEncurtar: 'Em 20 minutos: pule a etapa de criação livre e vá direto às oito senhas prontas do quadro de adivinhação. A construção da frase-senha no fim não pode sair, porque é o produto.',
+  formato: 'jogo',
+  formatoDetalhe: 'Quebra-cabeça e desafio de adivinhação',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['golpe', 'dados'],
+  disciplinas: ['Língua Portuguesa', 'Matemática'],
+  preparo: 'baixo',
+  grupo: 'dupla',
+  eixo: 'seguranca',
+  nivel: 2,
+  sensibilidade: 'media',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF01CO07', texto: 'Conhecer as possibilidades de uso seguro das tecnologias computacionais para proteção dos dados pessoais e para garantir a própria segurança.' },
+    secundaria: { codigo: 'EF02CO06', texto: 'Reconhecer os cuidados com a segurança no uso de dispositivos computacionais.' }
+  },
+  unesco: { dimensao: 'tecnicas', competencia: 'Compreender que a força de uma senha vem de comprimento e imprevisibilidade, não de substituições visuais.' },
+
+  provocacao: 'A Bruxa Zilá tem um baú trancado. A senha dela é o nome do gato dela mais o ano que ela nasceu. Um computador leva quanto tempo para abrir esse baú?',
+
+  missao: 'Criar uma senha para um personagem e descobrir, no quadro de adivinhação, quanto tempo um computador levaria para abrir.',
+
+  virada: 'A turma cria as senhas achando que trocar letra por número deixa forte. O facilitador então mostra o quadro: o computador tenta as trocas óbvias primeiro, porque todo mundo faz as mesmas. Senha3nh4 cai tão rápido quanto senha. E aí ele mostra a coluna do fim do quadro, onde uma frase boba de quatro palavras aguenta um tempo absurdo. Comprimento venceu esperteza.',
+
+  insight: 'Trocar A por 4 e O por 0 não engana computador nenhum, porque todo mundo troca do mesmo jeito. O que deixa uma senha difícil é ser longa e imprevisível.',
+
+  transferencia: 'Uma frase-senha de quatro palavras que não têm nada a ver uma com a outra é mais fácil de lembrar e muito mais difícil de adivinhar.',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Apresentar os quatro personagens e as informações públicas de cada um. Explicar que a senha vai ser deles, nunca de ninguém da sala.' },
+    { t: '5 a 13 min',  o: 'Em duplas, criar uma senha para o personagem sorteado. Escrever na ficha.' },
+    { t: '13 a 20 min', o: 'A virada. Abrir o quadro de adivinhação e localizar, para cada senha criada, a linha correspondente. Ler os tempos em voz alta.' },
+    { t: '20 a 27 min', o: 'Segunda rodada. Cada dupla monta uma frase-senha de quatro palavras sorteadas e localiza no quadro. Comparar os dois tempos.' },
+    { t: '27 a 30 min', o: 'Fechamento com o cartaz das três regras. Combinar a regra que ninguém escreve senha de verdade em papel nenhum.' }
+  ],
+
+  versoes: {
+    escola: 'Duplas. Integra Matemática na leitura de ordens de grandeza de tempo, que é o que dá impacto ao quadro. Toda a atividade é sobre personagens fictícios, e essa regra precisa ser dita em voz alta no começo.',
+    familia: 'Criar a frase-senha da família para um personagem inventado e depois, separadamente e sem contar para ninguém, cada pessoa cria a própria pelo mesmo método. Ninguém diz a sua em voz alta, nem para a família.',
+    jovem: 'A partir de 11 anos, acrescentar a discussão sobre por que reutilizar a mesma senha em vários lugares é o problema maior, mesmo quando a senha é boa.'
+  },
+
+  kit: [
+    { nome: 'Quatro personagens', tipo: 'imprimivel', desc: 'Com as informações que qualquer um saberia sobre eles.' },
+    { nome: 'Quadro de adivinhação', tipo: 'imprimivel', desc: 'A virada. Tempos por tipo de senha.' },
+    { nome: 'Cartas de palavra', tipo: 'imprimivel', desc: 'Para sortear e montar frases-senha.' },
+    { nome: 'Cartaz das três regras', tipo: 'imprimivel', desc: 'Para afixar.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Como conduzir sem ensinar hábito ruim.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Quatro personagens',
+      tipo: 'cartas',
+      itens: [
+        'BRUXA ZILÁ. Todo mundo sabe: o gato dela se chama Fumaça, ela nasceu em 1902, ela adora sopa de abóbora e mora na torre roxa.',
+        'CAPITÃO BARBA-AZUL. Todo mundo sabe: o barco dele se chama Estrela, ele nasceu em 1850, ele tem um papagaio chamado Biscoito.',
+        'ROBÔ TIN. Todo mundo sabe: ele foi construído em 2030, a cor dele é prata, ele gosta de contar até mil.',
+        'DRAGÃO PIPOCA. Todo mundo sabe: ele solta fogo cor de laranja, nasceu numa terça-feira, adora queijo quente.'
+      ]
+    },
+    {
+      titulo: 'Quadro de adivinhação',
+      tipo: 'folha',
+      nota: 'Tempos aproximados, para dar noção de ordem de grandeza. Não são medidas exatas.',
+      corpo: 'QUANTO TEMPO UM COMPUTADOR LEVA PARA ABRIR\n\nfumaca                          menos de 1 segundo\nFumaca                          menos de 1 segundo\nfumaca1902                      menos de 1 segundo\nFum4c4                          menos de 1 segundo\nFum4c41902                      alguns segundos\nF#m4c4@1902                     alguns minutos\n\nAgora olhe esta coluna:\n\nabobora torre gato sopa         muitos e muitos anos\npipoca terca queijo fogo        muitos e muitos anos\nestrela papagaio biscoito mar   muitos e muitos anos\n\nPor que a debaixo é tão mais difícil?\nPorque ela é LONGA. E porque as palavras não têm nada a ver uma com a outra.\n\nO computador tenta primeiro tudo que é fácil de adivinhar: nomes, datas, e as trocas que todo mundo faz (a vira 4, o vira 0, e vira 3, i vira 1).'
+    },
+    {
+      titulo: 'Cartas de palavra para a frase-senha',
+      tipo: 'cartas',
+      nota: 'Sortear quatro por dupla. As palavras precisam ser bem diferentes entre si.',
+      itens: [
+        'janela, tartaruga, chocolate, foguete, guarda-chuva, sanfona, melancia, escada,',
+        'trovão, bicicleta, cebola, telescópio, almofada, girassol, martelo, sereia,',
+        'cachoeira, botão, pirulito, elefante, vassoura, semáforo, geladeira, xícara'
+      ]
+    },
+    {
+      titulo: 'Cartaz das três regras',
+      tipo: 'cartaz',
+      corpo: 'AS TRÊS REGRAS DA SENHA\n\n1. LONGA vence esperta.\nQuatro palavras bobas ganham de uma palavra cheia de símbolo.\n\n2. NADA QUE ALGUÉM POSSA DESCOBRIR.\nNome de bicho, aniversário, time e nome de gente ficam de fora.\n\n3. A SENHA É SÓ SUA.\nNão se conta para amigo, não se escreve no caderno, não se digita no papel.\n\nE mais uma, para os adultos da casa:\nCADA LUGAR TEM A SUA. A mesma senha em tudo é o maior problema de todos.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'O ERRO QUE A ATIVIDADE CORRIGE\nQuase toda dupla cria alguma variação de Fum4c41902 e tem certeza de que ficou forte. O quadro mostra que não. A troca de letra por número é o hábito mais difundido e o mais inútil, porque justamente por ser difundido ele está na primeira lista que qualquer programa de adivinhação testa.\n\nSOBRE OS TEMPOS DO QUADRO\nSão ordens de grandeza para dar noção, não medidas. Se alguma criança perguntar de onde vêm, responder com honestidade: são aproximações para comparar, e o que importa é a diferença gigante entre as duas colunas, não o número exato.\n\nA REGRA DE OURO DA CONDUÇÃO\nNinguém escreve, diz, digita ou mostra uma senha de verdade em nenhum momento. Todas as senhas da atividade pertencem a personagens inventados. Se uma criança começar a contar a senha dela, interromper com gentileza na hora e usar isso como exemplo da regra 3.\n\nA REGRA DOS ADULTOS, sobre reutilizar senha, entra no cartaz de propósito. Ela não é para a criança aplicar agora, é para o cartaz ir para casa. Muitas famílias descobrem o próprio problema por causa dela.\n\nPOR QUE AS PALAVRAS PRECISAM SER SORTEADAS\nSe a criança escolhe as quatro palavras, ela escolhe palavras relacionadas, e a frase fica previsível. O sorteio é o que garante a imprevisibilidade, e vale explicar isso: até para escolher ao acaso a gente é ruim.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Trocar o a por 4 deixou a senha mais difícil? Quanto?',
+      'Por que o computador tenta primeiro as trocas que todo mundo faz?',
+      'Qual é mais fácil de lembrar: F#m4c4@1902 ou quatro palavras?',
+      'Por que as palavras precisam ser sorteadas, e não escolhidas?',
+      'A senha da Bruxa Zilá era ruim por quê?'
+    ],
+    evitar: [
+      'Deixar qualquer criança dizer, escrever ou mostrar uma senha real, dela ou da família. Interromper na hora, com gentileza.',
+      'Ensinar que símbolo e número deixam forte. É o oposto do que o quadro mostra e é o mito mais persistente sobre senhas.',
+      'Apresentar os tempos do quadro como medidas exatas.',
+      'Pedir que a criança crie ali a senha que ela vai usar de verdade. A criação real é feita em casa, sozinha.'
+    ]
+  },
+
+  protecao: 'Todas as senhas da atividade pertencem a personagens fictícios. Nenhuma criança escreve, diz, digita ou mostra uma senha real, própria ou da família, em nenhuma etapa. Nenhum aparelho, conta ou site é acessado. As fichas preenchidas não devem ser guardadas nem levadas para casa com aparência de senha real: recolher e descartar ao fim da aula.',
+
+  evidencia: 'A criança afirma que comprimento importa mais que substituição de caracteres, monta uma frase-senha de quatro palavras não relacionadas, e enuncia que senha não se conta para ninguém.'
+},
+
+/* ==================================================================== 47 */
+{
+  id: 'detetives-da-propaganda',
+  insightCurto: 'Propaganda não vem só no intervalo. Ela vem dentro do jogo, do vídeo e da embalagem.',
+  n: 47,
+  titulo: 'Detetives da propaganda',
+  chamada: 'Seis cenas do dia de uma criança. Quantas propagandas escondidas vocês acham?',
+  faixa: '6-8',
+  duracao: 35,
+  duracaoCurta: 20,
+  comoEncurtar: 'Em 20 minutos: investigue três cenas em vez de seis, ficando com a embalagem, o vídeo e o jogo. O crachá de detetive com os quatro sinais é o produto e continua valendo.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Caça a pistas em cenas ilustradas',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['propaganda'],
+  disciplinas: ['Artes', 'Língua Portuguesa', 'Matemática'],
+  preparo: 'baixo',
+  grupo: 'pequeno',
+  eixo: 'consumo',
+  nivel: 1,
+  sensibilidade: 'baixa',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF02CO05', texto: 'Reconhecer as características e usos das tecnologias computacionais no cotidiano dentro e fora da escola.' },
+    secundaria: { codigo: 'EF04CO08', texto: 'Reconhecer a importância de verificar a confiabilidade das fontes de informações obtidas na Internet.' }
+  },
+  unesco: { dimensao: 'etica', competencia: 'Identificar comunicação comercial em formatos que não se apresentam como publicidade.' },
+
+  provocacao: 'Este é o dia da Lila. Ela acordou, tomou café, jogou um pouquinho e foi para a escola. Em um dia comum, sem ligar televisão nenhuma, ela viu propaganda dezenas de vezes. Vamos contar.',
+
+  missao: 'Investigar as seis cenas do dia da Lila e circular tudo que está tentando vender alguma coisa.',
+
+  virada: 'Depois da contagem, o facilitador entrega o crachá de detetive com os quatro sinais que denunciam propaganda escondida. Os grupos voltam às mesmas cenas e encontram o dobro. A cena que mais muda é a do amigo: o colega que fala do brinquedo novo ganhou figurinhas para falar, e isso estava desenhado na cena o tempo todo, num detalhe que ninguém tinha olhado.',
+
+  insight: 'Propaganda não aparece só no intervalo da televisão. Ela mora dentro do jogo, do vídeo, da embalagem e às vezes até na conversa.',
+
+  transferencia: 'Com os quatro sinais na cabeça, dá para perguntar diante de qualquer coisa: isso aqui quer que eu compre alguma coisa?',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Contar o dia da Lila e entregar as seis cenas por grupo. Combinar que vale circular com lápis vermelho.' },
+    { t: '5 a 16 min',  o: 'Primeira investigação, sem nenhuma dica. Cada grupo conta quantas propagandas achou e anota no quadro.' },
+    { t: '16 a 22 min', o: 'A virada. Entregar o crachá de detetive com os quatro sinais. Os grupos voltam às cenas.' },
+    { t: '22 a 28 min', o: 'Segunda contagem. Escrever os dois números lado a lado no quadro, por grupo.' },
+    { t: '28 a 33 min', o: 'Discutir a cena do amigo. O amigo mentiu? Ele sabia que estava fazendo propaganda?' },
+    { t: '33 a 35 min', o: 'Cada criança leva o crachá de detetive para casa.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro, um conjunto de cenas por grupo. Encaixa em Artes, na leitura de imagem, e a comparação dos dois números no quadro é o momento da aula. É a versão de 6 a 8 anos do que "O anúncio fantasiado" faz na Educação Infantil.',
+    familia: 'Investigar duas cenas na mesa e depois fazer o mesmo com uma embalagem de verdade da despensa. Contar quantas coisas na embalagem estão ali para convencer, e quantas para informar.',
+    jovem: 'A partir de 11 anos, o desafio é desenhar uma sétima cena com uma propaganda escondida que engane a própria turma.'
+  },
+
+  kit: [
+    { nome: 'Seis cenas do dia da Lila', tipo: 'imprimivel', desc: 'Cenas ilustradas com pistas plantadas.' },
+    { nome: 'Crachá de detetive', tipo: 'imprimivel', desc: 'Os quatro sinais. A virada, e leva para casa.' },
+    { nome: 'Folha de contagem', tipo: 'imprimivel', desc: 'Antes e depois do crachá.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Todas as pistas, cena por cena.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Seis cenas do dia da Lila',
+      tipo: 'cartas',
+      nota: 'Cada cena em uma folha, ilustrada, com as pistas visíveis mas não destacadas.',
+      itens: [
+        'CENA 1, O CAFÉ. A mesa do café. Na caixa de cereal tem um personagem de desenho animado, um selo dizendo "escolha dos campeões", um brinde dentro e um código para o jogo do site. Na garrafa de suco, um desenho de fruta e a frase "com sabor natural".',
+        'CENA 2, O JOGO. A tela do tablet, desenhada. A Lila joga. No canto, um banner pequeno. No meio da tela, um botão brilhante escrito "ganhe 3 vidas grátis!" e embaixo, miudinho, "assistindo a um vídeo". O personagem do jogo usa uma camiseta com a marca do cereal da cena 1.',
+        'CENA 3, O VÍDEO. Uma pessoa animada segurando um brinquedo, dentro de um vídeo. No canto da tela, escrito bem pequenininho: "recebi este produto". Ela diz: "gente, esse é o melhor brinquedo do mundo!" No fundo do quarto dela, uma prateleira cheia de caixas iguais.',
+        'CENA 4, O CAMINHO DA ESCOLA. A rua. Um outdoor, o adesivo de uma marca na porta da padaria, um carro com envelopamento, uma pessoa entregando panfleto, e a fachada da loja de brinquedos com um boneco gigante na porta.',
+        'CENA 5, O AMIGO. O pátio da escola. Um colega mostra um brinquedo novo e diz que é incrível. No bolso da mochila dele, aparecendo pela metade, um pacote de figurinhas e um papel escrito "kit para você mostrar aos amigos".',
+        'CENA 6, O CADERNO. A mesa da sala de aula. O caderno tem a capa de um personagem. A borracha tem forma de um doce de marca. O estojo tem um logotipo. A régua veio de brinde de uma loja.'
+      ]
+    },
+    {
+      titulo: 'Crachá de detetive (a virada, e leva para casa)',
+      tipo: 'folha',
+      corpo: 'Imprimir em cartão, do tamanho de um crachá, para pendurar ou levar no bolso.\n\nDETETIVE DA PROPAGANDA\nNome: ______________________\n\nOS QUATRO SINAIS:\n\n1. TEM MARCA? Nome, logotipo, personagem de alguma empresa.\n\n2. QUER QUE EU FAÇA ALGUMA COISA? Comprar, clicar, pedir, assistir, contar para um amigo.\n\n3. ALGUÉM GANHOU PARA FALAR BEM? Dinheiro, brinde, figurinha, produto de graça.\n\n4. TEM LETRINHA PEQUENA? Quando tem letra miúda, quase sempre ela conta o que a letra grande escondeu.\n\nA PERGUNTA DE DETETIVE:\nIsso aqui quer que eu compre alguma coisa?'
+    },
+    {
+      titulo: 'Folha de contagem',
+      tipo: 'folha',
+      corpo: 'Grupo: ______________________\n\n                    ANTES DO CRACHÁ    DEPOIS DO CRACHÁ\nCena 1, o café          ______              ______\nCena 2, o jogo          ______              ______\nCena 3, o vídeo         ______              ______\nCena 4, o caminho       ______              ______\nCena 5, o amigo         ______              ______\nCena 6, o caderno       ______              ______\n\nTOTAL                   ______              ______\n\nQual sinal do crachá foi o mais útil? ______\n\nQual cena mais mudou depois do crachá? ______'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'TODAS AS PISTAS\n\nCENA 1, o café: personagem na caixa, selo de "campeões" que não significa nada, brinde dentro, código para o site (que leva a criança para outra tela da mesma marca), e "sabor natural" na garrafa, que é frase de convencimento e não informação. São 5.\n\nCENA 2, o jogo: banner, botão de recompensa por vídeo, letra miúda escondendo o custo, e a camiseta do personagem com a marca do cereal, que liga as duas cenas. São 4. A camiseta é a pista que quase ninguém acha.\n\nCENA 3, o vídeo: o aviso miudinho de "recebi este produto", a prateleira de caixas iguais ao fundo, e a frase de superlativo. São 3, e a prateleira é a melhor delas: ela mostra que a pessoa recebeu muitos.\n\nCENA 4, o caminho: outdoor, adesivo, carro, panfleto, boneco na fachada. São 5, e é a cena mais fácil.\n\nCENA 5, o amigo: as figurinhas no bolso e o papel do "kit para mostrar aos amigos". São 2, e é a cena que mais muda depois do crachá, porque exige o sinal 3.\n\nCENA 6, o caderno: capa, borracha, estojo, régua de brinde. São 4, e é a cena que costuma passar totalmente batida na primeira rodada, porque ninguém pensa no próprio material escolar como propaganda.\n\nTOTAL: 23 pistas. Grupos costumam achar entre 8 e 12 antes do crachá, e entre 18 e 22 depois.\n\nA CENA DO AMIGO merece o tempo final. As perguntas certas são: o amigo mentiu? Não necessariamente, ele pode gostar mesmo. Ele sabia que estava fazendo propaganda? Provavelmente não. Isso é culpa dele? Não. Nesta idade, o objetivo não é desconfiar dos amigos, é entender que empresas às vezes usam crianças para vender para outras crianças, e que isso não é culpa de nenhuma das duas.\n\nSOBRE A CENA 6: quando a turma percebe que o próprio estojo é propaganda, costuma haver silêncio. Não moralizar. Ninguém precisa jogar fora o caderno. Perceber já é o resultado.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantas vocês acharam antes do crachá? E depois?',
+      'A Lila ligou alguma televisão nesse dia?',
+      'O amigo da cena 5 mentiu?',
+      'Ele sabia que estava fazendo propaganda?',
+      'Alguém aqui tem alguma coisa parecida com a cena 6 na mochila?',
+      'Qual dos quatro sinais é o mais difícil de perceber?'
+    ],
+    evitar: [
+      'Entregar o crachá antes da primeira contagem. Os dois números lado a lado são a demonstração.',
+      'Transformar a cena 5 em desconfiança de amigos. O alvo é a empresa que entrega o kit, não a criança que recebeu.',
+      'Moralizar sobre a cena 6. A criança não escolheu o estojo e não precisa se desfazer dele.',
+      'Citar marcas reais em qualquer cena.'
+    ]
+  },
+
+  protecao: 'Todas as marcas, produtos, personagens e a criadora de conteúdo da cena 3 são fictícios. Não citar marcas reais nem canais reais. Não perguntar quais produtos a criança tem, o que a família compra ou quais vídeos ela assiste. Na versão de casa, a análise da embalagem real é feita com um produto da despensa, sem julgamento sobre a escolha da família.',
+
+  evidencia: 'A criança encontra mais pistas na segunda rodada do que na primeira, identifica ao menos uma propaganda em formato não publicitário, e usa um dos quatro sinais para justificar.'
+}
+
+);
+
+</script>

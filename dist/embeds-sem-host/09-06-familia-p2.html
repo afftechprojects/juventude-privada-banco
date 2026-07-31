@@ -1,0 +1,210 @@
+<script>
+/* Coleção para famílias — idades mistas, uso doméstico.
+   Princípio de desenho desta coleção: estas atividades NÃO ensinam adultos a vigiar melhor.
+   Elas melhoram decisões familiares e abrem espaço para autonomia progressiva.
+   Em todas elas o adulto também se expõe a mudar de ideia, e isso é parte do método. */
+
+window.JP.ATIVIDADES.push(
+/* ==================================================================== 21 */
+{
+  id: 'decodificador-de-gastos-em-jogos',
+  insightCurto: 'A moeda virtual existe para você perder a noção do valor. Convertida em reais, a decisão muda.',
+  n: 21,
+  titulo: 'Decodificador de gastos em jogos',
+  chamada: 'Moedas, passes, gemas e caixas viram reais na calculadora. O número costuma assustar os dois lados.',
+  faixa: 'familia',
+  duracao: 40,
+  duracaoCurta: 25,
+  comoEncurtar: 'Em 25 minutos: faça as partes 1 e 2 da folha de cálculo, que já produzem o número que muda a conversa. A parte 3, da sobra projetada, é o achado mais elegante e vale guardar para uma segunda rodada em vez de acelerar.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Conversão e cálculo de probabilidade',
+  contexto: ['casa'],
+  tela: 'sem-tela',
+  situacao: ['jogo', 'propaganda'],
+  disciplinas: [],
+  preparo: 'baixo',
+  grupo: 'familia',
+  eixo: 'consumo',
+  nivel: 4,
+  sensibilidade: 'media',
+  selos: ['sem-tela'],
+
+  bncc: {
+    nota: 'Atividade doméstica com forte componente de Matemática. Para uso escolar, a ponte é EF06CO10.',
+    ponte: { codigo: 'EF06CO10', texto: 'Analisar o consumo de tecnologia na sociedade, compreendendo criticamente o caminho da produção dos recursos bem como aspectos ligados à obsolescência e a sustentabilidade.' }
+  },
+  unesco: { dimensao: 'etica', competencia: 'Converter economias virtuais em valores reais e avaliar mecanismos de aleatoriedade em compras.' },
+
+  provocacao: 'Ninguém nesta casa sabe quanto custa uma gema. É de propósito. Hoje a gente descobre.',
+
+  missao: 'Converter as moedas virtuais do jogo fictício em reais, calcular quanto custa em média conseguir o item raro, e comparar com uma compra que a família entende.',
+
+  virada: 'Depois de calcular o custo médio da caixa de recompensa, a família descobre a assimetria dos pacotes: o pacote pequeno custa mais caro por gema e o item desejado custa sempre um pouco mais do que qualquer pacote fornece, o que obriga a comprar o pacote seguinte e deixa sobra que não serve para nada. Nenhum número é mentira. Todos foram escolhidos.',
+
+  insight: 'A moeda virtual existe para que a pessoa perca a noção do valor real, e a sobra existe para que sempre falte um pouco. Uma compra pequena pode fazer parte de um sistema desenhado para repetição.',
+
+  transferencia: 'A calculadora fica na mesa. Antes de qualquer compra em jogo, a família converte para reais e compara com uma coisa que ela conhece. O número em reais decide melhor do que o número em gemas.',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Combinar que esta atividade não é sobre proibir jogo nem sobre cobrar ninguém, e que o adolescente conduz os cálculos.' },
+    { t: '5 a 18 min',  o: 'Converter os quatro pacotes de gemas do jogo fictício para reais por gema. Descobrir qual pacote é o mais caro por unidade.' },
+    { t: '18 a 28 min', o: 'Calcular o custo médio da caixa de recompensa, usando a probabilidade declarada. Comparar com o custo se o item fosse vendido direto.' },
+    { t: '28 a 34 min', o: 'A virada. Calcular quanto sobra de gemas depois da compra do item, e quantos reais essa sobra representa.' },
+    { t: '34 a 40 min', o: 'Combinar a regra da casa: teto mensal, quem decide, e a regra dos três dias.' }
+  ],
+
+  versoes: {
+    escola: 'Excelente em aula de Matemática do 6º ao 9º ano, com o jogo fictício e sem falar dos gastos reais de ninguém. Probabilidade, porcentagem e valor esperado ficam concretos.',
+    familia: 'Quarenta minutos, com o adolescente conduzindo a calculadora. Deixar que ele conduza muda a atividade de cobrança para investigação conjunta.',
+    jovem: 'Individual: aplicar o mesmo cálculo a um jogo real que você joga, usando as probabilidades que o próprio jogo divulga, e descobrir o custo médio real do item que você quer.'
+  },
+
+  kit: [
+    { nome: 'Tabela do jogo fictício', tipo: 'imprimivel', desc: 'Pacotes, preços e probabilidades declaradas.' },
+    { nome: 'Folha de cálculo', tipo: 'imprimivel', desc: 'Passo a passo das conversões.' },
+    { nome: 'Regra da casa', tipo: 'editavel', desc: 'Teto, decisão e regra dos três dias.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Todos os cálculos resolvidos.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Tabela do jogo fictício',
+      tipo: 'folha',
+      corpo: 'JOGO: REINO DAS GEMAS\n\nPACOTES DE GEMAS\nPacote Pequeno: 80 gemas por R$ 9,90\nPacote Médio: 500 gemas por R$ 49,90\nPacote Grande: 1.200 gemas por R$ 99,90\nPacote Gigante: 2.500 gemas por R$ 179,90\n\nITENS DA LOJA\nSkin comum: 120 gemas\nSkin rara: 750 gemas\nPasse de temporada: 950 gemas\nCaixa surpresa: 60 gemas cada\n\nPROBABILIDADES DECLARADAS DA CAIXA SURPRESA\nItem comum: 89,5%\nItem raro: 10%\nItem lendário: 0,5%'
+    },
+    {
+      titulo: 'Folha de cálculo',
+      tipo: 'folha',
+      corpo: 'PARTE 1, quanto custa uma gema em cada pacote?\nPequeno: 9,90 dividido por 80 = R$ ________ por gema\nMédio: 49,90 dividido por 500 = R$ ________ por gema\nGrande: 99,90 dividido por 1.200 = R$ ________ por gema\nGigante: 179,90 dividido por 2.500 = R$ ________ por gema\n\nQual é o mais caro por gema? ____________\nQuantas vezes mais caro que o mais barato? ____________\n\nPARTE 2, a caixa surpresa\nQuantas caixas em média para tirar um item lendário? 1 dividido por 0,005 = ________ caixas\nQuantas gemas isso custa? ________ caixas x 60 gemas = ________ gemas\nEm reais, usando o pacote mais barato por gema: R$ ________\n\nPARTE 3, o passe de temporada\nO passe custa 950 gemas. Qual pacote você precisa comprar?\nQuantas gemas sobram? ________\nQuanto valem essas gemas sobrando, em reais? R$ ________\nDá para fazer alguma coisa com elas? ____________\n\nPARTE 4, comparação\nO custo médio do item lendário dá para comprar o quê, na vida real?\n____________________________________'
+    },
+    {
+      titulo: 'Regra da casa',
+      tipo: 'editavel',
+      corpo: 'A NOSSA REGRA PARA COMPRA EM JOGO\n\n1. TETO: até R$ ________ por mês.\n\n2. QUEM DECIDE: ____________________\n\n3. A REGRA DOS TRÊS DIAS: quando bater vontade de comprar, a gente espera três dias. Se ainda quiser depois, compra. A maior parte das ofertas com relógio correndo não sobrevive a três dias, e é exatamente isso que o relógio existe para impedir.\n\n4. CAIXA SURPRESA: ( ) a gente compra ( ) a gente não compra\nPorque ____________________\n\n5. ANTES DE COMPRAR, a gente converte para reais e compara com ____________________.\n\n6. Se alguém gastar mais do que combinou, a gente ____________________ e não ____________________.\n\nRevisamos em ____/____/______.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'PARTE 1\nPequeno: R$ 0,124 por gema.\nMédio: R$ 0,0998 por gema.\nGrande: R$ 0,083 por gema.\nGigante: R$ 0,072 por gema.\n\nO pequeno é o mais caro, cerca de 1,7 vez o preço por gema do gigante. Quem compra pouco paga mais caro por unidade, o que inverte a lógica de quase todo produto físico e não é acidente.\n\nPARTE 2\n1 dividido por 0,005 = 200 caixas em média.\n200 x 60 = 12.000 gemas.\nA R$ 0,072 por gema, no melhor pacote: R$ 864,00.\nNo pacote pequeno: R$ 1.488,00.\n\nAtenção ao conduzir: média não é garantia. Alguém pode tirar na primeira caixa e alguém pode passar de 400. As duas coisas acontecem e as duas alimentam o mecanismo, uma pela euforia e outra pela sensação de estar perto.\n\nPARTE 3\nO passe custa 950 gemas. O pacote médio dá 500, insuficiente. É preciso o Grande, com 1.200 gemas, por R$ 99,90. Sobram 250 gemas, que valem cerca de R$ 21 e não compram nada além de 4 caixas surpresa, deixando 10 gemas de resto.\n\nEste é o achado mais elegante da atividade: nenhum pacote fecha certo com nenhum item. A sobra é projetada. Ela não serve para nada e cria a sensação de já ter um crédito lá dentro, o que facilita a próxima compra.\n\nPARTE 4\nR$ 864 é a ordem de grandeza de um videogame usado, de um celular de entrada, ou de vários meses de uma atividade extracurricular. Fazer essa comparação em voz alta costuma ser o momento em que o adolescente para de defender o gasto sozinho.\n\nCONDUÇÃO\nO tom decide o resultado. Se a atividade virar cobrança, o adolescente defende o jogo e ninguém aprende nada. Se ele conduzir a calculadora, ele chega sozinho. Deixe que ele chegue.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Por que o pacote pequeno é o mais caro por gema?',
+      'Por que nenhum pacote dá exatamente o número de gemas de nenhum item?',
+      'Média de 200 caixas quer dizer que na caixa 200 sai? O que isso quer dizer, então?',
+      'O que R$ 864 compra fora do jogo?',
+      'A oferta com relógio correndo sobrevive a três dias?'
+    ],
+    evitar: [
+      'Usar a atividade para cobrar gastos que já aconteceram. O objetivo é a próxima compra, não a última.',
+      'Concluir que o jogo é lixo ou que quem joga é bobo. Some a chance de a família decidir junto.',
+      'Deixar o adulto fazer as contas. Quem calcula convence a si mesmo, e o alvo da convicção é o adolescente.',
+      'Confundir média com garantia. É o erro conceitual mais comum e vale corrigir com cuidado.'
+    ]
+  },
+
+  protecao: 'O Reino das Gemas é fictício. Não abrir a loja de jogos reais, não consultar o histórico de compras de ninguém e não exigir que o adolescente revele quanto já gastou. Nenhum dado de cartão ou conta é acessado. Se a família quiser conferir gastos reais, isso é feito depois, entre quem é titular da conta.',
+
+  evidencia: 'A família calcula corretamente o custo em reais do item aleatório, identifica a sobra projetada dos pacotes, e define um teto e uma regra de espera antes da compra.'
+},
+
+/* ==================================================================== 22 */
+{
+  id: 'plano-de-emergencia-digital',
+  insightCurto: 'O que mais atrasa o socorro não é falta de conhecimento técnico. É o medo de ser castigado por contar.',
+  n: 22,
+  titulo: 'Plano de emergência digital',
+  chamada: 'Uma folha única na parede. Celular perdido, conta invadida, imagem exposta, golpe, ameaça.',
+  faixa: 'familia',
+  duracao: 30,
+  formato: 'criacao',
+  formatoDetalhe: 'Construção de protocolo',
+  contexto: ['casa'],
+  tela: 'sem-tela',
+  situacao: ['golpe', 'foto', 'consentimento'],
+  disciplinas: [],
+  preparo: 'baixo',
+  grupo: 'familia',
+  eixo: 'seguranca',
+  nivel: 5,
+  sensibilidade: 'alta',
+  selos: ['sem-tela', 'pronta-amanha', 'sensivel'],
+
+  bncc: {
+    nota: 'Atividade doméstica. Para uso escolar, a ponte é EM13CO08.',
+    ponte: { codigo: 'EM13CO08', texto: 'Entender como mudanças na tecnologia afetam a segurança, incluindo novas maneiras de preservar sua privacidade e dados pessoais on-line, reportando suspeitas e buscando ajuda em situações de risco.' }
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Estabelecer protocolo familiar de resposta a incidentes digitais que priorize o acolhimento sobre a punição.' },
+
+  provocacao: 'Alguma dessas seis coisas vai acontecer com alguém desta casa em algum momento. A única pergunta é se a gente vai estar combinado quando acontecer.',
+
+  missao: 'Produzir uma folha única, que fica na parede, com o que fazer nos primeiros dez minutos de cada uma das seis situações, e com os telefones já preenchidos.',
+
+  virada: 'Quando os seis procedimentos estão escritos, o adulto lê em voz alta a linha que precisa estar em todos eles: quem contar não vai ser castigado. E então vem a pergunta que decide se o plano funciona: se acontecesse hoje, cada pessoa desta casa contaria? A resposta honesta de um adolescente costuma ser não, e o motivo costuma ser perder o celular. O plano só existe de verdade depois que esse ponto for negociado.',
+
+  insight: 'O que mais atrasa a resposta a um incidente não é falta de conhecimento técnico. É o medo da punição. Um plano que não resolve isso não vai ser usado justamente na hora em que precisa.',
+
+  transferencia: 'A folha fica na parede. Quando acontecer, ninguém precisa lembrar de nada: é ler e executar. E quem contar vai ser ajudado.',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Combinar em voz alta que ninguém vai ser julgado por nada que disser nos próximos trinta minutos.' },
+    { t: '5 a 20 min',  o: 'Para cada uma das seis situações, escrever os três primeiros passos. Priorizar o que é feito nos primeiros dez minutos.' },
+    { t: '20 a 26 min', o: 'A virada. Ler a linha do não castigo e fazer a pergunta honesta: você contaria? Negociar até que a resposta seja sim.' },
+    { t: '26 a 30 min', o: 'Preencher os telefones e colar a folha em lugar visível. Definir a data de revisão.' }
+  ],
+
+  versoes: {
+    escola: 'Funciona como oficina em reunião de responsáveis. A escola pode fornecer a folha em branco e os telefones institucionais, mas não recolhe os planos preenchidos.',
+    familia: 'Trinta minutos. Ideal fazer junto com o "Ensaio do golpe", que preenche parte dos telefones.',
+    jovem: 'A partir de 13 anos, o adolescente escreve a própria versão da linha do não castigo, com as condições dele. Essa negociação é o que faz o plano existir de verdade.'
+  },
+
+  kit: [
+    { nome: 'Folha de emergência', tipo: 'editavel', desc: 'As seis situações e os telefones. Para colar na parede.' },
+    { nome: 'Guia dos primeiros dez minutos', tipo: 'imprimivel', desc: 'O que fazer e o que não fazer em cada situação.' },
+    { nome: 'A linha do não castigo', tipo: 'imprimivel', desc: 'A virada, e a parte mais difícil de negociar.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Folha de emergência (para a parede)',
+      tipo: 'editavel',
+      corpo: 'PLANO DE EMERGÊNCIA DIGITAL DA FAMÍLIA ____________________\n\n1. PERDI O CELULAR\nPrimeiros passos: ____________________________________\n\n2. INVADIRAM MINHA CONTA\nPrimeiros passos: ____________________________________\n\n3. ESPALHARAM UMA IMAGEM MINHA\nPrimeiros passos: ____________________________________\n\n4. CAÍ EM UM GOLPE\nPrimeiros passos: ____________________________________\n\n5. RECEBI MENSAGEM AMEAÇADORA\nPrimeiros passos: ____________________________________\n\n6. UM DESCONHECIDO ME PROCUROU\nPrimeiros passos: ____________________________________\n\nTELEFONES\nAdulto de referência: ____________________\nSegundo adulto: ____________________\nBanco: ____________________\nOperadora: ____________________\nEscola: ____________________\nDelegacia mais próxima: ____________________\nDisque 100, direitos humanos, funciona 24 horas e é gratuito.\n\nA LINHA QUE VALE PARA AS SEIS:\nQuem contar vai ser ajudado, não castigado.\n\nAssinam:'
+    },
+    {
+      titulo: 'Guia dos primeiros dez minutos',
+      tipo: 'folha',
+      corpo: '1. PERDI O CELULAR\nFazer: avisar um adulto, bloquear o chip com a operadora, trocar a senha das contas principais a partir de outro aparelho, ativar o bloqueio remoto se existir.\nNão fazer: esperar para ver se aparece. As primeiras horas são as que importam.\n\n2. INVADIRAM MINHA CONTA\nFazer: trocar a senha se ainda conseguir entrar, encerrar as outras sessões ativas, avisar os contatos de que a conta foi invadida, verificar se o e-mail de recuperação foi alterado.\nNão fazer: clicar em links de recuperação que chegaram por mensagem. Ir pelo aplicativo ou digitando o endereço.\n\n3. ESPALHARAM UMA IMAGEM MINHA\nFazer: guardar prova, com capturas de tela que mostrem onde está e quem publicou, antes de pedir remoção. Pedir remoção pela ferramenta da plataforma. Avisar um adulto imediatamente. Se envolver menor de idade e conteúdo íntimo, procurar a delegacia, e a denúncia pode ser feita também pelo Disque 100 e pela SaferNet.\nNão fazer: responder ao agressor, apagar as provas, ou tratar como problema que a pessoa resolve sozinha.\n\n4. CAÍ EM UM GOLPE\nFazer: avisar imediatamente um adulto da casa, ligar para o banco pelo número do cartão, registrar boletim de ocorrência, e se houve Pix, pedir ao banco o mecanismo especial de devolução, que tem prazo curto.\nNão fazer: ter vergonha e esperar. Cada hora de atraso reduz a chance de recuperar.\n\n5. RECEBI MENSAGEM AMEAÇADORA\nFazer: não responder, guardar prova, bloquear depois de guardar, contar para um adulto, e avaliar boletim de ocorrência. Se vier de colega de escola, comunicar a escola.\nNão fazer: negociar, revidar, ou apagar a conversa.\n\n6. UM DESCONHECIDO ME PROCUROU\nFazer: contar para um adulto mesmo que a conversa pareça inofensiva, guardar as mensagens, bloquear. Se houve pedido de foto, encontro ou segredo, isso é aliciamento e vira caso de delegacia e Disque 100.\nNão fazer: continuar a conversa para descobrir quem é, e não contar para não preocupar.\n\nA REGRA COMUM ÀS SEIS: guardar prova antes de bloquear ou apagar, e contar para alguém nos primeiros dez minutos.'
+    },
+    {
+      titulo: 'A linha do não castigo',
+      tipo: 'folha',
+      corpo: 'Esta é a parte difícil, e sem ela a folha na parede é decoração.\n\nLeia em voz alta:\n\n"Se qualquer uma dessas seis coisas acontecer com você, você vai ser ajudado. Você não vai perder o celular por ter contado. Você não vai ouvir eu avisei."\n\nAgora a pergunta honesta, para cada pessoa da casa:\n\nSe acontecesse hoje, você contaria? ( ) sim ( ) não\n\nSe a resposta for não, a pergunta seguinte é a que importa:\nO que precisaria mudar para você contar?\n____________________________________\n\nEscreva aqui o que ficou combinado, com as palavras da pessoa que respondeu não:\n____________________________________\n\nObservação para os adultos: a resposta mais comum de um adolescente é que ele perderia o celular ou perderia acesso. Se a consequência de contar for perder a ferramenta, ninguém conta, e o adulto fica sabendo tarde ou não fica sabendo. Vale separar as duas coisas com clareza: proteger não é punir, e uma restrição temporária, se for necessária, é uma decisão de segurança combinada antes, e não um castigo aplicado depois.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Se acontecesse hoje, você contaria? O que precisaria mudar para você contar?',
+      'Por que guardar prova antes de bloquear?',
+      'Em qual das seis a vergonha atrasa mais a resposta?',
+      'Quem desta casa é a pessoa mais fácil de procurar? Ela sabe disso?'
+    ],
+    evitar: [
+      'Prometer não castigar e castigar depois. Uma única vez destrói o plano para sempre, e destrói junto a chance de saber da próxima.',
+      'Usar a atividade para investigar se já aconteceu alguma coisa. Se um relato surgir espontaneamente, sair do formato da atividade e acolher.',
+      'Detalhar casos reais de violência para assustar. O plano funciona por preparo, não por medo.',
+      'Deixar os telefones em branco para preencher depois. Depois não acontece.'
+    ]
+  },
+
+  protecao: 'Tema sensível. Esta é a única ficha da coleção familiar que pode tocar em situações reais em curso, e por isso a mediação exige preparo. Ninguém deve ser convidado a relatar se já passou por alguma das seis situações. Se alguém relatar espontaneamente, encerrar a atividade, acolher em particular e acionar o canal adequado. Em situações envolvendo conteúdo íntimo de menor de idade, aliciamento ou ameaça, o caminho é delegacia, Disque 100 e SaferNet, e não a resolução doméstica. Nenhuma senha real é escrita na folha da parede.',
+
+  evidencia: 'A folha fica afixada com os seis procedimentos e os telefones preenchidos, e a linha do não castigo foi negociada com resposta afirmativa de todas as pessoas da casa.'
+}
+
+
+);
+</script>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco de Atividades — preview local</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/jp-banco.css">
+<style>
+  /* Somente para o preview. No Webflow, header e rodapé são os do site. */
+  body { margin:0; font-family:Rubik, sans-serif; background:#fff; }
+  .fake { background:#f7f8fb; border-bottom:1px solid #e3e6ef; padding:18px 20px; text-align:center; }
+  .fake nav { display:flex; gap:28px; justify-content:center; flex-wrap:wrap;
+              text-transform:uppercase; font-size:.82rem; color:#273975; letter-spacing:.04em; }
+  .fake .marca { color:#273975; font-weight:500; letter-spacing:.18em; font-size:.9rem; margin-bottom:12px; }
+  .fake-rodape { background:#f7f8fb; border-top:1px solid #e3e6ef; margin-top:60px;
+                 padding:34px 20px; text-align:center; color:#6b7280; font-size:.82rem; }
+  .aviso-preview { background:#fff5e3; color:#8a5800; font-size:.78rem; text-align:center; padding:7px; }
+  main { padding: 44px 0 0; }
+  @media print { .fake, .fake-rodape, .aviso-preview { display:none } main { padding:0 } }
+</style>
+</head>
+<body>
+
+<div class="aviso-preview">PREVIEW LOCAL. O header e o rodapé abaixo são simulados só para conferir o encaixe visual. No Webflow, são os componentes reais do site.</div>
+
+<header class="fake">
+  <div class="marca">JUVENTUDE PRIVADA</div>
+  <nav><span>PROJETO</span><span>TIME</span><span>CONTRIBUA</span><span>BLOG &amp; NOTÍCIAS</span><span><b>MATERIAIS</b></span><span>CONTATO</span></nav>
+</header>
+
+<main>
+  <!-- É EXATAMENTE ISTO que vai no Embed do Webflow -->
+  <div id="jp-banco"></div>
+</main>
+
+<footer class="fake-rodape">
+  © 2020-2026 Associação Juventude Privada &middot; CNPJ 42.115.512/0001-43
+</footer>
+
+<script>
+/* Preview local: carrega os arquivos sempre frescos. Sem isso, o navegador
+   guarda os .js em cache e você edita uma ficha e não vê a mudança. */
+(function () {
+  var v = '?v=' + Date.now();
+  [
+    'src/dados/00-taxonomia.js',
+    'src/dados/01-infantil.js',
+    'src/dados/02-6a8.js',
+    'src/dados/03-9a10.js',
+    'src/dados/04-11a14.js',
+    'src/dados/05-15a17.js',
+    'src/dados/06-familia.js',
+    'src/dados/07-infantil-lote2.js',
+    'src/dados/08-6a8-lote2.js',
+    'src/dados/09-9a10-lote2.js',
+    'src/dados/10-11a14-lote2.js',
+    'src/dados/11-15a17-lote2.js',
+    'src/dados/12-infantil-lote3.js',
+    'src/dados/13-6a8-lote3.js',
+    'src/dados/14-9a10-lote3.js',
+    'src/dados/15-11a14-lote3.js',
+    'src/dados/16-15a17-lote3.js',
+    'src/jp-banco-app.js'
+  ].forEach(function (src) {
+    document.write('<script src="' + src + v + '"><\/script>');
+  });
+})();
+</script>
+</body>
+</html>

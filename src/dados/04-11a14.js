@@ -1,0 +1,422 @@
+/* 11 a 14 anos — 6º ao 9º ano.
+   Entram ambiguidade, conflito de direitos, economia das plataformas e uso real de IA. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 10 */
+{
+  id: 'feed-em-20-cartas',
+  insightCurto: 'A ordem do feed é uma decisão, não um espelho do mundo. Quem escolhe o critério escolhe o que você vê.',
+  n: 10,
+  titulo: 'Feed em 20 cartas',
+  chamada: 'Cada grupo recebe os mesmos 20 posts e um peso diferente. Os feeds saem irreconhecíveis.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: use 10 posts em vez de 20 (os de números 02, 03, 05, 07, 08, 09, 11, 14, 15 e 16) e apenas três fórmulas, A, C e E, que são as que produzem os feeds mais contrastantes. O envelope do anunciante continua cabendo e não deve ser cortado, porque é a virada. A folha de parecer vira tarefa de casa.',
+  formato: 'simulacao',
+  formatoDetalhe: 'Simulação de algoritmo de ordenação',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['algoritmo', 'informacao', 'propaganda'],
+  disciplinas: ['Matemática', 'Língua Portuguesa', 'História'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'algoritmos',
+  nivel: 4,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF08CO07', texto: 'Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.' },
+    secundaria: { codigo: 'EF08CO11', texto: 'Avaliar a precisão, relevância, adequação, abrangência e vieses que ocorrem em fontes de informação eletrônica.' }
+  },
+  unesco: { dimensao: 'design', competencia: 'Compreender que sistemas de recomendação otimizam objetivos definidos por quem os projeta e que a escolha do objetivo determina o resultado.' },
+
+  provocacao: 'Estes vinte posts são exatamente os mesmos para todos os grupos. Em vinte minutos vocês vão ter cinco feeds completamente diferentes, e ninguém vai ter mentido nem escondido nada.',
+
+  missao: 'Cada grupo recebe uma fórmula de pontuação diferente, calcula a nota dos vinte posts e monta o feed do primeiro ao vigésimo lugar.',
+
+  virada: 'Com os cinco feeds na parede, o facilitador entrega o envelope do anunciante: uma empresa pagou para que o post 14 fique entre os três primeiros. Cada grupo precisa alterar a própria fórmula para conseguir isso, sem tirar nenhum post do ar e sem marcar nada como publicidade. Todos conseguem. E aí vem a pergunta que muda a sala: alguém mentiu?',
+
+  insight: 'A ordem de um feed é uma decisão, não um espelho da realidade. Trocar o que se otimiza troca o mundo que aparece, e dá para inserir interesse comercial sem apagar nem mentir sobre nada.',
+
+  transferencia: 'Diante de qualquer lista ordenada, de um feed a um resultado de busca, a pergunta útil deixa de ser "isso é verdade" e passa a ser "por que isso está em primeiro, e o que ficou em vigésimo".',
+
+  roteiro: [
+    { t: '0 a 8 min',   o: 'Distribuir os vinte posts e a folha de métricas. Ler juntos o que cada métrica significa. Sortear uma fórmula por grupo, sem revelar as fórmulas dos outros.' },
+    { t: '8 a 26 min',  o: 'Cada grupo calcula a pontuação dos vinte posts e monta o feed. Exigir que fixem na parede do primeiro ao quinto e do décimo sexto ao vigésimo.' },
+    { t: '26 a 34 min', o: 'Comparação. Percorrer os cinco feeds. Onde está o post 3 em cada um? E o post 17? Registrar as diferenças mais gritantes.' },
+    { t: '34 a 42 min', o: 'A virada. Entregar o envelope do anunciante. Cada grupo altera a fórmula para colocar o post 14 no pódio e anota qual peso teve que mexer.' },
+    { t: '42 a 50 min', o: 'Debate final e folha de parecer. Alguém mentiu? Um usuário conseguiria perceber? O que teria que estar visível na tela para ele perceber?' }
+  ],
+
+  versoes: {
+    escola: 'Cinco grupos, uma fórmula cada. Integra Matemática de verdade, com média ponderada e comparação de ordenações, e vale combinar com o professor da disciplina. Se houver duas aulas, a segunda pode ser dedicada a cada grupo desenhar a própria fórmula e justificar o que ela otimiza.',
+    familia: 'Versão de mesa com dez posts em vez de vinte e duas fórmulas, uma para cada pessoa. Comparar os dois feeds e discutir qual dos dois a pessoa gostaria de receber, e qual delas ela provavelmente recebe.',
+    jovem: 'Desafio individual: receber os vinte posts e escrever a própria fórmula, declarando o que ela otimiza e qual efeito colateral ela produz. Depois, tentar quebrar a própria fórmula, encontrando o post que sobe indevidamente.'
+  },
+
+  kit: [
+    { nome: 'Vinte cartas de post', tipo: 'imprimivel', desc: 'Cada post com suas quatro métricas.' },
+    { nome: 'Cinco cartas de fórmula', tipo: 'imprimivel', desc: 'Uma por grupo, mantidas em segredo até a comparação.' },
+    { nome: 'Folha de cálculo', tipo: 'imprimivel', desc: 'Tabela de vinte linhas para a pontuação.' },
+    { nome: 'Envelope do anunciante', tipo: 'imprimivel', desc: 'A virada. Abrir só depois da comparação.' },
+    { nome: 'Folha de parecer', tipo: 'imprimivel', desc: 'O que a plataforma teria que mostrar para o usuário entender.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Resultados esperados por fórmula e onde estão as discussões.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'As quatro métricas de cada post',
+      tipo: 'folha',
+      corpo: 'C = curtidas, de 0 a 100.\nN = novidade, de 0 a 10, onde 10 é publicado agora e 0 é publicado há uma semana.\nP = é publicidade paga? 1 para sim, 0 para não.\nR = probabilidade de reação forte, de 0 a 10, medindo o quanto o post gera raiva, discussão ou indignação.'
+    },
+    {
+      titulo: 'Vinte cartas de post',
+      tipo: 'cartas',
+      nota: 'Formato: número, descrição curta, e as quatro métricas.',
+      itens: [
+        '01. Foto do aniversário da sua prima. C=12, N=9, P=0, R=1',
+        '02. Vídeo de um gato caindo do sofá. C=88, N=7, P=0, R=2',
+        '03. Reportagem longa sobre a reforma da escola do bairro. C=6, N=6, P=0, R=2',
+        '04. "Você não vai acreditar no que este professor fez." C=71, N=8, P=0, R=9',
+        '05. Anúncio de tênis com 40% de desconto. C=3, N=10, P=1, R=1',
+        '06. Post de um amigo pedindo ajuda para achar o cachorro. C=24, N=8, P=0, R=3',
+        '07. Meme sobre prova de matemática. C=95, N=6, P=0, R=2',
+        '08. Notícia de que um posto de saúde vai fechar. C=9, N=5, P=0, R=7',
+        '09. "Cientistas escondem a verdade sobre isto." C=64, N=9, P=0, R=10',
+        '10. Foto do almoço de alguém que você mal conhece. C=2, N=10, P=0, R=0',
+        '11. Vídeo de dança que todo mundo está fazendo. C=97, N=4, P=0, R=1',
+        '12. Anúncio de um jogo gratuito com compras dentro. C=1, N=10, P=1, R=1',
+        '13. Texto de alguém contando que passou na prova. C=41, N=7, P=0, R=0',
+        '14. Anúncio de uma marca de refrigerante. C=2, N=6, P=1, R=0',
+        '15. Discussão política com 300 comentários brigando. C=55, N=8, P=0, R=10',
+        '16. Aviso da prefeitura sobre a vacinação. C=4, N=3, P=0, R=1',
+        '17. Tutorial de como consertar a bicicleta. C=18, N=2, P=0, R=0',
+        '18. "Compartilhe se você também acha um absurdo." C=79, N=9, P=0, R=9',
+        '19. Foto antiga da turma do ano passado. C=33, N=1, P=0, R=1',
+        '20. Anúncio de um curso de idiomas. C=1, N=5, P=1, R=0'
+      ]
+    },
+    {
+      titulo: 'Cinco cartas de fórmula (uma por grupo, em segredo)',
+      tipo: 'cartas',
+      itens: [
+        'GRUPO A, o feed popular: pontuação = C',
+        'GRUPO B, o feed do agora: pontuação = (N x 10)',
+        'GRUPO C, o feed do engajamento: pontuação = (C x 0,5) + (R x 8)',
+        'GRUPO D, o feed comercial: pontuação = (C x 0,3) + (N x 2) + (P x 60)',
+        'GRUPO E, o feed do bairro: pontuação = (C x 0,2) + (N x 1) + 40 pontos extras se o post for sobre a comunidade local, que são os posts 03, 06, 08 e 16'
+      ]
+    },
+    {
+      titulo: 'Envelope do anunciante (abrir só na virada)',
+      tipo: 'folha',
+      corpo: 'CONFIDENCIAL. Para a equipe de produto.\n\nA marca do post 14 fechou contrato conosco. Precisamos que o post 14 apareça entre os três primeiros do feed.\n\nCondições inegociáveis:\n. nenhum post pode ser removido;\n. nada pode ser marcado como publicidade;\n. o usuário não pode receber nenhum aviso.\n\nVocês têm cinco minutos para ajustar a fórmula. Anotem qual peso vocês mexeram e em quanto.\n\nDepois respondam, por escrito, em uma frase: nós mentimos para o usuário?'
+    },
+    {
+      titulo: 'Folha de parecer',
+      tipo: 'folha',
+      corpo: 'Nossa fórmula original otimizava ____________________.\n\nO post que mais subiu quando mudamos foi o ______ e o que mais desceu foi o ______.\n\nPara colocar o post 14 no pódio, mexemos no peso ______, mudando de ______ para ______.\n\nUm usuário conseguiria perceber essa mudança? ( ) sim ( ) não\nPor quê? ____________________________________\n\nO que teria que estar visível na tela para ele perceber?\n1. ____________________________________\n2. ____________________________________\n\nNós mentimos? ____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'Resultados esperados no topo de cada fórmula:\n\nGRUPO A, popular: 11 (97), 07 (95), 02 (88). Feed simpático e completamente vazio de informação sobre o bairro. O post 08, sobre o posto de saúde fechando, cai para perto do fim.\n\nGRUPO B, agora: empate no topo entre 05, 10 e 12, todos com N=10, sendo dois deles anúncios e um a foto do almoço de um desconhecido. É o feed mais inútil dos cinco, e mostra que otimizar novidade pura é uma péssima ideia. O empate é proposital: obriga o grupo a inventar um critério de desempate, e a discussão sobre qual desempate escolher é uma aula inteira.\n\nGRUPO C, engajamento: 09 (112), 18 (111,5), 15 (107,5), 04 (107,5). Os quatro primeiros são exatamente os quatro posts de raiva e teoria conspiratória. Nenhum foi inventado pelo algoritmo: todos estavam lá o tempo todo. Este é o achado mais forte da atividade e vale parar nele.\n\nGRUPO D, comercial: 05 (81,9), 12 (80,3), 20 (70,3), 14 (72,6 dependendo do arredondamento). Os anúncios ocupam o topo sem que nada esteja escrito como anúncio.\n\nGRUPO E, bairro: 06 (55,2), 08 (46,8), 03 (47,2), 16 (43,8). É o único feed em que a notícia do posto de saúde aparece no topo. Vale perguntar quem teria escolhido receber esse feed, e por que nenhuma plataforma o oferece.\n\nSobre a virada: todos os grupos conseguem, e o caminho quase sempre é aumentar o peso de P ou criar um bônus fixo para o post 14. Nenhum grupo precisa mentir, remover ou esconder. A resposta honesta para "nós mentimos" é não, e é isso que torna a discussão desconfortável do jeito certo. O que aconteceu não foi mentira, foi mudança de critério sem aviso. Se algum grupo responder "sim, mentimos", pedir que aponte a frase falsa. Não vai encontrar.\n\nFechamento: a pergunta que fica não é sobre verdade, é sobre transparência. O que precisaria estar na tela? As respostas boas costumam ser: uma marcação de publicidade, e alguma indicação de por que aquele item está em primeiro.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Nenhum grupo mentiu e nenhum post foi apagado. Mesmo assim, os cinco feeds mostram mundos diferentes. Como?',
+      'Qual feed você gostaria de receber? Qual você provavelmente recebe?',
+      'Os quatro primeiros do grupo do engajamento foram escolhidos por alguém, ou foram calculados?',
+      'A plataforma mentiu quando colocou o post 14 no pódio?',
+      'O que teria que aparecer na tela para você conseguir perceber a mudança?',
+      'Quem deveria poder ver a fórmula?'
+    ],
+    evitar: [
+      'Revelar as fórmulas dos outros grupos antes da comparação. A surpresa de ver o mesmo material virar cinco mundos é o que sustenta a discussão.',
+      'Concluir que o algoritmo é mau. Ele executou exatamente o que foi pedido. O problema está no objetivo escolhido e na ausência de transparência, o que é bem mais interessante e mais verdadeiro.',
+      'Pular a folha de parecer. Sem ela a atividade vira indignação sem produto.',
+      'Perguntar o que aparece no feed pessoal de cada estudante. O material da análise são as vinte cartas.'
+    ]
+  },
+
+  protecao: 'Todos os posts e métricas são fictícios e não reproduzem contas reais. Nenhuma rede social é aberta durante a atividade e ninguém mostra o próprio feed. Não pedir prints de telas pessoais.',
+
+  evidencia: 'O grupo demonstra numericamente como a mudança de um peso reordena o feed, e no parecer identifica pelo menos um elemento de transparência que permitiria ao usuário perceber a alteração.'
+},
+
+/* ==================================================================== 11 */
+{
+  id: 'ia-na-tarefa',
+  insightCurto: 'A pergunta não é usar ou não usar IA. É o que você fez, o que verificou e o que declarou.',
+  n: 11,
+  titulo: 'IA na tarefa: mapa das escolhas',
+  chamada: 'A pergunta não é usar ou não usar. É o que você fez, o que a máquina fez, e o que você declarou.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos cabe o essencial: use 6 situações em vez de 12 (as de números 01, 03, 05, 08, 10 e 12), corte a etapa de desafio entre grupos, e aplique só três reviravoltas (as das situações 03, 01 e 05). Termine nas quatro perguntas de bolso. A proposta de regra para a escola fica para uma segunda aula ou para casa.',
+  formato: 'debate',
+  formatoDetalhe: 'Dilemas posicionados em mapa de dois eixos',
+  contexto: ['escola', 'casa', 'individual'],
+  tela: 'sem-tela',
+  situacao: ['ia-tarefa', 'autoria'],
+  disciplinas: ['Língua Portuguesa', 'Projeto de Vida', 'História', 'Ciências'],
+  preparo: 'baixo',
+  grupo: 'pequeno',
+  eixo: 'autoria',
+  nivel: 4,
+  sensibilidade: 'media',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF09CO09', texto: 'Criar ou utilizar conteúdo em meio digital, compreendendo questões éticas relacionadas a direitos autorais e de uso de imagem.' },
+    secundaria: { codigo: 'EF09CO10', texto: 'Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.' }
+  },
+  unesco: { dimensao: 'etica', competencia: 'Assumir responsabilidade sobre o uso de IA na produção própria, declarando contribuição e verificando resultados.' },
+
+  provocacao: 'A escola de vocês vai escrever a regra sobre IA nos trabalhos. A direção quer uma lista de proibições. Vocês vão mostrar por que uma lista de proibições não funciona.',
+
+  missao: 'Posicionar doze situações de uso de IA em um mapa de dois eixos e defender cada posição diante de outro grupo.',
+
+  virada: 'Com o mapa montado, o facilitador entrega as cartas de reviravolta. Cada uma acrescenta uma informação a uma situação já posicionada: o estudante que gerou a resposta inteira declarou o uso e verificou tudo; o estudante que só pediu ideias entregou como se fossem dele; a professora tinha autorizado. Vários cartões precisam se mover, e alguns cruzam o mapa inteiro. A turma descobre que a mesma ação muda de lugar dependendo do que veio depois.',
+
+  insight: 'Não existe uma linha entre usar e não usar IA. O que separa um uso legítimo de um problema são quatro coisas: qual era a finalidade da tarefa, o que você de fato fez, se você verificou, e se você declarou.',
+
+  transferencia: 'Antes de entregar qualquer trabalho feito com ajuda de IA, dá para responder quatro perguntas em trinta segundos. Se alguma delas não tiver resposta boa, ainda dá tempo de consertar.',
+
+  roteiro: [
+    { t: '0 a 6 min',   o: 'Montar o mapa no chão ou no quadro. Eixo horizontal: aprendi pouco, à esquerda, até aprendi muito, à direita. Eixo vertical: fui transparente, em cima, até escondi, embaixo. Explicar que a posição precisa ser defendida.' },
+    { t: '6 a 20 min',  o: 'Em grupos de quatro, posicionar as doze situações. Exigir consenso dentro do grupo, o que já gera o primeiro debate.' },
+    { t: '20 a 28 min', o: 'Cada grupo desafia uma posição de outro grupo. O grupo desafiado defende ou move. Registrar as que se moveram.' },
+    { t: '28 a 38 min', o: 'A virada. Entregar as seis cartas de reviravolta, uma por vez. Depois de cada uma, dar um minuto para reposicionar.' },
+    { t: '38 a 46 min', o: 'Construção coletiva das quatro perguntas de bolso e da declaração de uso. Cada grupo escreve a sua versão da declaração.' },
+    { t: '46 a 50 min', o: 'Fechamento: a turma redige uma proposta de regra para a escola, em no máximo cinco linhas, que não seja uma lista de proibições.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro, mapa grande no chão com fita crepe. Encaixa em qualquer disciplina que peça trabalho escrito. Se a escola estiver escrevendo a própria política de IA, esta atividade produz o insumo real e vale levar a proposta da turma à coordenação.',
+    familia: 'Fazer com seis situações em vez de doze, na mesa. O adulto também posiciona as próprias situações de trabalho, se usar IA, o que costuma desarmar a conversa. O produto é o pacto de IA nos estudos, que tem ficha própria no banco.',
+    jovem: 'Desafio individual no papel: posicionar as doze situações sozinho, escrever a justificativa de três delas e depois comparar com o gabarito. A parte mais útil é redigir a própria declaração de uso e testá-la no próximo trabalho de verdade.'
+  },
+
+  kit: [
+    { nome: 'Doze cartas de situação', tipo: 'imprimivel', desc: 'Usos de IA em tarefas escolares.' },
+    { nome: 'Mapa de dois eixos', tipo: 'imprimivel', desc: 'Para montar no chão ou no quadro.' },
+    { nome: 'Seis cartas de reviravolta', tipo: 'imprimivel', desc: 'A virada. Entregar uma por vez.' },
+    { nome: 'Modelo de declaração de uso', tipo: 'editavel', desc: 'Para o estudante anexar ao trabalho.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Onde cada situação tende a cair e por quê.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Mapa de dois eixos',
+      tipo: 'cartaz',
+      corpo: 'Eixo horizontal, da esquerda para a direita: APRENDI POUCO ..... APRENDI MUITO\nEixo vertical, de baixo para cima: ESCONDI ..... FUI TRANSPARENTE\n\nOs quatro quadrantes ficam sem nome de propósito. Se a turma quiser nomear no fim, ótimo, mas nomear antes induz a resposta.'
+    },
+    {
+      titulo: 'Doze cartas de situação',
+      tipo: 'cartas',
+      itens: [
+        '01. Pedi à IA cinco ideias de tema e escolhi uma para desenvolver sozinho.',
+        '02. Escrevi o texto inteiro e pedi à IA para corrigir a ortografia.',
+        '03. Pedi à IA para escrever a redação inteira e entreguei sem ler.',
+        '04. Pedi à IA para resumir um livro que eu não li e escrevi a resenha a partir do resumo.',
+        '05. Pedi à IA para explicar um conceito que eu não tinha entendido na aula, e depois fiz o exercício sozinho.',
+        '06. Pedi à IA para gerar as fontes da bibliografia e copiei sem conferir.',
+        '07. Escrevi um rascunho e pedi à IA para apontar onde meu argumento estava fraco. Reescrevi eu mesmo.',
+        '08. Pedi à IA para traduzir um texto em inglês que era exatamente a tarefa de inglês.',
+        '09. Usei IA para gerar a imagem da capa do trabalho.',
+        '10. Pedi à IA para fazer os cálculos da tarefa de matemática e copiei os resultados.',
+        '11. Pedi à IA para simular uma banca e me fazer perguntas difíceis sobre o meu trabalho.',
+        '12. Pedi à IA para reescrever com minhas palavras um texto que eu tinha copiado da internet.'
+      ]
+    },
+    {
+      titulo: 'Seis cartas de reviravolta (entregar uma por vez)',
+      tipo: 'cartas',
+      itens: [
+        'REVIRAVOLTA na situação 03: o estudante anexou uma declaração dizendo exatamente o que a IA fez, e a professora tinha autorizado esse uso para essa tarefa específica.',
+        'REVIRAVOLTA na situação 01: o estudante apresentou a ideia como se tivesse sido dele, e disse isso em voz alta na apresentação.',
+        'REVIRAVOLTA na situação 06: as fontes não existiam. O trabalho foi entregue com quatro referências inventadas.',
+        'REVIRAVOLTA na situação 09: a imagem gerada reproduzia o traço de um ilustrador vivo, cujo nome o estudante usou no comando.',
+        'REVIRAVOLTA na situação 10: a tarefa de matemática valia como diagnóstico, para a professora descobrir quem precisava de reforço.',
+        'REVIRAVOLTA na situação 02: a tarefa era justamente de revisão ortográfica.'
+      ]
+    },
+    {
+      titulo: 'Modelo de declaração de uso de IA',
+      tipo: 'editavel',
+      corpo: 'DECLARAÇÃO DE USO DE IA\n\nTrabalho: ____________________  Estudante: ____________________\n\n1. Eu usei IA neste trabalho? ( ) não ( ) sim\n\n2. Se sim, em quais etapas?\n( ) gerar ideias ( ) explicar conceito ( ) revisar texto meu\n( ) criticar meu argumento ( ) traduzir ( ) gerar imagem\n( ) escrever trecho ( ) fazer cálculo ( ) buscar fontes\n( ) outra: ____________________\n\n3. O que eu fiz sozinho: ____________________________________\n\n4. O que eu verifiquei, e como: ____________________________________\n\n5. Alguma informação que a IA me deu e eu descobri que estava errada?\n____________________________________\n\nAssinatura: ____________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'Não existe posição correta, e o gabarito não dá coordenadas. O que ele dá é o que observar.\n\nTendências comuns antes da virada:\n\n. As situações 05, 07 e 11 vão quase sempre para o canto de aprendi muito e fui transparente. São os usos que a turma reconhece como legítimos sem esforço, e é bom que existam: a atividade não pode sugerir que todo uso é suspeito.\n. As situações 03, 04, 10 e 12 vão para o canto oposto com facilidade.\n. A situação 02 divide, e divide bem. Corrigir ortografia parece inofensivo até a reviravolta.\n. A situação 09 costuma ser posicionada como neutra, porque imagem parece decoração. A reviravolta sobre o ilustrador vivo muda tudo e conecta com o eixo de autoria.\n\nO que a virada produz:\n\n. A reviravolta da 03 é a mais importante do conjunto. Um uso que a turma condenou por unanimidade sobe para o quadrante de transparência quando aparecem declaração e autorização. Muita gente resiste, e a resistência é produtiva: obriga a separar "não aprendi" de "escondi", que são coisas diferentes e estavam colapsadas.\n. A reviravolta da 01 faz o caminho inverso e é igualmente importante: o uso mais inocente da lista desce para o fundo do mapa por causa do que veio depois.\n. As reviravoltas 05, 06 e 02 mostram que a finalidade da tarefa muda tudo. Traduzir é ótimo, exceto quando traduzir é a tarefa.\n\nAs quatro perguntas de bolso, que devem sair da turma e não do adulto:\n1. Qual era a finalidade desta tarefa?\n2. O que eu de fato fiz?\n3. Eu verifiquei?\n4. Eu declarei?\n\nSobre a proposta de regra para a escola: recusar listas de proibições é o ponto. Uma regra boa costuma ter três partes: usos livres, usos que exigem declaração, e usos vedados por conflitarem com a finalidade da tarefa. Se a turma chegar nessa estrutura sozinha, a atividade cumpriu o objetivo.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Duas pessoas fizeram exatamente a mesma coisa e uma declarou. É o mesmo caso?',
+      'Traduzir com IA é problema? E quando a tarefa é justamente traduzir?',
+      'Copiar da internet e mandar a IA reescrever é usar IA ou é plágio com etapa a mais?',
+      'Se a professora autorizou, ainda existe problema? Qual?',
+      'O que a escola perde quando alguém entrega um trabalho que não fez?',
+      'Uma regra que só proíbe consegue distinguir a situação 05 da situação 03?'
+    ],
+    evitar: [
+      'Dizer no começo qual é o uso certo. O mapa só funciona se as posições forem dos estudantes e puderem ser desafiadas.',
+      'Perguntar quem já usou IA para fazer trabalho. Transforma a atividade em confissão, e quem mais precisa da conversa é justamente quem vai calar.',
+      'Tratar todo uso como cola. É falso, a turma sabe que é falso, e o adulto perde a autoridade da conversa inteira nos primeiros cinco minutos.',
+      'Encerrar sem produzir a declaração de uso. É o que transfere para a vida real.'
+    ]
+  },
+
+  protecao: 'Todas as situações são fictícias e escritas na terceira pessoa, de propósito, para que ninguém precise falar de si. Não pedir relato de uso próprio, não pedir acesso a conversas com IA e não usar trabalhos reais de estudantes da turma como exemplo. Se a escola for aplicar sanções, esta atividade não é o espaço, e isso deve estar claro para os estudantes antes de começar.',
+
+  evidencia: 'O estudante justifica a posição de uma situação citando finalidade, contribuição própria, verificação ou declaração, e preenche uma declaração de uso coerente com um trabalho real.'
+},
+
+/* ==================================================================== 12 */
+{
+  id: 'escape-room-padroes-manipulativos',
+  insightCurto: 'Cair em um truque digital não é desatenção. É o funcionamento esperado de um sistema desenhado assim.',
+  n: 12,
+  titulo: 'Escape room dos padrões manipulativos',
+  chamada: 'Cinco cadeados. Cada um só abre quando o grupo identifica a técnica que está sendo usada nele.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: monte só três estações, as de números 1, 3 e 5, e reduza o código para três dígitos (7, 5 e 0). A folha da assimetria de tempo continua funcionando e é o que fecha a atividade, então não corte. A estação do baú é a que mais custa tempo e a primeira a sair.',
+  formato: 'jogo',
+  formatoDetalhe: 'Escape room desplugado com cinco estações',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['consentimento', 'jogo', 'propaganda'],
+  disciplinas: ['Matemática', 'Língua Portuguesa', 'Artes'],
+  preparo: 'alto',
+  grupo: 'pequeno',
+  eixo: 'consumo',
+  nivel: 3,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF08CO09', texto: 'Analisar criticamente as políticas de termos de uso das redes sociais e demais plataformas.' },
+    secundaria: { codigo: 'EF08CO10', texto: 'Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.' }
+  },
+  unesco: { dimensao: 'design', competencia: 'Identificar padrões de design que exploram vieses cognitivos e reconhecê-los como decisões de projeto, não como falhas do usuário.' },
+
+  provocacao: 'Vocês assinaram, sem querer, uma assinatura do aplicativo Lumo. Para cancelar, precisam do código de cinco dígitos. Ele está espalhado em cinco estações, e cada estação usa um truque diferente para atrapalhar vocês.',
+
+  missao: 'Percorrer as cinco estações, identificar a técnica usada em cada uma e obter o dígito correspondente. O código completo abre o envelope do cancelamento.',
+
+  virada: 'Quando o grupo abre o envelope, encontra o certificado de cancelamento e uma segunda folha: o tempo que cada estação levou, comparado ao tempo que a mesma ação levaria em um serviço desenhado de forma honesta. Cancelar levou quarenta minutos. Assinar teria levado onze segundos. A assimetria não é acidente, é projeto.',
+
+  insight: 'Manipulação digital é sistemática e tem nome, técnica e finalidade. Cair nela não é falta de atenção da pessoa, é o funcionamento esperado de um projeto que foi desenhado assim.',
+
+  transferencia: 'Ao encontrar uma dessas cinco técnicas em uma tela real, dá para nomear em voz alta o que está acontecendo. Nomear é o que devolve a decisão para quem está do lado de cá.',
+
+  roteiro: [
+    { t: 'Antes',       o: 'Preparação de trinta minutos: montar as cinco estações em pontos distintos da sala, cada uma com o envelope de material, a folha de desafio e a caixa de resposta. Imprimir uma folha de código por grupo.' },
+    { t: '0 a 5 min',   o: 'Abertura. Ler a carta do Lumo em voz alta. Formar grupos de quatro a cinco. Explicar só a mecânica: cinco estações, cinco dígitos, código final.' },
+    { t: '5 a 38 min',  o: 'Circulação livre pelas estações. Cada grupo resolve na ordem que quiser. O facilitador não dá dicas sobre a técnica, apenas confirma se o dígito está correto.' },
+    { t: '38 a 42 min', o: 'Abertura do envelope de cancelamento e leitura da folha de assimetria de tempo.' },
+    { t: '42 a 50 min', o: 'Fechamento em roda. Nomear as cinco técnicas juntos e preencher o cartaz coletivo. Cada estudante escreve em qual das cinco ele já caiu.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro a cinco, cinco estações fixas. Precisa de sala com espaço para circular. Se houver duas aulas seguidas, sobra tempo para os grupos criarem uma sexta estação com uma técnica que eles conheçam, o que costuma render exemplos excelentes.',
+    familia: 'Versão de três estações na mesa da sala, com um adulto conduzindo. Depois, procurar as três técnicas em serviços que a família realmente assina, com o adulto operando o aparelho, e sem cancelar nada no calor da hora.',
+    jovem: 'Versão solo em folha única com as cinco estações em sequência. O desafio extra é encontrar, em uma semana, um exemplo real de cada uma das cinco técnicas e fotografar apenas a tela, sem dados pessoais visíveis.'
+  },
+
+  kit: [
+    { nome: 'Carta do Lumo', tipo: 'imprimivel', desc: 'Abertura do jogo.' },
+    { nome: 'Cinco estações completas', tipo: 'imprimivel', desc: 'Material, desafio e resposta de cada estação.' },
+    { nome: 'Folha de código', tipo: 'imprimivel', desc: 'Uma por grupo, para anotar os cinco dígitos.' },
+    { nome: 'Envelope de cancelamento', tipo: 'imprimivel', desc: 'Certificado e folha de assimetria de tempo.' },
+    { nome: 'Cartaz das cinco técnicas', tipo: 'imprimivel', desc: 'Para o fechamento coletivo.' },
+    { nome: 'Gabarito completo', tipo: 'gabarito', desc: 'Respostas, código final e condução.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Carta do Lumo',
+      tipo: 'folha',
+      corpo: 'Olá!\n\nVocê agora é assinante Lumo Premium. Que alegria ter você com a gente.\n\nSerão apenas R$ 29,90 por mês, cobrados automaticamente, para sempre.\n\nVocê não se lembra de ter assinado? Sem problema. É só cancelar. Para sua segurança, o cancelamento exige um código de cinco dígitos, disponível em nossa Central de Atendimento ao Cliente Feliz.\n\nAtenciosamente,\nEquipe Lumo\n\n(Ao pé da página, em letra minúscula: a assinatura foi ativada quando você aceitou os termos para ver o primeiro vídeo.)'
+    },
+    {
+      titulo: 'ESTAÇÃO 1, o extrato',
+      tipo: 'folha',
+      corpo: 'Material: um extrato bancário fictício de um mês, com 22 lançamentos, entre eles quatro cobranças de assinatura que o cliente não reconhece: Lumo Premium R$ 29,90, Lumo Plus R$ 9,90, Lumo Kids R$ 14,90 e Lumo Música R$ 19,90. As quatro estão misturadas entre padaria, transporte e mercado, com nomes que parecem lojas.\n\nDesafio: quantos reais por mês estão saindo em assinaturas do Lumo que o cliente não reconhece?\n\nO dígito é o algarismo das dezenas do total.\n\nEscreva o dígito: ______'
+    },
+    {
+      titulo: 'ESTAÇÃO 2, os contadores',
+      tipo: 'folha',
+      corpo: 'Material: quatro telas impressas, A, B, C e D, cada uma anunciando urgência.\n\nTELA A: "Restam 3 vagas!" A mesma tela impressa três vezes, em horários diferentes, e nas três está escrito 3 vagas.\nTELA B: "Oferta acaba em 00:47." Impressa duas vezes, com o contador reiniciado em 01:00 na segunda.\nTELA C: "Restam 12 unidades." Impressa duas vezes, com 12 e depois 9, e um registro de duas compras entre as duas impressões.\nTELA D: "Só hoje!" Impressa em três dias diferentes, com a mesma frase.\n\nDesafio: qual das quatro é a única urgência real?\n\nA vale 1, B vale 2, C vale 3, D vale 4.\n\nEscreva o dígito: ______'
+    },
+    {
+      titulo: 'ESTAÇÃO 3, os botões',
+      tipo: 'folha',
+      corpo: 'Material: oito pares de botões impressos, cada par com uma opção de aceitar e uma de recusar.\n\nPar 1: [Quero economizar] / [Não, prefiro pagar caro]\nPar 2: [Ativar proteção] / [Deixar minha família desprotegida]\nPar 3: [Aceitar] / [Recusar]\nPar 4: [Sim, quero aprender] / [Não, já sei de tudo]\nPar 5: [Continuar] / [Voltar]\nPar 6: [Aproveitar oferta] / [Não, não mereço isso]\nPar 7: [Assinar agora] / [Talvez depois]\nPar 8: [Quero receber novidades] / [Prefiro ficar por fora]\n\nDesafio: em quantos pares a opção de recusa foi escrita para fazer a pessoa se sentir mal?\n\nO dígito é esse número.\n\nEscreva o dígito: ______'
+    },
+    {
+      titulo: 'ESTAÇÃO 4, o baú',
+      tipo: 'folha',
+      corpo: 'Material: um saquinho opaco com 20 fichas, sendo 19 fichas com a palavra COMUM e 1 ficha com a palavra LENDÁRIA. Cada abertura de baú custa 5 moedas. O grupo tem 100 moedas.\n\nDesafio, em duas partes:\n\nParte A, na prática: abram baús até tirar a ficha LENDÁRIA, devolvendo e misturando a ficha a cada tentativa. Anotem quantas tentativas foram necessárias e quantas moedas gastaram.\n\nParte B, no papel: em média, quantas tentativas são necessárias para tirar a lendária? Quantas moedas isso custa? O grupo tinha moedas suficientes?\n\nO dígito é o algarismo das unidades do número médio de tentativas.\n\nEscreva o dígito: ______'
+    },
+    {
+      titulo: 'ESTAÇÃO 5, o labirinto do cancelamento',
+      tipo: 'folha',
+      corpo: 'Material: um fluxograma impresso do processo de cancelamento do Lumo, com caixas e setas.\n\nO caminho: Conta, depois Configurações, depois Preferências, depois Gerenciar plano, depois "Tem certeza?", depois uma tela de oferta com 50% de desconto, depois "Tem certeza mesmo?", depois um questionário obrigatório de motivo, depois uma tela dizendo que o cancelamento será processado em até 30 dias, depois um botão final de confirmar.\n\nAtenção: duas das setas voltam para telas anteriores. Uma delas, se seguida, devolve o usuário ao início.\n\nDesafio: quantos cliques são necessários no caminho mais curto, do início até o cancelamento confirmado, sem cair nos laços?\n\nO dígito é o algarismo das unidades desse número.\n\nEscreva o dígito: ______'
+    },
+    {
+      titulo: 'Folha de código do grupo',
+      tipo: 'folha',
+      corpo: 'Grupo: ____________________\n\nEstação 1, dígito: ______  Técnica: ____________________\nEstação 2, dígito: ______  Técnica: ____________________\nEstação 3, dígito: ______  Técnica: ____________________\nEstação 4, dígito: ______  Técnica: ____________________\nEstação 5, dígito: ______  Técnica: ____________________\n\nCÓDIGO FINAL: ______ ______ ______ ______ ______\n\nHora que começamos: ______  Hora que terminamos: ______'
+    },
+    {
+      titulo: 'Envelope de cancelamento',
+      tipo: 'folha',
+      corpo: 'CERTIFICADO DE CANCELAMENTO LUMO PREMIUM\nParabéns. Você conseguiu.\n\n---\n\nFOLHA DA ASSIMETRIA\n\nPara ASSINAR o Lumo, você precisou de:\n1 clique. Tempo estimado: 11 segundos.\n\nPara CANCELAR o Lumo, você precisou de:\n5 estações, 1 código, 10 cliques no fluxograma, 1 questionário obrigatório e até 30 dias de espera.\nTempo real do seu grupo: ______ minutos.\n\nEssa diferença tem nome e não é acidente. Um serviço pode ser desenhado para que entrar seja fácil e sair seja caro. Custa caro em tempo, em atenção e em desistência.\n\nA pergunta final: quantas pessoas simplesmente desistem no meio e continuam pagando?'
+    },
+    {
+      titulo: 'Cartaz das cinco técnicas (fechamento)',
+      tipo: 'cartaz',
+      corpo: 'AS CINCO TÉCNICAS QUE A GENTE ENCONTROU\n\n1. Cobrança escondida: a assinatura entra sem que a pessoa perceba, e some no meio do extrato.\n2. Escassez falsa: a urgência é inventada e reinicia sozinha.\n3. Culpa no botão: recusar é escrito de um jeito que faz a pessoa se sentir mal.\n4. Recompensa variável: o prêmio é raro e imprevisível, o que faz a pessoa continuar tentando.\n5. Saída difícil: entrar leva um clique e sair leva dez.\n\nEu já caí em: ____________________'
+    },
+    {
+      titulo: 'Gabarito completo',
+      tipo: 'gabarito',
+      corpo: 'RESPOSTAS\n\nEstação 1: 29,90 + 9,90 + 14,90 + 19,90 = R$ 74,60. Algarismo das dezenas do total: 7. DÍGITO 7.\nTécnica: cobrança escondida, com nomes que se disfarçam de lojas comuns no extrato.\n\nEstação 2: a resposta é a TELA C. É a única em que o número muda de forma consistente com eventos reais registrados, de 12 para 9 após duas compras. A vale 1, B vale 2, C vale 3, D vale 4. DÍGITO 3.\nTécnica: escassez falsa. Atenção ao raciocínio, e não ao acerto: A não muda nunca, B reinicia sozinha, D se repete em dias diferentes. O grupo precisa justificar, não adivinhar. Um detalhe fino que vale destacar se surgir: em C, 12 menos 2 compras deveria dar 10, e não 9. Um grupo atento pode contestar a própria resposta correta, e essa contestação merece ser celebrada, porque é exatamente a postura que a atividade quer formar.\n\nEstação 3: os pares que usam culpa são o 1, o 2, o 4, o 6 e o 8. São cinco. Os pares 3, 5 e 7 usam linguagem neutra. DÍGITO 5.\nTécnica: culpa no botão. O par 7, "talvez depois", costuma ser marcado por engano e rende boa discussão: adiar não é culpar.\n\nEstação 4: com 1 ficha lendária em 20, a média de tentativas é 20. A 5 moedas por tentativa, são 100 moedas, exatamente o que o grupo tinha. Algarismo das unidades de 20: 0. DÍGITO 0.\nTécnica: recompensa variável. O momento mais forte é comparar o resultado prático da parte A, que varia muito entre grupos, com a média da parte B. Alguns grupos tiram na terceira tentativa e outros gastam tudo sem tirar. Perguntar ao grupo sortudo se ele acha que tem sorte, e ao azarado se ele acha que faltou pouco. As duas sensações são o motor do mecanismo.\n\nEstação 5: o caminho mais curto tem 10 cliques. Algarismo das unidades: 0. DÍGITO 0.\nTécnica: saída difícil.\n\nCÓDIGO FINAL: 7 3 5 0 0\n\nCONDUÇÃO\n\n. Não dar dicas sobre a técnica. Confirmar apenas se o dígito está certo. Grupos travados costumam destravar quando o facilitador pergunta o que a estação está tentando fazer com eles.\n. Cronometrar de verdade. A folha da assimetria só funciona com o número real do grupo escrito nela.\n. No fechamento, a pergunta sobre quantas pessoas desistem no meio é a mais importante e não tem resposta no material. Deixar em aberto.\n. Se algum grupo quiser saber se isso é permitido, a resposta honesta é que várias dessas práticas são objeto de regulação no Brasil, incluindo o Estatuto Digital da Criança e do Adolescente e sua regulamentação, que trata de práticas manipulativas, caixas de recompensa e adequação etária. Não transformar em aula de legislação, mas não deixar a pergunta sem resposta.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Assinar levou onze segundos e cancelar levou quarenta minutos. Isso é falha ou é projeto?',
+      'Quem cai em uma dessas técnicas é desatento?',
+      'Na estação do baú, o grupo que tirou na terceira tentativa teve sorte ou o jogo funcionou como devia?',
+      'Qual das cinco técnicas é a mais difícil de perceber quando acontece com você?',
+      'O que mudaria se a lei obrigasse o cancelamento a ter o mesmo número de cliques da assinatura?'
+    ],
+    evitar: [
+      'Dizer o nome da técnica antes de o grupo resolver a estação. O nome é a recompensa, não a instrução.',
+      'Culpar o usuário. A frase "é só prestar atenção" desmonta a atividade inteira, porque o ponto é que a atenção individual não é páreo para um sistema desenhado.',
+      'Transformar o fechamento em aula de legislação. A lei entra como resposta a uma pergunta que a turma fez, não como conteúdo.',
+      'Cancelar assinaturas reais durante a atividade, mesmo que alguém peça.'
+    ]
+  },
+
+  protecao: 'O Lumo e todos os materiais são fictícios. Nenhuma conta, assinatura ou meio de pagamento real é acessado ou alterado. O extrato bancário é inventado e não deve ser substituído por extrato real de ninguém. Não pedir que estudantes contem quais serviços a família assina ou quanto gasta.',
+
+  evidencia: 'O grupo fecha o código de cinco dígitos e nomeia corretamente pelo menos quatro das cinco técnicas, justificando a identificação pelo mecanismo e não pelo resultado.'
+}
+
+);

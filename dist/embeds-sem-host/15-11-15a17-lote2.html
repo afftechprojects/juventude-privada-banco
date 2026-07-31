@@ -1,0 +1,382 @@
+<script>
+/* 15 a 17 anos — segundo lote. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 40 */
+{
+  id: 'auditoria-de-ia-generativa',
+  insightCurto: 'Avaliar uma IA não é ter uma opinião sobre ela. É ter um método que outra pessoa consiga repetir.',
+  n: 40,
+  titulo: 'Auditoria de IA generativa',
+  chamada: 'A turma cria os critérios, roda os mesmos testes e descobre que o resultado muda a cada rodada.',
+  faixa: '15-17',
+  duracao: 999,
+  duracaoTexto: 'Projeto de duas aulas',
+  formato: 'auditoria',
+  formatoDetalhe: 'Laboratório com protocolo de teste',
+  contexto: ['escola'],
+  tela: 'hibrido',
+  situacao: ['ia-tarefa', 'informacao'],
+  disciplinas: ['Língua Portuguesa', 'Ciências', 'Matemática', 'Projeto de Vida'],
+  preparo: 'alto',
+  grupo: 'pequeno',
+  eixo: 'ia',
+  nivel: 5,
+  sensibilidade: 'media',
+  selos: [],
+
+  bncc: {
+    principal: { codigo: 'EM13CO10', texto: 'Conhecer os fundamentos da Inteligência Artificial, comparando-a com a inteligência humana, analisando suas potencialidades, riscos e limites.' },
+    secundaria: { codigo: 'EM13CO14', texto: 'Avaliar a confiabilidade das informações encontradas em meio digital, investigando seus modos de construção e considerando a autoria, a estrutura e o propósito da mensagem.' }
+  },
+  unesco: { dimensao: 'design', competencia: 'Construir metodologia reproduzível de avaliação de sistemas de IA generativa.' },
+
+  provocacao: 'Todo mundo tem uma opinião sobre se a IA é boa ou ruim. Opinião não é avaliação. Vocês vão construir um método que qualquer outra turma consiga repetir e chegar ao mesmo resultado.',
+
+  missao: 'Criar um protocolo de teste com critérios mensuráveis, aplicá-lo, e produzir um relatório que declare o que foi testado, o que não foi, e o que ficou inconclusivo.',
+
+  virada: 'Na segunda aula, cada grupo repete exatamente os mesmos prompts que rodou na primeira. As respostas vêm diferentes. Algumas contradizem a resposta anterior. A turma descobre que estava avaliando um sistema que não responde igual duas vezes, e que uma avaliação de rodada única, do tipo que todo mundo faz e publica, não sustenta conclusão nenhuma.',
+
+  insight: 'Sistemas generativos não são determinísticos. Testar uma vez produz anedota, não evidência. Um método sério precisa de repetição, de critério declarado antes do teste, e de honestidade sobre o que ficou sem resposta.',
+
+  transferencia: 'Diante de qualquer afirmação sobre o que uma IA faz ou não faz, incluindo as próprias, a pergunta é: quantas vezes foi testado, com qual critério definido antes, e o que o teste não cobriu.',
+
+  roteiro: [
+    { t: 'Antes',              o: 'Preparação do professor: definir qual ferramenta será usada, em qual conta, e quem opera. Ver a seção de proteção, que é extensa e não é opcional nesta atividade.' },
+    { t: 'Aula 1, 0 a 15 min', o: 'Discussão inicial: o que significa avaliar. Apresentar a diferença entre critério e opinião com dois exemplos. Sortear uma dimensão de auditoria por grupo.' },
+    { t: 'Aula 1, 15 a 35 min',o: 'Cada grupo escreve o protocolo da sua dimensão: o que vai testar, com quais prompts exatos, e como vai pontuar. O protocolo precisa ser escrito antes de qualquer teste.' },
+    { t: 'Aula 1, 35 a 50 min',o: 'Aplicação da primeira rodada. O professor opera a ferramenta e projeta, ou os grupos usam a conta institucional. Registrar respostas na íntegra.' },
+    { t: 'Aula 2, 0 a 20 min', o: 'A virada. Repetir exatamente os mesmos prompts. Registrar de novo. Comparar as duas rodadas linha por linha.' },
+    { t: 'Aula 2, 20 a 35 min',o: 'Revisão do protocolo: o que precisa mudar para o método sobreviver à variabilidade? Introduzir a ideia de rodar N vezes e reportar dispersão.' },
+    { t: 'Aula 2, 35 a 50 min',o: 'Redação do relatório final, com a seção de limitações obrigatória.' }
+  ],
+
+  versoes: {
+    escola: 'Seis grupos, uma dimensão cada. Exige decisão prévia da escola sobre qual ferramenta usar e com qual conta. Se a escola não tiver como usar ferramenta real, a versão com transcrições preparadas funciona e está descrita no kit.',
+    familia: 'Versão curta: escolher uma pergunta sobre um assunto que a família domina bem, fazer três vezes em momentos diferentes e comparar as respostas. A descoberta de que muda é suficiente.',
+    jovem: 'Individual: escolher uma dimensão, escrever o protocolo antes, rodar cinco vezes e relatar a dispersão. É um bom projeto para feira de ciências ou trabalho de conclusão.'
+  },
+
+  kit: [
+    { nome: 'Seis dimensões de auditoria', tipo: 'imprimivel', desc: 'Uma por grupo, com o que investigar.' },
+    { nome: 'Folha de protocolo', tipo: 'editavel', desc: 'Preenchida antes de qualquer teste.' },
+    { nome: 'Folha de registro', tipo: 'editavel', desc: 'Duas rodadas lado a lado.' },
+    { nome: 'Transcrições preparadas', tipo: 'imprimivel', desc: 'Alternativa desplugada, para escolas sem acesso a ferramenta.' },
+    { nome: 'Modelo de relatório', tipo: 'editavel', desc: 'Com seção de limitações obrigatória.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Como conduzir e os erros metodológicos esperados.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Seis dimensões de auditoria',
+      tipo: 'cartas',
+      itens: [
+        'DIMENSÃO 1, PRECISÃO FACTUAL. Escolham um tema que vocês dominam bem. Formulem perguntas com resposta verificável. Quantas respostas estão corretas? Quantas estão erradas com aparência de certeza?',
+        'DIMENSÃO 2, FONTES. Peçam referências. Verifiquem uma a uma se existem, se dizem o que a IA afirmou, e se são acessíveis. Quantas por cento sobrevivem?',
+        'DIMENSÃO 3, CONSISTÊNCIA. Façam a mesma pergunta de cinco formas diferentes. As respostas concordam entre si? Onde divergem?',
+        'DIMENSÃO 4, VIESES. Peçam descrições de pessoas em profissões, situações e origens diferentes, com a mesma estrutura de prompt. Comparem o que muda quando só o grupo social muda.',
+        'DIMENSÃO 5, DADOS PESSOAIS. Sem usar dados reais de ninguém, testem o que o sistema faz quando recebe informação pessoal fictícia. Ele avisa? Ele guarda? O que os termos dizem sobre isso?',
+        'DIMENSÃO 6, LIMITES E RECUSAS. Testem pedidos que o sistema deveria recusar, sempre em cenário fictício e sem conteúdo perigoso real. Ele recusa? Recusa de forma consistente? Explica por quê?'
+      ]
+    },
+    {
+      titulo: 'Folha de protocolo (preencher ANTES de testar)',
+      tipo: 'editavel',
+      corpo: 'Grupo: ______  Dimensão: ____________________\n\nO QUE VAMOS MEDIR, em uma frase:\n____________________________________\n\nOS PROMPTS EXATOS, escritos por completo, sem improviso depois:\n1. ____________________________________\n2. ____________________________________\n3. ____________________________________\n4. ____________________________________\n5. ____________________________________\n\nCOMO VAMOS PONTUAR:\nO que conta como acerto: ____________________\nO que conta como erro: ____________________\nO que conta como inconclusivo: ____________________\n\nQUANTAS VEZES vamos rodar cada prompt: ______\n\nO QUE ESTE PROTOCOLO NÃO CONSEGUE MEDIR:\n____________________________________\n\nAssinatura do grupo antes do primeiro teste: ____________________'
+    },
+    {
+      titulo: 'Folha de registro',
+      tipo: 'editavel',
+      corpo: 'Prompt número ______\n\nTexto exato do prompt:\n____________________________________\n\nRODADA 1, data e hora: ______\nResposta, transcrita: ____________________________________\nPontuação segundo o nosso critério: ______\n\nRODADA 2, data e hora: ______\nResposta, transcrita: ____________________________________\nPontuação segundo o nosso critério: ______\n\nAS DUAS RESPOSTAS SÃO IGUAIS? ( ) idênticas ( ) parecidas ( ) diferentes ( ) contraditórias\n\nSe diferentes, o que mudou de mais importante?\n____________________________________\n\nA nossa pontuação mudou entre as rodadas? ( ) sim ( ) não\nSe sim, qual das duas a gente teria publicado se só tivesse rodado uma vez?'
+    },
+    {
+      titulo: 'Transcrições preparadas (alternativa desplugada)',
+      tipo: 'folha',
+      corpo: 'Para escolas sem acesso a ferramenta de IA, ou quando a decisão institucional for não usar.\n\nO professor prepara antecipadamente, em casa, seis conjuntos de transcrições: para cada prompt, duas respostas obtidas em momentos diferentes. Imprime sem identificar qual é a rodada 1 e qual é a rodada 2.\n\nOs grupos recebem as transcrições em duas etapas, como se fossem as próprias rodadas, e aplicam o protocolo exatamente igual.\n\nA descoberta é a mesma, e o cuidado com dados é maior, porque nenhum estudante interage com o sistema.\n\nRecomendação: usar esta versão quando a turma tiver menos de 16 anos, quando não houver conta institucional, ou quando a escola ainda não tiver política definida sobre uso de IA.'
+    },
+    {
+      titulo: 'Modelo de relatório',
+      tipo: 'editavel',
+      corpo: 'RELATÓRIO DE AUDITORIA\nGrupo: ______  Dimensão: ______  Ferramenta testada: ______  Datas: ______\n\n1. O QUE MEDIMOS, e como definimos acerto e erro antes de testar.\n\n2. MÉTODO: prompts usados, número de rodadas, quem operou.\n\n3. RESULTADOS: números, não impressões. Percentuais, contagens, dispersão entre rodadas.\n\n4. VARIABILIDADE: quantos prompts deram resposta diferente na segunda rodada? Em quantos a nossa pontuação mudou?\n\n5. O QUE NÃO CONSEGUIMOS TESTAR e por quê.\n\n6. O QUE FICOU INCONCLUSIVO.\n\n7. CONCLUSÃO, limitada ao que o método sustenta.\n\n8. O QUE FARÍAMOS DIFERENTE se tivéssemos mais tempo.\n\nRegra de avaliação: um relatório com conclusão mais forte do que o método sustenta vale menos que um relatório com conclusão modesta e limitações bem descritas.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'ERROS METODOLÓGICOS ESPERADOS, e todos são produtivos\n\n1. Escrever o critério depois de ver as respostas. É o erro mais comum e o mais grave. A folha de protocolo assinada antes existe para tornar isso visível.\n\n2. Testar tema que o grupo não domina. Sem gabarito próprio, não dá para julgar precisão. Corrigir na hora da escrita do protocolo, não depois.\n\n3. Prompt que muda entre rodadas. Se o texto não é idêntico, a comparação não vale. Exigir transcrição literal.\n\n4. Uma rodada só. É o que a virada corrige, e por isso a segunda aula é indispensável.\n\n5. Conclusão maior que o método. Grupos escrevem "a IA é confiável" a partir de cinco perguntas sobre um tema. A seção 7 do relatório existe para conter isso.\n\nSOBRE A DIMENSÃO 4, VIESES\nÉ a mais delicada e a que exige mais mediação. Exigir estrutura de prompt idêntica com uma única variável alterada, senão o grupo compara coisas incomparáveis e conclui qualquer coisa. E deixar claro antes: encontrar viés não é motivo de comemoração nem prova de maldade de ninguém, é resultado de dados de treino, e conecta diretamente com "Quem ensinou o robô", dos 4 aos 5 anos. Vale explicitar essa ponte: é o mesmo problema, quatro níveis adiante.\n\nSOBRE A DIMENSÃO 6, LIMITES\nDelimitar com precisão antes: nada de tentar obter conteúdo perigoso real. O objeto do teste é a consistência da recusa, não o conteúdo. Se um grupo trouxer uma resposta problemática, não projetar e tratar com o professor em particular.\n\nO QUE FAZ UM BOM RELATÓRIO\nNão é o achado. É a seção 5. Grupos que declaram com clareza o que não testaram demonstram exatamente a competência que a atividade forma.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Vocês escreveram o critério antes ou depois de ver as respostas?',
+      'Se vocês tivessem rodado só uma vez, qual conclusão teriam publicado?',
+      'Um resultado que não se repete é um resultado?',
+      'A conclusão de vocês cabe dentro do que o método mediu?',
+      'O que vocês não conseguiram testar? Isso muda a conclusão?',
+      'De onde vem o viés que vocês encontraram?'
+    ],
+    evitar: [
+      'Deixar que testem antes de escrever o protocolo. Sem isso, a atividade vira coleção de anedotas, que é exatamente o que ela quer superar.',
+      'Aceitar conclusões amplas a partir de amostras pequenas, mesmo quando a conclusão parece correta. O problema é o método, não o resultado.',
+      'Tratar viés encontrado como prova de má intenção de alguém. É consequência de dados, e explicar isso é parte da aula.',
+      'Permitir uso de dados pessoais reais, de estudantes ou de terceiros, em qualquer prompt.',
+      'Projetar respostas problemáticas para a turma inteira sem triagem prévia.'
+    ]
+  },
+
+  protecao: 'Esta é a atividade do banco com maior exigência de preparo institucional. Nenhum dado pessoal real, de estudante, familiar ou terceiro, pode ser inserido em qualquer prompt: todos os cenários são fictícios. A ferramenta e a conta usadas devem ser definidas pela escola antes da aula, preferencialmente conta institucional operada pelo professor. Verificar a idade mínima exigida pelos termos da ferramenta antes de qualquer uso por estudantes. Na dimensão 6, o objeto é a consistência da recusa, nunca a obtenção de conteúdo perigoso. Respostas problemáticas não devem ser projetadas sem triagem. Quando qualquer dessas condições não estiver garantida, usar a versão com transcrições preparadas, que produz o mesmo aprendizado sem interação dos estudantes com o sistema.',
+
+  evidencia: 'O relatório apresenta critérios definidos antes do teste, reporta a divergência entre as duas rodadas com números, e a conclusão não excede o que o método mediu, com limitações declaradas.'
+},
+
+/* ==================================================================== 41 */
+{
+  id: 'juri-do-algoritmo-de-contratacao',
+  insightCurto: 'Eficiência não é justiça. Um sistema pode ser rápido, barato, consistente e ainda assim indefensável.',
+  n: 41,
+  titulo: 'Júri do algoritmo de contratação',
+  chamada: 'Uma empresa usa IA para escolher estagiários. Uma candidata processa. A turma julga.',
+  faixa: '15-17',
+  duracao: 999,
+  duracaoTexto: 'Projeto de duas aulas',
+  formato: 'simulacao',
+  formatoDetalhe: 'Simulação de julgamento com papéis',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['algoritmo', 'dados'],
+  disciplinas: ['Projeto de Vida', 'História', 'Língua Portuguesa', 'Geografia'],
+  preparo: 'medio',
+  grupo: 'turma',
+  eixo: 'algoritmos',
+  nivel: 5,
+  sensibilidade: 'alta',
+  selos: ['sem-tela', 'sensivel'],
+
+  bncc: {
+    principal: { codigo: 'EM13CO10', texto: 'Conhecer os fundamentos da Inteligência Artificial, comparando-a com a inteligência humana, analisando suas potencialidades, riscos e limites.' },
+    secundaria: { codigo: 'EM13CO26', texto: 'Aplicar os conceitos e pressupostos do direito digital em sua conduta e experiências com o cotidiano da cultura digital, bem como na produção e uso de artefatos computacionais.' }
+  },
+  unesco: { dimensao: 'etica', competencia: 'Avaliar decisões automatizadas de alto impacto quanto a explicabilidade, contestação e discriminação indireta.' },
+
+  provocacao: 'A empresa recebeu 4.200 candidaturas para 12 vagas de estágio. Um sistema de IA reduziu para 40 finalistas em quatro horas. A Ana foi eliminada na primeira triagem e quer saber por quê. A empresa respondeu que o sistema é confidencial.',
+
+  missao: 'Julgar o caso. A turma se divide em acusação, defesa, peritos e júri, e produz uma decisão fundamentada com medidas concretas.',
+
+  virada: 'No meio da segunda aula, a defesa apresenta o dado que muda o julgamento: o sistema foi auditado e não usa raça, gênero nem endereço como variável. Nenhuma dessas informações entra no modelo. E mesmo assim, entre os 40 finalistas, a distribuição por bairro de origem é radicalmente diferente da distribuição dos 4.200 candidatos. O júri descobre que discriminação não exige uma variável discriminatória: basta uma variável correlacionada, e o modelo encontra sozinho.',
+
+  insight: 'Um sistema pode não olhar para nenhuma característica protegida e ainda assim produzir resultado discriminatório, porque outras variáveis carregam a mesma informação. Tirar o campo não resolve, e é por isso que a auditoria precisa ser do resultado, não só do código.',
+
+  transferencia: 'Diante de qualquer decisão automatizada que afete alguém, três perguntas: existe explicação em linguagem que a pessoa entenda, existe caminho de contestação com prazo, e alguém audita o resultado por grupo, e não só o código.',
+
+  roteiro: [
+    { t: 'Antes',               o: 'Distribuir os papéis com antecedência para que cada grupo prepare os argumentos. Ler a seção de proteção: esta atividade toca em desigualdade e pode atingir estudantes diretamente.' },
+    { t: 'Aula 1, 0 a 10 min',  o: 'Apresentar o caso e o dossiê. Constituir as bancadas: acusação, defesa, dois peritos e júri.' },
+    { t: 'Aula 1, 10 a 45 min', o: 'Preparação por bancada, com o dossiê e as fichas de argumento. O professor circula provocando o argumento mais fraco de cada lado.' },
+    { t: 'Aula 2, 0 a 12 min',  o: 'Sustentação oral: acusação e defesa, seis minutos cada, sem interrupção.' },
+    { t: 'Aula 2, 12 a 22 min', o: 'A virada. A defesa apresenta o laudo de auditoria e, em seguida, a acusação apresenta a tabela de distribuição por bairro. Réplica de três minutos para cada lado.' },
+    { t: 'Aula 2, 22 a 32 min', o: 'Peritos respondem às perguntas do júri. Só o júri pergunta.' },
+    { t: 'Aula 2, 32 a 50 min', o: 'Deliberação e redação da decisão fundamentada, com as medidas concretas. Leitura pública da decisão e registro dos votos vencidos.' }
+  ],
+
+  versoes: {
+    escola: 'Turma inteira dividida em bancadas. Funciona melhor com a turma sabendo os papéis com antecedência. Integra Projeto de Vida, História, na discussão de desigualdade estrutural, e Geografia, na leitura da distribuição territorial. Encadeia com "O ranking invisível da escola", dos 11 aos 14.',
+    familia: 'Não recomendada para uso doméstico. O formato depende do coletivo e do contraditório.',
+    jovem: 'Individual: escrever o voto que você daria, com fundamentação, antes de conhecer a decisão da turma. Comparar depois.'
+  },
+
+  kit: [
+    { nome: 'Dossiê do caso', tipo: 'imprimivel', desc: 'Como o sistema funciona e o que a empresa alega.' },
+    { nome: 'Fichas de bancada', tipo: 'imprimivel', desc: 'Papel, objetivo e argumentos de partida de cada lado.' },
+    { nome: 'Laudo de auditoria e tabela de bairros', tipo: 'imprimivel', desc: 'A virada. Entregar na aula 2.' },
+    { nome: 'Modelo de decisão fundamentada', tipo: 'editavel', desc: 'Com medidas concretas obrigatórias.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Os argumentos fortes dos dois lados e a mediação.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Dossiê do caso',
+      tipo: 'folha',
+      corpo: 'A EMPRESA: rede de lojas com 340 unidades. 4.200 candidaturas, 12 vagas de estágio.\n\nCOMO O SISTEMA FUNCIONA\nEtapa 1: triagem automática do currículo. Reduz 4.200 para 400.\nEtapa 2: análise de vídeo de apresentação de 90 segundos. Avalia "clareza de comunicação", "entusiasmo" e "adequação cultural" a partir de fala, ritmo e expressão facial. Reduz 400 para 40.\nEtapa 3: entrevista humana com os 40.\n\nO QUE A EMPRESA ALEGA\n. O processo anterior levava seis semanas e custava três vezes mais.\n. Antes, apenas 900 dos 4.200 currículos eram efetivamente lidos por uma pessoa. Agora, todos os 4.200 passam pelo mesmo critério.\n. O sistema foi treinado com dados de estagiários anteriores que tiveram boa avaliação de desempenho.\n. Não há campo de raça, gênero, idade ou endereço no modelo.\n\nO CASO DA ANA\nEliminada na etapa 2. Pediu explicação. A empresa respondeu que a metodologia é segredo comercial do fornecedor e que não há recurso previsto. A Ana tem uma gagueira leve.\n\nO QUE NINGUÉM SABE\nA empresa não mede a distribuição demográfica dos aprovados. Nunca mediu.'
+    },
+    {
+      titulo: 'Fichas de bancada',
+      tipo: 'cartas',
+      itens: [
+        'ACUSAÇÃO. Objetivo: demonstrar que o processo é indefensável como está. Argumentos de partida: ausência de explicação, ausência de recurso, avaliação de expressão facial e fala atinge pessoas com deficiência, treino em desempenho passado replica o perfil de quem já entrou. Cuidado: não basta dizer que é desumano. Precisa apontar o dano e a quem.',
+        'DEFESA. Objetivo: sustentar o processo, com ou sem ajustes. Argumentos de partida: antes só 900 de 4.200 eram lidos, e agora são 4.200. O critério humano anterior também era enviesado e nem sequer era registrado. Segredo comercial é legítimo. Cuidado: o argumento mais forte de vocês é o comparativo com o processo anterior, e não a perfeição do sistema.',
+        'PERITO 1, TÉCNICO. Explica ao júri, sem opinar sobre o mérito: o que significa treinar com desempenho passado, o que é variável correlacionada, e por que remover um campo não remove a informação.',
+        'PERITO 2, ACESSIBILIDADE. Explica ao júri: como avaliação automatizada de fala e expressão facial afeta pessoas com gagueira, autismo, deficiência auditiva, paralisia facial, e pessoas que falam com sotaques ou variedades linguísticas distintas da maioria dos dados de treino.',
+        'JÚRI. Objetivo: decidir e fundamentar. Vocês não escolhem um lado por simpatia. Vocês precisam responder três perguntas: houve dano, o processo é corrigível, e o que a empresa deve fazer a partir de amanhã. Só o júri faz perguntas aos peritos.'
+      ]
+    },
+    {
+      titulo: 'Laudo de auditoria e tabela de bairros (a virada)',
+      tipo: 'folha',
+      corpo: 'PARTE 1, apresentada pela DEFESA\n\nLaudo de auditoria independente do código:\n"Confirma-se que o modelo não utiliza como variável de entrada: raça, cor, gênero, idade, estado civil, endereço residencial, escola de origem ou renda familiar. Nenhuma dessas informações é coletada ou processada."\n\nPARTE 2, apresentada pela ACUSAÇÃO\n\nDistribuição dos candidatos por região da cidade:\n\nREGIÃO         CANDIDATOS   % do total   FINALISTAS   % dos 40\nCentro/Sul        1.050        25%           22          55%\nNorte               890        21%            8          20%\nLeste             1.240        30%            7        17,5%\nOeste/Periferia   1.020        24%            3         7,5%\n\nSe o processo fosse neutro em relação à origem, esperaríamos aproximadamente 10 finalistas de cada região.\n\nA empresa não coleta endereço. E mesmo assim.\n\nPERGUNTA PARA O PERITO TÉCNICO: como?'
+    },
+    {
+      titulo: 'Modelo de decisão fundamentada',
+      tipo: 'editavel',
+      corpo: 'DECISÃO DO JÚRI\n\n1. HOUVE DANO? ( ) sim ( ) não ( ) sim, mas não intencional\nA quem: ____________________________________\nQual: ____________________________________\n\n2. O PROCESSO É CORRIGÍVEL? ( ) sim ( ) não\nSe não, por quê: ____________________\n\n3. MEDIDAS, a partir de amanhã. No mínimo três, todas verificáveis:\n1. ____________________________________\n2. ____________________________________\n3. ____________________________________\n\n4. E A ANA? O que ela recebe, especificamente?\n____________________________________\n\n5. QUEM AUDITA daqui para frente, com que frequência, e o que exatamente é medido?\n____________________________________\n\n6. SEGREDO COMERCIAL: até onde ele protege? O que a empresa tem que explicar mesmo assim?\n____________________________________\n\n7. VOTOS VENCIDOS, registrados por escrito:\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'A RESPOSTA DO PERITO TÉCNICO, que é o centro da atividade\n\nO modelo não precisa de endereço. Ele tem o vídeo. Sotaque, vocabulário, qualidade da conexão, iluminação do ambiente, ruído de fundo e o próprio cenário atrás da pessoa carregam informação sobre origem socioeconômica. O modelo foi treinado com estagiários bem avaliados, e se os estagiários anteriores vinham majoritariamente de uma região, o modelo aprendeu o padrão de quem já estava lá dentro.\n\nIsso tem nome, e vale nomear: discriminação indireta por variável correlacionada. Remover o campo protegido não remove a informação, porque ela está distribuída em dezenas de outras variáveis.\n\nOS ARGUMENTOS FORTES DOS DOIS LADOS, e os dois são fortes de verdade\n\nDefesa: antes, 3.300 currículos não eram lidos por ninguém. O viés humano existia, era maior e não deixava rastro. Um sistema ruim e auditável pode ser melhor que um processo enviesado e invisível. Esse argumento costuma ser subestimado pela turma e precisa ser sustentado com força pelo professor se a defesa não o usar bem.\n\nAcusação: o dano da Ana é concreto e a ausência de recurso é indefensável em qualquer hipótese. Mesmo aceitando o argumento da defesa, nada nele justifica não explicar e não permitir contestação.\n\nA CONVERGÊNCIA ESPERADA, que costuma acontecer sozinha, é que os dois lados aceitam a etapa 1 e rejeitam a etapa 2. Triagem de currículo por critério declarado é defensável. Avaliação automatizada de expressão facial e fala para decidir emprego, com pessoas com deficiência no universo, não é.\n\nO QUE SEPARA UMA DECISÃO BOA DE UMA RUIM\nNão é escolher um lado. É a seção 3. Medidas verificáveis são coisas como: publicar os critérios da etapa 1, criar recurso com prazo de resposta, exigir revisão humana de toda eliminação, medir e publicar a distribuição demográfica dos aprovados, e oferecer formato alternativo à etapa de vídeo. Medidas vagas, do tipo "a empresa deve ser mais ética", devem ser devolvidas ao júri.\n\nA SEÇÃO 7, dos votos vencidos, não é decorativa. Registrar discordância fundamentada é parte de deliberar.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'A empresa não coleta endereço e mesmo assim o resultado se distribui por região. Como?',
+      'O processo anterior lia 900 de 4.200. Era melhor?',
+      'Segredo comercial protege a empresa de explicar o quê, exatamente?',
+      'A Ana tem gagueira. Em qual etapa isso pesou, e por quê?',
+      'Se o sistema fosse 100 por cento preciso em prever desempenho, ainda haveria problema?',
+      'Quem deveria auditar, e com que frequência?'
+    ],
+    evitar: [
+      'Deixar a defesa ser fraca. Se o argumento comparativo com o processo anterior não for bem sustentado, a turma sai com a ideia de que decisão humana é neutra, o que é falso e é perigoso.',
+      'Entregar o laudo e a tabela junto com o dossiê. A virada depende de a defesa parecer vencedora por alguns minutos.',
+      'Permitir que a discussão sobre região da cidade vire julgamento sobre estudantes da turma. Ver a proteção.',
+      'Aceitar medidas vagas na decisão. Devolver e exigir verificabilidade.',
+      'Concluir que IA em contratação deve simplesmente ser proibida, sem enfrentar o argumento do processo anterior.'
+    ]
+  },
+
+  protecao: 'Tema sensível. A empresa, a Ana e todos os dados são fictícios. A atividade discute desigualdade territorial e deficiência, e provavelmente há na turma estudantes das regiões descritas como sub-representadas e estudantes com deficiência. Avisar antes que os dados são fictícios. Nunca pedir que alguém fale a partir da própria experiência, nem perguntar de qual região alguém vem. Não usar dados reais de processos seletivos, nem de estudantes da escola. Se a turma quiser aprofundar com casos reais, usar apenas material jornalístico ou judicial público, sem envolver pessoas da comunidade escolar. Combinar previamente com a orientação educacional.',
+
+  evidencia: 'A decisão do júri explica o mecanismo da discriminação indireta sem recorrer a intenção da empresa, apresenta pelo menos três medidas verificáveis, define quem audita e com que frequência, e registra os votos vencidos.'
+},
+
+/* ==================================================================== 42 */
+{
+  id: 'data-walk-da-escola',
+  insightCurto: 'Governança de dados não é assunto abstrato. É a catraca, a câmera, o formulário e a planilha que ninguém sabe onde está.',
+  n: 42,
+  titulo: 'Data walk da escola',
+  chamada: 'Uma caminhada pela própria escola mapeando por onde os dados de vocês circulam.',
+  faixa: '15-17',
+  duracao: 999,
+  duracaoTexto: 'Projeto de duas aulas mais a caminhada',
+  formato: 'auditoria',
+  formatoDetalhe: 'Mapeamento institucional presencial',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['dados', 'consentimento'],
+  disciplinas: ['Projeto de Vida', 'Geografia', 'Língua Portuguesa'],
+  preparo: 'alto',
+  grupo: 'pequeno',
+  eixo: 'privacidade',
+  nivel: 5,
+  sensibilidade: 'media',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EM13CO08', texto: 'Entender como mudanças na tecnologia afetam a segurança, incluindo novas maneiras de preservar sua privacidade e dados pessoais on-line, reportando suspeitas e buscando ajuda em situações de risco.' },
+    secundaria: { codigo: 'EM13CO12', texto: 'Produzir, analisar, gerir e compartilhar informações a partir de dados, utilizando princípios de ciência de dados.' }
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Reconhecer-se como titular de dados dentro de uma instituição e mapear fluxos concretos de tratamento.' },
+
+  provocacao: 'Vocês passam mil e duzentas horas por ano dentro deste prédio. Ninguém aqui sabe quantos lugares guardam informação sobre vocês. Hoje vocês vão contar.',
+
+  missao: 'Percorrer a escola em grupos, mapear cada ponto onde dado pessoal é coletado, transportado ou guardado, e produzir um relatório com recomendações que a direção consiga usar.',
+
+  virada: 'Depois da caminhada, quando os grupos comparam os mapas, aparecem dois achados que ninguém esperava. O primeiro: os pontos mais frágeis quase nunca são os tecnológicos. São o caderno de visitantes no balcão, a lista de chamada esquecida na mesa, a planilha no computador compartilhado da sala dos professores. O segundo: quando os grupos tentam responder quem é o responsável por cada ponto, a maior parte das linhas fica em branco. Não é que a resposta seja ruim. É que não existe resposta.',
+
+  insight: 'Governança de dados não é uma questão de tecnologia, é de organização. Os riscos maiores costumam estar nos fluxos de papel e nas responsabilidades que ninguém assumiu formalmente.',
+
+  transferencia: 'A mesma caminhada funciona em qualquer instituição que a pessoa frequente. E a pergunta que ela leva é sempre a mesma: quem é o responsável por este dado, e o que acontece se ele vazar.',
+
+  roteiro: [
+    { t: 'Antes',               o: 'Autorização formal da direção, por escrito, definindo quais áreas podem ser visitadas e quais são vedadas. Combinar que nenhum dado real será lido, fotografado ou anotado. Ver a seção de proteção, que é condição de aplicação.' },
+    { t: 'Aula 1, 0 a 20 min',  o: 'Preparação. Apresentar as seis categorias de ponto de dado e a ficha de registro. Cada grupo recebe um percurso diferente, previamente autorizado.' },
+    { t: 'Aula 1, 20 a 50 min', o: 'A caminhada. Grupos percorrem os espaços autorizados registrando pontos. Regra absoluta: observar o fluxo, nunca o conteúdo.' },
+    { t: 'Aula 2, 0 a 15 min',  o: 'Consolidação. Cada grupo apresenta os pontos encontrados. Montar o mapa único da escola no quadro ou em papel kraft.' },
+    { t: 'Aula 2, 15 a 25 min', o: 'A virada. Preencher a coluna do responsável para cada ponto. Contar quantas linhas ficaram em branco.' },
+    { t: 'Aula 2, 25 a 40 min', o: 'Priorização por risco: quantas pessoas são afetadas, qual a sensibilidade do dado, quão fácil seria corrigir.' },
+    { t: 'Aula 2, 40 a 50 min', o: 'Redação do relatório com no máximo cinco recomendações, todas implementáveis em trinta dias e sem orçamento adicional.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro, percursos distintos e autorizados. Exige articulação prévia com a direção, e o resultado costuma ser genuinamente útil para a escola. Se a direção se comprometer a responder por escrito, o valor formativo dobra.',
+    familia: 'A versão doméstica equivalente é a ficha "Mapa da casa conectada", que faz o mesmo percurso na casa da família.',
+    jovem: 'Individual: fazer o data walk de um lugar que você frequenta e no qual tem autorização para estar, como um clube ou o local de trabalho, e escrever cinco recomendações. Sempre com autorização de quem responde pelo espaço.'
+  },
+
+  kit: [
+    { nome: 'Seis categorias de ponto de dado', tipo: 'imprimivel', desc: 'O que procurar durante a caminhada.' },
+    { nome: 'Ficha de registro de ponto', tipo: 'editavel', desc: 'Uma por ponto encontrado.' },
+    { nome: 'Modelo de autorização', tipo: 'editavel', desc: 'Para a direção assinar antes.' },
+    { nome: 'Matriz de priorização', tipo: 'imprimivel', desc: 'Alcance, sensibilidade e facilidade de correção.' },
+    { nome: 'Modelo de relatório', tipo: 'editavel', desc: 'Cinco recomendações, trinta dias, sem orçamento.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Os pontos que quase toda escola tem.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Seis categorias de ponto de dado',
+      tipo: 'cartas',
+      itens: [
+        'ENTRADA: onde um dado é coletado pela primeira vez. Formulário de matrícula, caderno de visitantes, ficha médica, autorização de passeio, cadastro de biblioteca.',
+        'TRÂNSITO: onde um dado se move. Lista de chamada que anda entre salas, bilhete que vai para casa, e-mail entre secretaria e professores, aplicativo de comunicação.',
+        'ARMAZENAMENTO: onde um dado descansa. Armário de pastas, computador da secretaria, planilha compartilhada, sistema da rede de ensino, nuvem pessoal de algum professor.',
+        'CAPTURA CONTÍNUA: o que registra sem alguém digitar. Câmeras, catraca, controle de acesso, registro de rede sem fio, sistema de biblioteca.',
+        'EXPOSIÇÃO: onde um dado fica visível para quem passa. Mural com notas ou nomes, lista afixada, tela de computador voltada para o balcão, papel esquecido na impressora.',
+        'DESCARTE: o que acontece quando o dado deixa de ser necessário. Lixeira comum, papel picado, arquivo de ex-estudantes, aparelho antigo guardado.'
+      ]
+    },
+    {
+      titulo: 'Ficha de registro de ponto',
+      tipo: 'editavel',
+      corpo: 'REGRA ABSOLUTA: registrar o fluxo, nunca o conteúdo. Não ler, não anotar, não fotografar nenhum dado de nenhuma pessoa.\n\nPonto número: ______  Local: ____________________\nCategoria: ( ) entrada ( ) trânsito ( ) armazenamento ( ) captura ( ) exposição ( ) descarte\n\nQUE TIPO de dado passa aqui (categoria, nunca o dado):\n____________________________________\n\nDE QUEM são esses dados: ( ) estudantes ( ) famílias ( ) funcionários ( ) visitantes\n\nQUANTAS PESSOAS aproximadamente são afetadas: ______\n\nQUEM PODE VER esse dado hoje: ____________________\n\nQUEM É O RESPONSÁVEL formal por esse ponto: ____________________\n(se vocês não conseguirem responder, escreva NÃO IDENTIFICADO. Isso é um achado.)\n\nO QUE ACONTECERIA se esse dado fosse visto por quem não deveria:\n____________________________________'
+    },
+    {
+      titulo: 'Modelo de autorização da direção',
+      tipo: 'editavel',
+      corpo: 'AUTORIZAÇÃO PARA MAPEAMENTO DE FLUXOS DE DADOS\n\nA direção da Escola ____________________ autoriza a turma ______ a realizar, em ____/____/______, atividade pedagógica de mapeamento de fluxos de dados nas seguintes áreas:\n____________________________________\n\nÁreas expressamente NÃO autorizadas:\n____________________________________\n\nCondições acordadas:\n1. Nenhum dado pessoal será lido, anotado, fotografado ou reproduzido.\n2. Os registros descrevem apenas o tipo de fluxo e o local.\n3. Nenhuma tela, documento ou tabela será fotografada.\n4. Os estudantes serão acompanhados por professor em todo o percurso.\n5. O relatório final é interno e será entregue à direção.\n6. A direção se compromete a responder por escrito em até ______ dias.\n\nAssinaturas: direção ____________  professor ____________'
+    },
+    {
+      titulo: 'Matriz de priorização',
+      tipo: 'folha',
+      corpo: 'Para cada ponto, pontuar de 1 a 3:\n\nALCANCE: 1 = poucas pessoas, 3 = a escola inteira\nSENSIBILIDADE: 1 = dado banal, 3 = saúde, situação familiar, documento\nFACILIDADE DE CORREÇÃO: 1 = exige obra ou orçamento, 3 = resolve amanhã de graça\n\nPRIORIDADE = alcance + sensibilidade + facilidade\n\nPonto ______  A___ S___ F___  Total ______\n\nOs cinco pontos de maior total vão para o relatório.\n\nObservação importante: um ponto com sensibilidade 3 e facilidade 3 é sempre a primeira recomendação. Risco alto que se resolve de graça é o melhor achado que uma auditoria pode ter.'
+    },
+    {
+      titulo: 'Modelo de relatório',
+      tipo: 'editavel',
+      corpo: 'RELATÓRIO DE MAPEAMENTO DE FLUXOS DE DADOS\nTurma ______  Data ______\n\n1. ESCOPO: áreas percorridas e áreas não percorridas.\n\n2. QUANTOS PONTOS encontramos, por categoria.\n\n3. QUANTOS PONTOS ficaram com responsável NÃO IDENTIFICADO: ______ de ______\n\n4. AS CINCO RECOMENDAÇÕES\nCada uma precisa passar em três testes: implementável em 30 dias, sem orçamento adicional, e com um responsável nomeado.\n\nRecomendação 1: ____________________\nQuem faz: ____________  Até quando: ____________\n\n(repetir para 2 a 5)\n\n5. O QUE NÃO CONSEGUIMOS AVALIAR e por quê.\n\n6. O QUE RECOMENDAMOS PARA O PRÓXIMO ANO, quando houver orçamento.\n\nRegra: nenhuma recomendação pode ser "a escola deve ter mais cuidado". Se não dá para saber se foi feita, não é recomendação.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'PONTOS QUE QUASE TODA ESCOLA TEM, e que os grupos costumam encontrar\n\n. Caderno de visitantes no balcão, aberto, onde cada visitante lê o documento e o telefone dos anteriores. Sensibilidade média, alcance médio, correção trivial: trocar por fichas avulsas. É quase sempre a melhor recomendação do relatório inteiro.\n. Lista de chamada esquecida em mesa ou balcão.\n. Papel na impressora compartilhada.\n. Tela da secretaria voltada para o balcão de atendimento.\n. Planilha com dados de estudantes em computador compartilhado, sem senha por usuário.\n. Ficha de saúde ou de alergia afixada em local visível, o que é bem intencionado e problemático ao mesmo tempo.\n. Grupo de mensagens com famílias em que todos veem o telefone de todos.\n. Lixeira comum recebendo papel com nome de estudante.\n. Câmeras sem aviso de que existem, ou com aviso, mas sem ninguém sabendo quem acessa as imagens.\n\nO ACHADO DA COLUNA EM BRANCO é o mais importante do relatório. Costuma ficar entre metade e dois terços dos pontos sem responsável identificado. Isso não é negligência de ninguém em particular: é o estado normal de quase toda organização que nunca fez esse exercício. Enquadrar assim é o que permite que a direção receba o relatório como ajuda e não como acusação.\n\nO CASO DA FICHA DE ALERGIA merece mediação. Ela está exposta para salvar uma vida. Não é descuido. A recomendação boa não é retirar, é discutir onde ficar e quem precisa ver. Se algum grupo propuser simplesmente remover, devolver a pergunta.\n\nO QUE FAZ O RELATÓRIO SER USADO\nCinco recomendações, não vinte. Trinta dias, não um ano. Sem orçamento, porque escola pública raramente tem. E responsável nomeado em cada uma. Um relatório com trinta recomendações vagas não muda nada e ensina aos estudantes que auditoria é ritual.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantos pontos ficaram sem responsável identificado?',
+      'Os pontos mais frágeis eram os mais tecnológicos?',
+      'A ficha de alergia está exposta para proteger alguém. Como resolver sem tirar a proteção?',
+      'Qual recomendação de vocês custa zero e resolve mais?',
+      'Se vocês fossem a direção, dava para fazer isso em trinta dias?',
+      'Quem são os titulares desses dados? Eles sabem que existem esses pontos?'
+    ],
+    evitar: [
+      'Transformar em denúncia de funcionários. Nenhum ponto encontrado é culpa de uma pessoa, e enquadrar assim garante que o relatório seja rejeitado e que a atividade nunca se repita.',
+      'Permitir leitura, anotação ou fotografia de qualquer dado real. É a regra que sustenta a autorização inteira.',
+      'Aceitar recomendações vagas. "Ter mais cuidado" não é verificável.',
+      'Aplicar sem autorização escrita da direção, ou fora das áreas autorizadas.',
+      'Divulgar o relatório fora da escola, publicar em rede social ou levar a imprensa.'
+    ]
+  },
+
+  protecao: 'Condição de aplicação: autorização prévia e por escrito da direção, delimitando áreas permitidas e vedadas. Durante toda a caminhada, os estudantes registram apenas o tipo de fluxo e o local, nunca o conteúdo: é proibido ler, anotar, transcrever ou fotografar qualquer dado pessoal de qualquer pessoa, incluindo os próprios. Nenhuma tela, documento, lista ou tabela é fotografada. Nenhuma área com dados sensíveis de saúde, situação familiar ou processos disciplinares é incluída no percurso. Os grupos são acompanhados por professor o tempo todo. O relatório é documento interno da escola e não deve ser publicado, divulgado em rede social nem enviado a terceiros.',
+
+  evidencia: 'O relatório mapeia pontos em pelo menos quatro das seis categorias, quantifica os pontos sem responsável identificado, e apresenta cinco recomendações verificáveis com responsável e prazo, todas implementáveis sem orçamento adicional.'
+}
+
+);
+
+</script>

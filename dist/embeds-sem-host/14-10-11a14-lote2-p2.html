@@ -1,0 +1,127 @@
+<script>
+/* 11 a 14 anos — segundo lote. */
+
+window.JP.ATIVIDADES.push(
+/* ==================================================================== 39 */
+{
+  id: 'deepfake-cadeia-de-evidencias',
+  insightCurto: 'Ninguém verifica um vídeo sozinho. Cada um tem uma peça, e a conclusão só aparece quando se juntam.',
+  n: 39,
+  titulo: 'Deepfake: cadeia de evidências',
+  chamada: 'Cinco grupos, cinco pedaços da prova. Nenhum consegue concluir sozinho, e todos vão tentar.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: use quatro grupos em vez de cinco, unindo os envelopes D e E. A rodada de conclusão isolada, antes do compartilhamento, é obrigatória: é ela que produz o aprendizado.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Investigação colaborativa com informação distribuída',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['informacao'],
+  disciplinas: ['Língua Portuguesa', 'História', 'Ciências'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'informacao',
+  nivel: 4,
+  sensibilidade: 'media',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF09CO10', texto: 'Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.' },
+    secundaria: { codigo: 'EF08CO11', texto: 'Avaliar a precisão, relevância, adequação, abrangência e vieses que ocorrem em fontes de informação eletrônica.' }
+  },
+  unesco: { dimensao: 'tecnicas', competencia: 'Praticar verificação distribuída e reconhecer incerteza residual como resultado legítimo.' },
+
+  provocacao: 'Circulou um vídeo em que a diretora de uma escola aparece dizendo que vai cancelar a formatura. Vinte mil compartilhamentos em seis horas. Cada grupo aqui recebeu uma parte das evidências. Ninguém recebeu tudo.',
+
+  missao: 'Cada grupo escreve uma conclusão sozinho, com o que tem. Depois todos compartilham e escrevem uma conclusão conjunta.',
+
+  virada: 'As cinco conclusões isoladas se contradizem, e todas são defensáveis com as evidências que cada grupo tinha. O grupo com a análise técnica conclui que é falso. O grupo com o depoimento conclui que é verdadeiro. Quando as peças se juntam, aparece a resposta real, que nenhum dos cinco tinha: o vídeo é autêntico, mas foi cortado, e a diretora dizia que cancelaria a formatura apenas se a obra da quadra não terminasse. O vídeo não é deepfake. É recorte.',
+
+  insight: 'A pergunta "é falso ou verdadeiro" costuma ser a pergunta errada. Muita desinformação usa material autêntico fora de contexto, e nenhuma análise técnica detecta isso, porque não há nada de técnico para detectar.',
+
+  transferencia: 'Antes de compartilhar um vídeo forte, o passo é procurar a gravação completa e quem estava presente. E quando não der para concluir, dizer que não deu é uma resposta melhor do que escolher um lado.',
+
+  roteiro: [
+    { t: '0 a 6 min',   o: 'Apresentar o caso e o vídeo, descrito por escrito. Formar cinco grupos e entregar um envelope de evidência para cada. Proibir a comunicação entre grupos nesta etapa.' },
+    { t: '6 a 18 min',  o: 'Cada grupo analisa o próprio envelope e escreve uma conclusão em três linhas, com o grau de confiança de 0 a 100 por cento.' },
+    { t: '18 a 26 min', o: 'Leitura das cinco conclusões em voz alta. Registrar as contradições no quadro. Não resolver nada ainda.' },
+    { t: '26 a 40 min', o: 'Compartilhamento. Os grupos podem trocar evidências livremente e precisam produzir uma conclusão conjunta, com o novo grau de confiança.' },
+    { t: '40 a 46 min', o: 'Comparar os graus de confiança individuais com o conjunto. Quase sempre havia mais certeza com menos informação.' },
+    { t: '46 a 50 min', o: 'Fechamento com a folha das três categorias e a pergunta sobre o que a turma faria se ainda restasse dúvida.' }
+  ],
+
+  versoes: {
+    escola: 'Cinco grupos, um envelope cada, sem comunicação na primeira etapa. É a atividade do banco que mais depende de o professor sustentar a regra de silêncio inicial. Encaixa em História, no trabalho com fontes e cruzamento de evidências.',
+    familia: 'Versão de mesa com três envelopes, cada pessoa lendo um e escrevendo a conclusão antes de conversar. Funciona bem com adolescentes e costuma render conversa sobre grupos de mensagem da família.',
+    jovem: 'Individual: ler os cinco envelopes em ordem aleatória, escrevendo a conclusão depois de cada um, e observar a própria opinião mudando por escrito. É um exercício desconfortável e muito eficaz.'
+  },
+
+  kit: [
+    { nome: 'Descrição do vídeo', tipo: 'imprimivel', desc: 'O material que circulou, descrito por escrito.' },
+    { nome: 'Cinco envelopes de evidência', tipo: 'imprimivel', desc: 'Cada grupo recebe apenas um.' },
+    { nome: 'Folha de conclusão', tipo: 'imprimivel', desc: 'Com grau de confiança, usada duas vezes.' },
+    { nome: 'Folha das três categorias', tipo: 'imprimivel', desc: 'Autêntico, sintético, autêntico fora de contexto.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'A resposta e o que observar nos graus de confiança.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Descrição do vídeo que circulou',
+      tipo: 'folha',
+      corpo: 'O VÍDEO\n\nDuração: 14 segundos.\nQualidade: média, parece filmado de uma tela.\nConteúdo: a diretora da Escola Municipal Vila Nova, em pé no pátio, diz:\n\n"...então a formatura do nono ano está cancelada. É isso, gente. Não tem o que fazer."\n\nO vídeo começa no meio de uma frase, com o "então".\nNão há áudio antes disso.\nO vídeo termina abruptamente.\n\nLegenda com que circulou:\n"OLHA O DESCASO. Diretora cancela formatura do 9º ano e nem se explica. COMPARTILHEM."\n\n20.400 compartilhamentos em 6 horas.'
+    },
+    {
+      titulo: 'Cinco envelopes de evidência',
+      tipo: 'cartas',
+      nota: 'Um por grupo. Nenhum grupo pode ver o envelope de outro na primeira etapa.',
+      itens: [
+        'ENVELOPE A, análise técnica: um laboratório analisou o arquivo. A compressão é consistente, não há sinal de síntese facial, o movimento labial corresponde ao áudio, e não há artefatos típicos de geração por IA. Conclusão do laboratório: não há indício de manipulação por inteligência artificial. Observação registrada no laudo: "a análise não avalia edição por corte".',
+        'ENVELOPE B, depoimento: três estudantes do 9º ano afirmam que estavam no pátio naquele dia e ouviram a diretora falar sobre a formatura. Um deles diz: "ela falou isso mesmo, eu ouvi". Nenhum dos três diz ter ouvido a fala inteira.',
+        'ENVELOPE C, cronologia: o vídeo apareceu pela primeira vez às 15h47, publicado por um perfil criado há 11 dias, sem foto e sem outras publicações. O perfil publicou o vídeo e mais nada. A escola só tomou conhecimento às 19h.',
+        'ENVELOPE D, contexto institucional: a ata da reunião do conselho escolar, de dois dias antes, registra discussão sobre a obra da quadra, que está atrasada. Consta em ata: "a direção informou que a formatura depende da conclusão da obra, prevista para novembro". Nenhuma decisão de cancelamento foi registrada.',
+        'ENVELOPE E, gravação completa: existe um segundo vídeo, de 2 minutos e 40 segundos, gravado por outro estudante, do mesmo momento e de outro ângulo. Nele, a diretora diz: "se a obra da quadra não terminar até novembro, a gente não tem onde fazer, e aí a formatura do nono ano está cancelada. É isso, gente. Não tem o que fazer. Mas a previsão é que termine, então eu não quero ninguém desesperado."'
+      ]
+    },
+    {
+      titulo: 'Folha de conclusão',
+      tipo: 'folha',
+      corpo: 'Usar duas vezes: uma na etapa isolada, outra depois do compartilhamento.\n\nRODADA: ( ) só com o nosso envelope ( ) depois de compartilhar\n\nNOSSA CONCLUSÃO, em três linhas:\n____________________________________\n____________________________________\n____________________________________\n\nGRAU DE CONFIANÇA: ______%\n\nO que faltaria para termos mais certeza?\n____________________________________\n\nSe alguém nos perguntasse agora, a gente compartilharia esse vídeo?\n( ) sim ( ) não ( ) diria que não sabe'
+    },
+    {
+      titulo: 'Folha das três categorias',
+      tipo: 'folha',
+      corpo: 'Todo material que circula cai em uma destas três:\n\n1. AUTÊNTICO E EM CONTEXTO. É real e a legenda descreve o que aconteceu.\n\n2. SINTÉTICO. Foi gerado ou alterado por máquina. Análise técnica ajuda aqui.\n\n3. AUTÊNTICO E FORA DE CONTEXTO. É real, ninguém alterou nada, e mesmo assim engana. Análise técnica não ajuda em nada aqui.\n\nO nosso caso é da categoria: ______\n\nQual das três é a mais comum? ____________________\nQual das três é a mais difícil de detectar? ____________________\nPor quê? ____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'A RESPOSTA: categoria 3. O vídeo é autêntico, não foi gerado por IA, a diretora disse aquelas palavras, e mesmo assim a legenda engana. O que foi removido foi a condição ("se a obra não terminar") e a tranquilização final.\n\nAS CINCO CONCLUSÕES ISOLADAS\nA conclui que não é deepfake, e está tecnicamente correto e praticamente irrelevante.\nB conclui que é verdadeiro, e reforça o erro.\nC levanta suspeita sobre o perfil, mas não sobre o conteúdo.\nD é o primeiro sinal real, e o grupo D costuma ser o único a suspeitar de recorte.\nE resolve o caso, e o grupo E costuma concluir com 100 por cento de confiança e ficar impaciente com os outros.\n\nO QUE OBSERVAR NOS GRAUS DE CONFIANÇA\nEste é o dado mais interessante da atividade. Grupos com menos informação frequentemente declaram confiança mais alta. O grupo A costuma marcar 90 por cento ou mais, com um laudo que explicitamente diz não avaliar edição. Escrever no quadro os cinco graus da primeira rodada e os da segunda produz a melhor conversa do encontro.\n\nO ENVELOPE A EXISTE PARA ISSO. A observação no rodapé do laudo, sobre não avaliar corte, quase nunca é lida na primeira rodada. Quando o grupo A percebe que a informação estava no próprio envelope, o efeito é forte.\n\nSOBRE A CATEGORIA 3\nÉ a mais comum e a mais difícil, e é onde quase toda a desinformação real acontece. Ferramenta de detecção de IA não resolve, porque não há nada sintético. Vale dizer isso com todas as letras: procurar detector é a resposta errada para o problema mais frequente.\n\nSE ALGUM GRUPO CONCLUIR "não dá para saber" na primeira rodada, celebrar. É a resposta mais honesta possível com um envelope só, e é justamente a postura que a atividade quer formar.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quem tinha mais certeza na primeira rodada? Essa pessoa tinha mais informação?',
+      'O laudo técnico dizia que não era deepfake. Isso resolvia alguma coisa?',
+      'O que exatamente foi removido do vídeo?',
+      'Alguém mentiu neste caso? Quem cortou, mentiu?',
+      'O que a gente faz quando não dá para concluir?',
+      'Qual das três categorias um detector de IA consegue pegar?'
+    ],
+    evitar: [
+      'Deixar os grupos conversarem na primeira etapa. A regra de silêncio é o que faz a atividade existir.',
+      'Ensinar que existe ferramenta que resolve. Para a categoria 3, que é a mais comum, não existe e não vai existir, porque não há manipulação técnica para detectar.',
+      'Tratar quem errou sozinho como descuidado. Cada conclusão isolada era defensável com o que o grupo tinha, e reconhecer isso é o ponto.',
+      'Usar caso real envolvendo pessoa identificável da escola ou da cidade.'
+    ]
+  },
+
+  protecao: 'A escola, a diretora, os estudantes e todo o material são fictícios. Não usar vídeos, áudios ou casos reais envolvendo pessoas identificáveis, nem da escola nem da cidade. Não pedir que estudantes tragam conteúdos que circularam em grupos de família. Se houver um caso real em curso na comunidade escolar, esta atividade não é o espaço para tratá-lo.',
+
+  evidencia: 'O grupo revisa a própria conclusão após o compartilhamento, classifica o caso como autêntico fora de contexto, e reconhece por escrito que declarou confiança alta com informação parcial.'
+}
+
+
+);
+</script>
