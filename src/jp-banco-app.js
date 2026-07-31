@@ -74,6 +74,8 @@
       arr(a.situacao).forEach(function (s) { if (!T.situacao[s]) erros.push(onde + ': situacao "' + s + '" fora da taxonomia'); });
       arr(a.contexto).forEach(function (c) { if (!T.contexto[c]) erros.push(onde + ': contexto "' + c + '" fora da taxonomia'); });
       arr(a.selos).forEach(function (s) { if (!T.selos[s]) erros.push(onde + ': selo "' + s + '" fora da taxonomia'); });
+      arr(a.precisa).forEach(function (r) { if (!T.precisa[r]) erros.push(onde + ': precisa "' + r + '" fora da taxonomia'); });
+      if (!arr(a.precisa).length) erros.push(onde + ': sem o campo precisa');
       arr(a.disciplinas).forEach(function (d) { if (T.disciplina.indexOf(d) < 0) erros.push(onde + ': disciplina "' + d + '" fora da taxonomia'); });
       if (a.eixo && a.nivel && (a.nivel < 1 || a.nivel > T.eixos[a.eixo].niveis.length)) {
         erros.push(onde + ': nivel ' + a.nivel + ' fora da faixa do eixo ' + a.eixo);
@@ -106,9 +108,11 @@
     perfil: null, ficha: null, colecao: null, nivel: null, busca: '', ordem: 'faixa', tipo: null,
     faixa: [], situacao: [], contexto: [], tela: [], formato: [],
     disciplina: [], preparo: [], grupo: [], eixo: [], selos: [],
+    precisa: [], sensibilidade: [], bncc: null,
     duracao: null, filtrosAbertos: false, versao: 'escola'
   };
-  var MULTI = ['faixa', 'situacao', 'contexto', 'tela', 'formato', 'disciplina', 'preparo', 'grupo', 'eixo', 'selos'];
+  var MULTI = ['faixa', 'situacao', 'contexto', 'tela', 'formato', 'disciplina', 'preparo', 'grupo', 'eixo', 'selos',
+               'precisa', 'sensibilidade'];
 
   function alternar(campo, valor) {
     var i = E[campo].indexOf(valor);
@@ -131,6 +135,7 @@
       else if (k === 'busca') E.busca = v;
       else if (k === 'ordem') E.ordem = v;
       else if (k === 'tipo') E.tipo = v;
+      else if (k === 'bncc') E.bncc = v;
       else if (k === 'duracao') E.duracao = parseInt(v, 10);
       else if (MULTI.indexOf(k) >= 0) E[k] = v.split(',').filter(Boolean);
     });
@@ -146,6 +151,7 @@
     if (E.busca) p.push('busca=' + encodeURIComponent(E.busca));
     if (E.ordem && E.ordem !== 'faixa') p.push('ordem=' + E.ordem);
     if (E.tipo) p.push('tipo=' + E.tipo);
+    if (E.bncc) p.push('bncc=' + E.bncc);
     if (E.duracao) p.push('duracao=' + E.duracao);
     MULTI.forEach(function (k) { if (E[k].length) p.push(k + '=' + E[k].map(encodeURIComponent).join(',')); });
     var novo = '#/' + p.join('&');
@@ -211,8 +217,40 @@
     situacao:   function (a) { return !E.situacao.length || E.situacao.some(function (s) { return arr(a.situacao).indexOf(s) >= 0; }); },
     contexto:   function (a) { return !E.contexto.length || E.contexto.some(function (c) { return arr(a.contexto).indexOf(c) >= 0; }); },
     selos:      function (a) { return !E.selos.length || E.selos.every(function (s) { return arr(a.selos).indexOf(s) >= 0; }); },
-    disciplina: function (a) { return !E.disciplina.length || E.disciplina.some(function (d) { return arr(a.disciplinas).indexOf(d) >= 0; }); }
+    disciplina: function (a) { return !E.disciplina.length || E.disciplina.some(function (d) { return arr(a.disciplinas).indexOf(d) >= 0; }); },
+    /* "eu consigo com o que eu tenho?": marcar 'papel' precisa trazer também
+       as que rodam só com conversa, senão a opção mais restritiva esconde as
+       mais fáceis, que é o oposto do que a pessoa pediu. */
+    precisa:    function (a) {
+      if (!E.precisa.length) return true;
+      var tem = arr(a.precisa);
+      return E.precisa.every(function (r) {
+        if (r === 'papel')  return tem.indexOf('impressao') < 0;
+        if (r === 'so-voz') return tem.indexOf('so-voz') >= 0;
+        return tem.indexOf(r) >= 0;
+      });
+    },
+    sensibilidade: function (a) { return !E.sensibilidade.length || E.sensibilidade.indexOf(a.sensibilidade) >= 0; },
+    bncc:       function (a) { return !E.bncc || codigosBncc(a).indexOf(E.bncc) >= 0; }
   };
+
+  function codigosBncc(a) {
+    var out = [];
+    ['principal', 'secundaria', 'ponte'].forEach(function (k) {
+      if (a.bncc && a.bncc[k] && a.bncc[k].codigo) out.push(a.bncc[k].codigo);
+    });
+    return out;
+  }
+
+  /* Códigos realmente usados, com quantas atividades cada um tem. Listar os
+     129 da BNCC seria oferecer 79 opções que devolvem zero. */
+  function catalogoBncc() {
+    var m = {};
+    ATIV.forEach(function (a) {
+      codigosBncc(a).forEach(function (c) { m[c] = (m[c] || 0) + 1; });
+    });
+    return Object.keys(m).sort().map(function (c) { return { codigo: c, n: m[c] }; });
+  }
 
   function ordenar(lista) {
     var lst = lista.slice();
@@ -259,16 +297,19 @@
       if (campo === 'selos')      return arr(a.selos).indexOf(valor) >= 0;
       if (campo === 'disciplina') return arr(a.disciplinas).indexOf(valor) >= 0;
       if (campo === 'duracao')    return duracaoMin(a) <= valor;
+      if (campo === 'precisa')    return valor === 'papel' ? arr(a.precisa).indexOf('impressao') < 0
+                                                           : arr(a.precisa).indexOf(valor) >= 0;
+      if (campo === 'sensibilidade') return a.sensibilidade === valor;
       return true;
     }).length;
   }
 
   /* Qual filtro ativo é o culpado por zerar o resultado. Vira sugestão. */
   function culpado() {
-    var campos = ['busca', 'colecao', 'perfil', 'duracao', 'nivel'].concat(MULTI);
+    var campos = ['busca', 'colecao', 'perfil', 'duracao', 'nivel', 'bncc'].concat(MULTI);
     for (var i = 0; i < campos.length; i++) {
       var k = campos[i];
-      var vazio = (k === 'duracao' || k === 'nivel' || k === 'colecao' || k === 'perfil' || k === 'busca')
+      var vazio = (k === 'duracao' || k === 'nivel' || k === 'colecao' || k === 'perfil' || k === 'busca' || k === 'bncc')
         ? !E[k] : !E[k].length;
       if (vazio) continue;
       if (filtrar(k).length > 0) return k;
@@ -278,7 +319,7 @@
 
   function ativos() {
     var n = MULTI.reduce(function (s, k) { return s + E[k].length; }, 0);
-    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0) + (E.tipo ? 1 : 0);
+    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0) + (E.tipo ? 1 : 0) + (E.bncc ? 1 : 0);
   }
 
   /* ----------------------------------------------------------- componentes */
@@ -319,6 +360,7 @@
     if (E.colecao) { var c = colecaoPorId(E.colecao); if (c) add(c.icone + ' ' + c.rotulo, 'colecao'); }
     if (E.perfil) add(T.perfil[E.perfil].rotulo, 'perfil');
     if (E.tipo) add(E.tipo === 'acervo' ? 'Materiais já publicados' : 'Fichas do banco', 'tipo');
+    if (E.bncc) add(E.bncc, 'bncc');
     if (E.duracao) {
       var d = T.duracao.filter(function (x) { return x.valor === E.duracao; })[0];
       add(d ? d.rotulo : E.duracao + ' min', 'duracao');
@@ -326,7 +368,8 @@
     if (E.nivel) add('etapa ' + E.nivel, 'nivel');
     var mapas = {
       faixa: T.faixa, situacao: T.situacao, contexto: T.contexto, tela: T.tela,
-      formato: T.formato, preparo: T.preparo, grupo: T.grupo, eixo: T.eixos, selos: T.selos
+      formato: T.formato, preparo: T.preparo, grupo: T.grupo, eixo: T.eixos, selos: T.selos,
+      precisa: T.precisa, sensibilidade: T.sensibilidade
     };
     MULTI.forEach(function (k) {
       E[k].forEach(function (v) {
@@ -451,10 +494,25 @@
           grupoFiltro('Disciplina', T.disciplina.map(function (d) {
             return chip('disciplina', d, d);
           }).join('')) +
+          grupoFiltro('O que eu preciso ter', chips('precisa', T.precisa), 'o mínimo para rodar') +
           grupoFiltro('Preparação necessária', chips('preparo', T.preparo)) +
           grupoFiltro('Tamanho do grupo', chips('grupo', T.grupo)) +
           grupoFiltro('Eixo de aprendizado', chips('eixo', T.eixos)) +
+          grupoFiltro('Sensibilidade do tema', chips('sensibilidade', T.sensibilidade),
+                      'alta exige protocolo de mediação') +
           grupoFiltro('Selos', chips('selos', T.selos), 'combinam entre si') +
+          /* Só os códigos que existem no banco. Um select, e não chips: são
+             dezenas, e chip demais vira parede. */
+          '<div class="jp-grupo"><div class="jp-grupo-t">Habilidade da BNCC' +
+            '<em>só os códigos que o banco cobre</em></div>' +
+            '<select class="jp-bncc-sel" data-slot="bncc">' +
+              '<option value="">qualquer habilidade</option>' +
+              catalogoBncc().map(function (c) {
+                return '<option value="' + esc(c.codigo) + '"' + (E.bncc === c.codigo ? ' selected' : '') + '>' +
+                  esc(c.codigo) + ' (' + c.n + ')</option>';
+              }).join('') +
+            '</select>' +
+          '</div>' +
         '</div>' : '') +
       '</div>';
 
@@ -490,7 +548,8 @@
         duracao: 'o tempo disponível', nivel: 'a etapa de aprendizado', faixa: 'a faixa etária',
         situacao: 'a situação', contexto: 'o local de uso', tela: 'o filtro de tela',
         formato: 'o formato', disciplina: 'a disciplina', preparo: 'a preparação',
-        grupo: 'o tamanho do grupo', eixo: 'o eixo', selos: 'os selos'
+        grupo: 'o tamanho do grupo', eixo: 'o eixo', selos: 'os selos',
+        precisa: 'o que você precisa ter', sensibilidade: 'a sensibilidade', bncc: 'a habilidade da BNCC'
       };
       vazio = '<div class="jp-vazio"><strong>Essa combinação não existe no banco ainda.</strong>' +
         (culpa
@@ -740,6 +799,7 @@
       ['Tela', T.tela[a.tela]],
       ['Grupo', T.grupo[a.grupo]],
       ['Preparação', T.preparo[a.preparo].rotulo + ', ' + T.preparo[a.preparo].detalhe],
+      ['Precisa ter', arr(a.precisa).map(function (r) { return T.precisa[r].rotulo; }).join(', ')],
       ['Onde usar', arr(a.contexto).map(function (c) { return T.contexto[c]; }).join(', ')],
       ['Tema', arr(a.situacao).map(function (s) { return T.situacao[s]; }).join(', ')],
       ['Origem', a.fonte]
@@ -805,6 +865,7 @@
       ['Tela', T.tela[a.tela]],
       ['Grupo', T.grupo[a.grupo]],
       ['Preparação', T.preparo[a.preparo].rotulo + ', ' + T.preparo[a.preparo].detalhe],
+      ['Precisa ter', arr(a.precisa).map(function (r) { return T.precisa[r].rotulo; }).join(', ')],
       ['Onde usar', arr(a.contexto).map(function (c) { return T.contexto[c]; }).join(', ')],
       ['Tema', arr(a.situacao).map(function (s) { return T.situacao[s]; }).join(', ')],
       ['Eixo', T.eixos[a.eixo].rotulo + ', nível ' + a.nivel + ' de 5'],
@@ -898,6 +959,7 @@
         else if (campo === 'colecao') E.colecao = null;
         else if (campo === 'perfil') E.perfil = null;
         else if (campo === 'tipo') E.tipo = null;
+        else if (campo === 'bncc') E.bncc = null;
         else if (el.dataset.valor != null) alternar(campo, el.dataset.valor);
         else E[campo] = [];
         return render();
@@ -953,7 +1015,7 @@
         case 'limpar':
           MULTI.forEach(function (k) { E[k] = []; });
           E.duracao = null; E.perfil = null; E.colecao = null; E.nivel = null;
-          E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
+          E.busca = ''; E.ordem = 'faixa'; E.tipo = null; E.bncc = null;
           return render();
         case 'voltar': E.ficha = null; return render(true);
         case 'imprimir': return window.print();
@@ -980,6 +1042,7 @@
       var campo = s.dataset.slot, v = s.value;
       if (campo === 'duracao') E.duracao = v ? parseInt(v, 10) : null;
       else if (campo === 'ordem') E.ordem = v || 'faixa';
+      else if (campo === 'bncc') E.bncc = v || null;
       else E[campo] = v ? [v] : [];
       render();
     });
@@ -1006,7 +1069,7 @@
       if (escrevendoHash) return;
       MULTI.forEach(function (k) { E[k] = []; });
       E.duracao = null; E.perfil = null; E.ficha = null; E.colecao = null; E.nivel = null;
-      E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
+      E.busca = ''; E.ordem = 'faixa'; E.tipo = null; E.bncc = null;
       lerHash(); render();
     });
   }

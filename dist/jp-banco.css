@@ -253,6 +253,12 @@
 }
 #jp-banco .jp-chip[aria-pressed="true"] .jp-chip-n { background: rgba(255,255,255,.22); color: #fff; }
 /* opção que zeraria o resultado: some do caminho sem sumir da tela */
+#jp-banco .jp-bncc-sel {
+  font: inherit; font-size: .9rem; color: var(--jp-navy); font-weight: 500;
+  border: 1px solid var(--jp-linha); border-radius: 6px; background: var(--jp-fundo);
+  padding: 8px 12px; cursor: pointer; max-width: 100%;
+}
+#jp-banco .jp-bncc-sel:hover { border-color: var(--jp-navy); }
 #jp-banco .jp-chip[data-zero] { opacity: .32; cursor: not-allowed; }
 #jp-banco .jp-chip[data-zero] .jp-chip-n { background: transparent; }
 

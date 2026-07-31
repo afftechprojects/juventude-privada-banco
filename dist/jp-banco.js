@@ -93,6 +93,25 @@ window.JP.TAXONOMIA = {
     'Geografia', 'Artes', 'Projeto de Vida', 'Educação Física', 'Ensino Religioso'
   ],
 
+  /* ---- o que a pessoa precisa ter para conseguir aplicar ----------------
+     Campo `precisa`. Responde "eu consigo fazer isso com o que eu tenho?",
+     que é a pergunta que uma escola sem cota de impressão faz primeiro.
+     Registra o MÍNIMO para rodar, não tudo que a ficha menciona: quando o
+     material cabe no quadro, a ficha é 'papel' e não 'impressao'.
+     Derivado do volume de material de cada ficha e revisável a qualquer
+     momento editando o campo direto no arquivo de dados.                   */
+  precisa: {
+    'so-voz':    { rotulo: 'Nada, só conversa',   detalhe: 'Roda sem material nenhum' },
+    /* 'papel' é usado no filtro como "não exige imprimir", e o rótulo diz
+       exatamente isso: prometer "papel e lápis" incluiria itens que rodam sem
+       impressora mas exigem computador, e o rótulo mentiria. */
+    'papel':     { rotulo: 'Sem precisar imprimir', detalhe: 'Dá para escrever no quadro ou em folha comum' },
+    'impressao': { rotulo: 'Precisa imprimir',    detalhe: 'Muitas cartas ou fichas por grupo' },
+    'objetos':   { rotulo: 'Objetos simples',     detalhe: 'Dados, moedas, barbante, caixinha ou cadeado' },
+    'espaco':    { rotulo: 'Espaço para circular', detalhe: 'Pátio ou sala com carteiras afastadas' },
+    'aparelho':  { rotulo: 'Computador ou celular', detalhe: 'Precisa de aparelho com internet' }
+  },
+
   /* ---- preparação necessária ------------------------------------------ */
   preparo: {
     nenhum: { rotulo: 'Nenhuma',   detalhe: 'Dá para abrir e aplicar' },
@@ -198,54 +217,58 @@ window.JP.TAXONOMIA = {
      As contagens são calculadas em tempo de execução: nunca escrever número
      à mão aqui, senão a vitrine promete o que o banco não tem.
 
-     As coleções são nomeadas pelo PROBLEMA, não pelo tema. Professor não chega
-     pensando "quero privacidade", chega pensando "aconteceu isso na minha sala".
-     Antes eram temas, e a de privacidade sozinha continha 43% do banco, o que
-     não filtra nada. */
+     Um macro tema por eixo de progressão, para que "explorar por tema" e
+     "como o aprendizado evolui" falem do mesmo conceito e ninguém precise
+     decidir entre duas taxonomias concorrentes.
+
+     Regra de tamanho: nenhum tema deve passar de cerca de um quarto do banco.
+     Por isso alguns puxam também uma situação (IA puxa "ia-tarefa") e outros
+     ficam só no eixo: "dados" está em 31 fichas e, se entrasse em privacidade,
+     o tema sozinho viraria quase metade do acervo e deixaria de filtrar.     */
   colecoes: [
-    { id: 'ia',            icone: '🤖', rotulo: 'A turma está usando IA',
-      resumo: 'Nos trabalhos, nas respostas, nas fontes. O que é ajuda e o que é atalho.',
-      filtro: function (a) { return a.eixo === 'ia' || a.eixo === 'autoria' ||
-        a.situacao.indexOf('ia-tarefa') >= 0 || a.situacao.indexOf('autoria') >= 0; } },
+    { id: 'privacidade',   icone: '🔒', rotulo: 'Privacidade e dados pessoais',
+      resumo: 'O que se revela sem querer, o que é deduzido a partir disso, e quem usa.',
+      filtro: function (a) { return a.eixo === 'privacidade'; } },
 
-    /* Só quem trata de imagem circulando. Antes esta coleção também pegava
-       situacao "consentimento", que quase toda ficha carrega, e ela virava um
-       terço do banco, que é exatamente o defeito que a reorganização corrigiu. */
-    { id: 'imagem',        icone: '📷', rotulo: 'Circulou uma foto ou um print',
-      resumo: 'Imagem que saiu do grupo, recorte fora de contexto e o direito de pedir para tirar.',
-      filtro: function (a) { return a.situacao.indexOf('foto') >= 0 || a.eixo === 'consentimento'; } },
+    { id: 'ia',            icone: '🤖', rotulo: 'Inteligência artificial',
+      resumo: 'Como a máquina aprende, onde ela erra e quem define as condições de uso.',
+      filtro: function (a) { return a.eixo === 'ia' || a.situacao.indexOf('ia-tarefa') >= 0; } },
 
-    { id: 'convivencia',   icone: '💔', rotulo: 'Alguém está sendo machucado',
-      resumo: 'Piada que virou outra coisa, plateia que ri junto, e o que fazer com prova e denúncia.',
-      filtro: function (a) { return a.eixo === 'convivencia'; } },
+    { id: 'algoritmos',    icone: '🔀', rotulo: 'Algoritmos e recomendação',
+      resumo: 'Por que aparece isso e não aquilo, quem escolheu o critério e quem responde.',
+      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
 
-    { id: 'seguranca',     icone: '🎣', rotulo: 'Alguém caiu num golpe',
-      resumo: 'Phishing, senha, conta invadida e o que fazer nos primeiros dez minutos.',
-      filtro: function (a) { return a.eixo === 'seguranca' || a.situacao.indexOf('golpe') >= 0; } },
+    { id: 'imagem',        icone: '📷', rotulo: 'Imagem e consentimento',
+      resumo: 'Foto que circula, print fora de contexto e o direito de pedir para tirar do ar.',
+      filtro: function (a) { return a.eixo === 'consentimento' || a.situacao.indexOf('foto') >= 0; } },
 
-    { id: 'informacao',    icone: '🔍', rotulo: 'Acreditam em tudo que chega',
-      resumo: 'Como conferir antes de compartilhar, e por que parecer confiável não basta.',
+    { id: 'informacao',    icone: '🔍', rotulo: 'Informação e verificação',
+      resumo: 'Como conferir antes de acreditar, e por que parecer confiável não basta.',
       filtro: function (a) { return a.eixo === 'informacao' || a.situacao.indexOf('informacao') >= 0; } },
 
-    { id: 'consumo',       icone: '💸', rotulo: 'Gastam e são influenciados',
+    { id: 'consumo',       icone: '💸', rotulo: 'Consumo, publicidade e games',
       resumo: 'Moeda virtual, recompensa aleatória, publicidade disfarçada e tela que empurra.',
       filtro: function (a) { return a.eixo === 'consumo' ||
         a.situacao.indexOf('jogo') >= 0 || a.situacao.indexOf('propaganda') >= 0; } },
 
-    { id: 'algoritmos',    icone: '🔀', rotulo: 'Por que aparece isso e não aquilo',
-      resumo: 'Quem escolheu o critério, o que ficou de fora e quem responde quando erra.',
-      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
+    { id: 'seguranca',     icone: '🛡', rotulo: 'Segurança e golpes',
+      resumo: 'Phishing, senha, conta invadida e o que fazer nos primeiros dez minutos.',
+      filtro: function (a) { return a.eixo === 'seguranca' || a.situacao.indexOf('golpe') >= 0; } },
 
-    { id: 'privacidade',   icone: '🔒', rotulo: 'Entregam dados sem perceber',
-      resumo: 'O que se revela sem querer, o que é deduzido a partir disso e quem usa.',
-      filtro: function (a) { return a.eixo === 'privacidade'; } },
+    { id: 'autoria',       icone: '✍', rotulo: 'Autoria e direitos',
+      resumo: 'Crédito, licença, remix e como declarar com honestidade o que foi seu.',
+      filtro: function (a) { return a.eixo === 'autoria' || a.situacao.indexOf('autoria') >= 0; } },
 
-    { id: 'bemestar',      icone: '😵', rotulo: 'Não conseguem parar',
-      resumo: 'Cansaço, rolagem infinita, notificação e o desenho que existe para prender.',
+    { id: 'convivencia',   icone: '💔', rotulo: 'Convivência digital',
+      resumo: 'Piada que virou outra coisa, plateia que ri junto, prova e denúncia.',
+      filtro: function (a) { return a.eixo === 'convivencia'; } },
+
+    { id: 'bemestar',      icone: '😵', rotulo: 'Bem-estar e tempo de tela',
+      resumo: 'Cansaço, rolagem infinita, notificação e o desenho feito para prender.',
       filtro: function (a) { return a.eixo === 'bemestar'; } },
 
-    { id: 'infraestrutura', icone: '⚙', rotulo: 'Não sabem como funciona por dentro',
-      resumo: 'Onde o dado passa, o que é criptografia, de que o aparelho é feito e quanto custa.',
+    { id: 'infraestrutura', icone: '⚙', rotulo: 'Como a tecnologia funciona',
+      resumo: 'Por onde o dado passa, o que é criptografia, de que o aparelho é feito.',
       filtro: function (a) { return a.eixo === 'infraestrutura'; } }
   ],
 
@@ -296,6 +319,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa'],
   disciplinas: ['Língua Portuguesa', 'Educação Física', 'Matemática'],
   preparo: 'nenhum',
+  precisa: ['so-voz'],
   grupo: 'turma',
   eixo: 'ia',
   nivel: 1,
@@ -400,6 +424,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'consentimento'],
   disciplinas: ['Língua Portuguesa', 'Artes'],
   preparo: 'baixo',
+  precisa: ['objetos', 'papel'],
   grupo: 'pequeno',
   eixo: 'consentimento',
   nivel: 1,
@@ -511,6 +536,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'dados'],
   disciplinas: ['Ciências', 'Matemática', 'Artes'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'ia',
   nivel: 2,
@@ -638,6 +664,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'consentimento'],
   disciplinas: ['Língua Portuguesa', 'Ensino Religioso', 'Projeto de Vida'],
   preparo: 'baixo',
+  precisa: ['impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 2,
@@ -759,6 +786,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['jogo', 'propaganda'],
   disciplinas: ['Matemática', 'Língua Portuguesa'],
   preparo: 'medio',
+  precisa: ['impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'consumo',
   nivel: 2,
@@ -871,6 +899,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'propaganda'],
   disciplinas: ['Artes', 'Matemática', 'Língua Portuguesa'],
   preparo: 'baixo',
+  precisa: ['objetos', 'papel'],
   grupo: 'dupla',
   eixo: 'consumo',
   nivel: 3,
@@ -984,6 +1013,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'algoritmo'],
   disciplinas: ['Língua Portuguesa', 'Matemática', 'Ciências'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 4,
@@ -1133,6 +1163,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'informacao'],
   disciplinas: ['Língua Portuguesa', 'Ciências', 'História'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'dupla',
   eixo: 'ia',
   nivel: 3,
@@ -1241,6 +1272,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo'],
   disciplinas: ['Matemática', 'Projeto de Vida', 'Educação Física', 'História'],
   preparo: 'medio',
+  precisa: ['espaco', 'impressao'],
   grupo: 'turma',
   eixo: 'algoritmos',
   nivel: 3,
@@ -1383,6 +1415,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo', 'informacao', 'propaganda'],
   disciplinas: ['Matemática', 'Língua Portuguesa', 'História'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'algoritmos',
   nivel: 4,
@@ -1529,6 +1562,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'autoria'],
   disciplinas: ['Língua Portuguesa', 'Projeto de Vida', 'História', 'Ciências'],
   preparo: 'baixo',
+  precisa: ['impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'autoria',
   nivel: 4,
@@ -1662,6 +1696,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'jogo', 'propaganda'],
   disciplinas: ['Matemática', 'Língua Portuguesa', 'Artes'],
   preparo: 'alto',
+  precisa: ['espaco', 'impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'consumo',
   nivel: 3,
@@ -1806,6 +1841,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'golpe'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'Matemática', 'Geografia'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 5,
@@ -1939,6 +1975,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'consentimento'],
   disciplinas: ['Projeto de Vida', 'Geografia', 'História', 'Matemática'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'consumo',
   nivel: 5,
@@ -2075,6 +2112,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'autoria'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'História'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'ia',
   nivel: 5,
@@ -2220,6 +2258,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'consentimento'],
   disciplinas: [],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'familia',
   eixo: 'consentimento',
   nivel: 5,
@@ -2322,6 +2361,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados'],
   disciplinas: [],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'familia',
   eixo: 'privacidade',
   nivel: 3,
@@ -2423,6 +2463,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['golpe'],
   disciplinas: [],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'familia',
   eixo: 'seguranca',
   nivel: 4,
@@ -2529,6 +2570,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados'],
   disciplinas: [],
   preparo: 'nenhum',
+  precisa: ['so-voz'],
   grupo: 'familia',
   eixo: 'privacidade',
   nivel: 3,
@@ -2625,6 +2667,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'autoria'],
   disciplinas: [],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'familia',
   eixo: 'autoria',
   nivel: 4,
@@ -2737,6 +2780,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['jogo', 'propaganda'],
   disciplinas: [],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'familia',
   eixo: 'consumo',
   nivel: 4,
@@ -2840,6 +2884,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['golpe', 'foto', 'consentimento'],
   disciplinas: [],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'familia',
   eixo: 'seguranca',
   nivel: 5,
@@ -2945,6 +2990,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo'],
   disciplinas: ['Língua Portuguesa', 'Educação Física'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'algoritmos',
   nivel: 1,
@@ -3055,6 +3101,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['propaganda'],
   disciplinas: ['Artes', 'Língua Portuguesa'],
   preparo: 'medio',
+  precisa: ['papel'],
   grupo: 'turma',
   eixo: 'consumo',
   nivel: 1,
@@ -3153,6 +3200,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'foto'],
   disciplinas: ['Língua Portuguesa', 'Ensino Religioso'],
   preparo: 'nenhum',
+  precisa: ['so-voz'],
   grupo: 'turma',
   eixo: 'consentimento',
   nivel: 2,
@@ -3250,6 +3298,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['golpe'],
   disciplinas: ['Língua Portuguesa', 'Ensino Religioso'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'turma',
   eixo: 'seguranca',
   nivel: 1,
@@ -3360,6 +3409,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados'],
   disciplinas: ['Matemática', 'Língua Portuguesa'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'turma',
   eixo: 'privacidade',
   nivel: 3,
@@ -3466,6 +3516,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'consentimento'],
   disciplinas: ['Matemática', 'Língua Portuguesa'],
   preparo: 'baixo',
+  precisa: ['espaco', 'objetos', 'papel'],
   grupo: 'turma',
   eixo: 'consentimento',
   nivel: 3,
@@ -3570,6 +3621,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['informacao', 'foto'],
   disciplinas: ['Língua Portuguesa', 'Artes'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'dupla',
   eixo: 'informacao',
   nivel: 1,
@@ -3679,6 +3731,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['golpe'],
   disciplinas: ['Língua Portuguesa', 'Educação Física'],
   preparo: 'baixo',
+  precisa: ['espaco', 'impressao'],
   grupo: 'pequeno',
   eixo: 'seguranca',
   nivel: 2,
@@ -3788,6 +3841,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados'],
   disciplinas: ['Ciências', 'Geografia', 'Artes'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 2,
@@ -3895,6 +3949,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['informacao', 'propaganda'],
   disciplinas: ['Língua Portuguesa', 'História', 'Ciências'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'dupla',
   eixo: 'informacao',
   nivel: 3,
@@ -4007,6 +4062,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['informacao'],
   disciplinas: ['Língua Portuguesa', 'Ciências', 'História'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'informacao',
   nivel: 4,
@@ -4135,6 +4191,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['propaganda', 'dados'],
   disciplinas: ['Matemática', 'Geografia', 'História'],
   preparo: 'medio',
+  precisa: ['impressao', 'objetos'],
   grupo: 'turma',
   eixo: 'consumo',
   nivel: 4,
@@ -4247,6 +4304,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'dados'],
   disciplinas: ['Geografia', 'Língua Portuguesa', 'Artes'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'dupla',
   eixo: 'privacidade',
   nivel: 3,
@@ -4371,6 +4429,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['golpe'],
   disciplinas: ['Língua Portuguesa', 'Matemática'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'seguranca',
   nivel: 3,
@@ -4487,6 +4546,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'dados'],
   disciplinas: ['Língua Portuguesa', 'Matemática'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'dupla',
   eixo: 'consumo',
   nivel: 4,
@@ -4599,6 +4659,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo', 'dados'],
   disciplinas: ['Matemática', 'Projeto de Vida', 'História'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'algoritmos',
   nivel: 4,
@@ -4739,6 +4800,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['informacao'],
   disciplinas: ['Língua Portuguesa', 'História', 'Ciências'],
   preparo: 'medio',
+  precisa: ['espaco', 'impressao'],
   grupo: 'pequeno',
   eixo: 'informacao',
   nivel: 4,
@@ -4865,6 +4927,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'informacao'],
   disciplinas: ['Língua Portuguesa', 'Ciências', 'Matemática', 'Projeto de Vida'],
   preparo: 'alto',
+  precisa: ['aparelho', 'impressao'],
   grupo: 'pequeno',
   eixo: 'ia',
   nivel: 5,
@@ -4992,6 +5055,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo', 'dados'],
   disciplinas: ['Projeto de Vida', 'História', 'Língua Portuguesa', 'Geografia'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'algoritmos',
   nivel: 5,
@@ -5112,6 +5176,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'consentimento'],
   disciplinas: ['Projeto de Vida', 'Geografia', 'Língua Portuguesa'],
   preparo: 'alto',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 5,
@@ -5249,6 +5314,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo'],
   disciplinas: ['Língua Portuguesa', 'Artes'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'turma',
   eixo: 'algoritmos',
   nivel: 2,
@@ -5356,6 +5422,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento'],
   disciplinas: ['Artes', 'Língua Portuguesa'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'individual',
   eixo: 'privacidade',
   nivel: 1,
@@ -5474,6 +5541,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'dados'],
   disciplinas: ['Matemática', 'Ciências', 'Projeto de Vida'],
   preparo: 'baixo',
+  precisa: ['espaco', 'impressao'],
   grupo: 'pequeno',
   eixo: 'ia',
   nivel: 2,
@@ -5599,6 +5667,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['golpe', 'dados'],
   disciplinas: ['Língua Portuguesa', 'Matemática'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'dupla',
   eixo: 'seguranca',
   nivel: 2,
@@ -5721,6 +5790,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['propaganda'],
   disciplinas: ['Artes', 'Língua Portuguesa', 'Matemática'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'consumo',
   nivel: 1,
@@ -5843,6 +5913,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['propaganda', 'consentimento', 'jogo'],
   disciplinas: ['Artes', 'Língua Portuguesa', 'Matemática'],
   preparo: 'medio',
+  precisa: ['impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'consumo',
   nivel: 3,
@@ -5955,6 +6026,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'algoritmo'],
   disciplinas: ['Geografia', 'Matemática', 'História', 'Projeto de Vida'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 4,
@@ -6090,6 +6162,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'consentimento'],
   disciplinas: ['Língua Portuguesa', 'Ensino Religioso', 'Projeto de Vida'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'consentimento',
   nivel: 4,
@@ -6221,6 +6294,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'consentimento'],
   disciplinas: ['Língua Portuguesa', 'Projeto de Vida', 'História'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'consentimento',
   nivel: 4,
@@ -6355,6 +6429,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['propaganda', 'dados', 'algoritmo'],
   disciplinas: ['Matemática', 'Geografia', 'História', 'Projeto de Vida'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'consumo',
   nivel: 4,
@@ -6492,6 +6567,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'informacao'],
   disciplinas: ['Língua Portuguesa', 'Ciências', 'História'],
   preparo: 'medio',
+  precisa: ['aparelho', 'impressao'],
   grupo: 'dupla',
   eixo: 'ia',
   nivel: 4,
@@ -6619,6 +6695,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['jogo', 'propaganda'],
   disciplinas: ['Matemática', 'Projeto de Vida', 'Língua Portuguesa'],
   preparo: 'medio',
+  precisa: ['impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'consumo',
   nivel: 5,
@@ -6744,6 +6821,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'dados'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'Ciências'],
   preparo: 'alto',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'ia',
   nivel: 5,
@@ -6860,6 +6938,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo', 'informacao', 'dados'],
   disciplinas: ['História', 'Geografia', 'Projeto de Vida', 'Língua Portuguesa'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'algoritmos',
   nivel: 5,
@@ -6992,6 +7071,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'autoria'],
   disciplinas: ['Língua Portuguesa', 'Artes', 'Projeto de Vida'],
   preparo: 'alto',
+  precisa: ['aparelho', 'impressao'],
   grupo: 'pequeno',
   eixo: 'autoria',
   nivel: 5,
@@ -7137,6 +7217,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'consentimento', 'foto'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
   preparo: 'nenhum',
+  precisa: ['aparelho'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 1,
@@ -7185,6 +7266,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'consentimento'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 1,
@@ -7233,6 +7315,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'consentimento', 'foto'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'privacidade',
   nivel: 2,
@@ -7283,6 +7366,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'informacao', 'golpe'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'privacidade',
   nivel: 2,
@@ -7339,6 +7423,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento'],
   disciplinas: ['Língua Portuguesa', 'Ensino Religioso', 'Artes'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'convivencia',
   nivel: 1,
@@ -7450,6 +7535,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'foto'],
   disciplinas: ['Língua Portuguesa', 'Projeto de Vida', 'Ensino Religioso'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'convivencia',
   nivel: 2,
@@ -7572,6 +7658,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'foto'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'História'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'turma',
   eixo: 'convivencia',
   nivel: 3,
@@ -7693,6 +7780,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['consentimento', 'foto', 'golpe'],
   disciplinas: ['Projeto de Vida', 'História', 'Língua Portuguesa'],
   preparo: 'alto',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'convivencia',
   nivel: 5,
@@ -7831,6 +7919,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['jogo'],
   disciplinas: ['Ciências', 'Educação Física', 'Artes'],
   preparo: 'baixo',
+  precisa: ['papel'],
   grupo: 'turma',
   eixo: 'bemestar',
   nivel: 1,
@@ -7936,6 +8025,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['algoritmo', 'propaganda'],
   disciplinas: ['Matemática', 'Ciências', 'Projeto de Vida', 'Artes'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'bemestar',
   nivel: 4,
@@ -8057,6 +8147,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'algoritmo'],
   disciplinas: ['Matemática', 'Ciências', 'Projeto de Vida'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'individual',
   eixo: 'bemestar',
   nivel: 5,
@@ -8194,6 +8285,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados'],
   disciplinas: ['Ciências', 'Matemática', 'Geografia'],
   preparo: 'medio',
+  precisa: ['espaco', 'impressao', 'objetos'],
   grupo: 'turma',
   eixo: 'infraestrutura',
   nivel: 2,
@@ -8322,6 +8414,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['propaganda'],
   disciplinas: ['Geografia', 'Ciências', 'Matemática', 'História'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'infraestrutura',
   nivel: 3,
@@ -8451,6 +8544,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados', 'golpe'],
   disciplinas: ['Matemática', 'Língua Portuguesa', 'Ciências'],
   preparo: 'baixo',
+  precisa: ['impressao', 'objetos'],
   grupo: 'pequeno',
   eixo: 'infraestrutura',
   nivel: 4,
@@ -8570,6 +8664,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'dados'],
   disciplinas: ['Matemática', 'Ciências', 'Geografia', 'Projeto de Vida'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'infraestrutura',
   nivel: 4,
@@ -8677,6 +8772,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['dados'],
   disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'Artes'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'infraestrutura',
   nivel: 5,
@@ -8815,6 +8911,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['foto', 'dados'],
   disciplinas: ['Geografia', 'Matemática', 'Ciências'],
   preparo: 'baixo',
+  precisa: ['impressao', 'objetos'],
   grupo: 'dupla',
   eixo: 'privacidade',
   nivel: 3,
@@ -8927,6 +9024,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['autoria', 'informacao'],
   disciplinas: ['Língua Portuguesa', 'Artes', 'Projeto de Vida'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'autoria',
   nivel: 3,
@@ -9047,6 +9145,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['autoria', 'informacao'],
   disciplinas: ['Língua Portuguesa', 'Artes', 'Projeto de Vida'],
   preparo: 'medio',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'autoria',
   nivel: 3,
@@ -9167,6 +9266,7 @@ window.JP.ATIVIDADES.push(
   situacao: ['ia-tarefa', 'algoritmo'],
   disciplinas: ['Projeto de Vida', 'História', 'Geografia', 'Matemática'],
   preparo: 'baixo',
+  precisa: ['impressao'],
   grupo: 'pequeno',
   eixo: 'ia',
   nivel: 5,
@@ -9350,6 +9450,8 @@ window.JP.ATIVIDADES.push(
       arr(a.situacao).forEach(function (s) { if (!T.situacao[s]) erros.push(onde + ': situacao "' + s + '" fora da taxonomia'); });
       arr(a.contexto).forEach(function (c) { if (!T.contexto[c]) erros.push(onde + ': contexto "' + c + '" fora da taxonomia'); });
       arr(a.selos).forEach(function (s) { if (!T.selos[s]) erros.push(onde + ': selo "' + s + '" fora da taxonomia'); });
+      arr(a.precisa).forEach(function (r) { if (!T.precisa[r]) erros.push(onde + ': precisa "' + r + '" fora da taxonomia'); });
+      if (!arr(a.precisa).length) erros.push(onde + ': sem o campo precisa');
       arr(a.disciplinas).forEach(function (d) { if (T.disciplina.indexOf(d) < 0) erros.push(onde + ': disciplina "' + d + '" fora da taxonomia'); });
       if (a.eixo && a.nivel && (a.nivel < 1 || a.nivel > T.eixos[a.eixo].niveis.length)) {
         erros.push(onde + ': nivel ' + a.nivel + ' fora da faixa do eixo ' + a.eixo);
@@ -9382,9 +9484,11 @@ window.JP.ATIVIDADES.push(
     perfil: null, ficha: null, colecao: null, nivel: null, busca: '', ordem: 'faixa', tipo: null,
     faixa: [], situacao: [], contexto: [], tela: [], formato: [],
     disciplina: [], preparo: [], grupo: [], eixo: [], selos: [],
+    precisa: [], sensibilidade: [], bncc: null,
     duracao: null, filtrosAbertos: false, versao: 'escola'
   };
-  var MULTI = ['faixa', 'situacao', 'contexto', 'tela', 'formato', 'disciplina', 'preparo', 'grupo', 'eixo', 'selos'];
+  var MULTI = ['faixa', 'situacao', 'contexto', 'tela', 'formato', 'disciplina', 'preparo', 'grupo', 'eixo', 'selos',
+               'precisa', 'sensibilidade'];
 
   function alternar(campo, valor) {
     var i = E[campo].indexOf(valor);
@@ -9407,6 +9511,7 @@ window.JP.ATIVIDADES.push(
       else if (k === 'busca') E.busca = v;
       else if (k === 'ordem') E.ordem = v;
       else if (k === 'tipo') E.tipo = v;
+      else if (k === 'bncc') E.bncc = v;
       else if (k === 'duracao') E.duracao = parseInt(v, 10);
       else if (MULTI.indexOf(k) >= 0) E[k] = v.split(',').filter(Boolean);
     });
@@ -9422,6 +9527,7 @@ window.JP.ATIVIDADES.push(
     if (E.busca) p.push('busca=' + encodeURIComponent(E.busca));
     if (E.ordem && E.ordem !== 'faixa') p.push('ordem=' + E.ordem);
     if (E.tipo) p.push('tipo=' + E.tipo);
+    if (E.bncc) p.push('bncc=' + E.bncc);
     if (E.duracao) p.push('duracao=' + E.duracao);
     MULTI.forEach(function (k) { if (E[k].length) p.push(k + '=' + E[k].map(encodeURIComponent).join(',')); });
     var novo = '#/' + p.join('&');
@@ -9487,8 +9593,40 @@ window.JP.ATIVIDADES.push(
     situacao:   function (a) { return !E.situacao.length || E.situacao.some(function (s) { return arr(a.situacao).indexOf(s) >= 0; }); },
     contexto:   function (a) { return !E.contexto.length || E.contexto.some(function (c) { return arr(a.contexto).indexOf(c) >= 0; }); },
     selos:      function (a) { return !E.selos.length || E.selos.every(function (s) { return arr(a.selos).indexOf(s) >= 0; }); },
-    disciplina: function (a) { return !E.disciplina.length || E.disciplina.some(function (d) { return arr(a.disciplinas).indexOf(d) >= 0; }); }
+    disciplina: function (a) { return !E.disciplina.length || E.disciplina.some(function (d) { return arr(a.disciplinas).indexOf(d) >= 0; }); },
+    /* "eu consigo com o que eu tenho?": marcar 'papel' precisa trazer também
+       as que rodam só com conversa, senão a opção mais restritiva esconde as
+       mais fáceis, que é o oposto do que a pessoa pediu. */
+    precisa:    function (a) {
+      if (!E.precisa.length) return true;
+      var tem = arr(a.precisa);
+      return E.precisa.every(function (r) {
+        if (r === 'papel')  return tem.indexOf('impressao') < 0;
+        if (r === 'so-voz') return tem.indexOf('so-voz') >= 0;
+        return tem.indexOf(r) >= 0;
+      });
+    },
+    sensibilidade: function (a) { return !E.sensibilidade.length || E.sensibilidade.indexOf(a.sensibilidade) >= 0; },
+    bncc:       function (a) { return !E.bncc || codigosBncc(a).indexOf(E.bncc) >= 0; }
   };
+
+  function codigosBncc(a) {
+    var out = [];
+    ['principal', 'secundaria', 'ponte'].forEach(function (k) {
+      if (a.bncc && a.bncc[k] && a.bncc[k].codigo) out.push(a.bncc[k].codigo);
+    });
+    return out;
+  }
+
+  /* Códigos realmente usados, com quantas atividades cada um tem. Listar os
+     129 da BNCC seria oferecer 79 opções que devolvem zero. */
+  function catalogoBncc() {
+    var m = {};
+    ATIV.forEach(function (a) {
+      codigosBncc(a).forEach(function (c) { m[c] = (m[c] || 0) + 1; });
+    });
+    return Object.keys(m).sort().map(function (c) { return { codigo: c, n: m[c] }; });
+  }
 
   function ordenar(lista) {
     var lst = lista.slice();
@@ -9535,16 +9673,19 @@ window.JP.ATIVIDADES.push(
       if (campo === 'selos')      return arr(a.selos).indexOf(valor) >= 0;
       if (campo === 'disciplina') return arr(a.disciplinas).indexOf(valor) >= 0;
       if (campo === 'duracao')    return duracaoMin(a) <= valor;
+      if (campo === 'precisa')    return valor === 'papel' ? arr(a.precisa).indexOf('impressao') < 0
+                                                           : arr(a.precisa).indexOf(valor) >= 0;
+      if (campo === 'sensibilidade') return a.sensibilidade === valor;
       return true;
     }).length;
   }
 
   /* Qual filtro ativo é o culpado por zerar o resultado. Vira sugestão. */
   function culpado() {
-    var campos = ['busca', 'colecao', 'perfil', 'duracao', 'nivel'].concat(MULTI);
+    var campos = ['busca', 'colecao', 'perfil', 'duracao', 'nivel', 'bncc'].concat(MULTI);
     for (var i = 0; i < campos.length; i++) {
       var k = campos[i];
-      var vazio = (k === 'duracao' || k === 'nivel' || k === 'colecao' || k === 'perfil' || k === 'busca')
+      var vazio = (k === 'duracao' || k === 'nivel' || k === 'colecao' || k === 'perfil' || k === 'busca' || k === 'bncc')
         ? !E[k] : !E[k].length;
       if (vazio) continue;
       if (filtrar(k).length > 0) return k;
@@ -9554,7 +9695,7 @@ window.JP.ATIVIDADES.push(
 
   function ativos() {
     var n = MULTI.reduce(function (s, k) { return s + E[k].length; }, 0);
-    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0) + (E.tipo ? 1 : 0);
+    return n + (E.duracao ? 1 : 0) + (E.colecao ? 1 : 0) + (E.nivel ? 1 : 0) + (E.busca ? 1 : 0) + (E.tipo ? 1 : 0) + (E.bncc ? 1 : 0);
   }
 
   /* ----------------------------------------------------------- componentes */
@@ -9595,6 +9736,7 @@ window.JP.ATIVIDADES.push(
     if (E.colecao) { var c = colecaoPorId(E.colecao); if (c) add(c.icone + ' ' + c.rotulo, 'colecao'); }
     if (E.perfil) add(T.perfil[E.perfil].rotulo, 'perfil');
     if (E.tipo) add(E.tipo === 'acervo' ? 'Materiais já publicados' : 'Fichas do banco', 'tipo');
+    if (E.bncc) add(E.bncc, 'bncc');
     if (E.duracao) {
       var d = T.duracao.filter(function (x) { return x.valor === E.duracao; })[0];
       add(d ? d.rotulo : E.duracao + ' min', 'duracao');
@@ -9602,7 +9744,8 @@ window.JP.ATIVIDADES.push(
     if (E.nivel) add('etapa ' + E.nivel, 'nivel');
     var mapas = {
       faixa: T.faixa, situacao: T.situacao, contexto: T.contexto, tela: T.tela,
-      formato: T.formato, preparo: T.preparo, grupo: T.grupo, eixo: T.eixos, selos: T.selos
+      formato: T.formato, preparo: T.preparo, grupo: T.grupo, eixo: T.eixos, selos: T.selos,
+      precisa: T.precisa, sensibilidade: T.sensibilidade
     };
     MULTI.forEach(function (k) {
       E[k].forEach(function (v) {
@@ -9727,10 +9870,25 @@ window.JP.ATIVIDADES.push(
           grupoFiltro('Disciplina', T.disciplina.map(function (d) {
             return chip('disciplina', d, d);
           }).join('')) +
+          grupoFiltro('O que eu preciso ter', chips('precisa', T.precisa), 'o mínimo para rodar') +
           grupoFiltro('Preparação necessária', chips('preparo', T.preparo)) +
           grupoFiltro('Tamanho do grupo', chips('grupo', T.grupo)) +
           grupoFiltro('Eixo de aprendizado', chips('eixo', T.eixos)) +
+          grupoFiltro('Sensibilidade do tema', chips('sensibilidade', T.sensibilidade),
+                      'alta exige protocolo de mediação') +
           grupoFiltro('Selos', chips('selos', T.selos), 'combinam entre si') +
+          /* Só os códigos que existem no banco. Um select, e não chips: são
+             dezenas, e chip demais vira parede. */
+          '<div class="jp-grupo"><div class="jp-grupo-t">Habilidade da BNCC' +
+            '<em>só os códigos que o banco cobre</em></div>' +
+            '<select class="jp-bncc-sel" data-slot="bncc">' +
+              '<option value="">qualquer habilidade</option>' +
+              catalogoBncc().map(function (c) {
+                return '<option value="' + esc(c.codigo) + '"' + (E.bncc === c.codigo ? ' selected' : '') + '>' +
+                  esc(c.codigo) + ' (' + c.n + ')</option>';
+              }).join('') +
+            '</select>' +
+          '</div>' +
         '</div>' : '') +
       '</div>';
 
@@ -9766,7 +9924,8 @@ window.JP.ATIVIDADES.push(
         duracao: 'o tempo disponível', nivel: 'a etapa de aprendizado', faixa: 'a faixa etária',
         situacao: 'a situação', contexto: 'o local de uso', tela: 'o filtro de tela',
         formato: 'o formato', disciplina: 'a disciplina', preparo: 'a preparação',
-        grupo: 'o tamanho do grupo', eixo: 'o eixo', selos: 'os selos'
+        grupo: 'o tamanho do grupo', eixo: 'o eixo', selos: 'os selos',
+        precisa: 'o que você precisa ter', sensibilidade: 'a sensibilidade', bncc: 'a habilidade da BNCC'
       };
       vazio = '<div class="jp-vazio"><strong>Essa combinação não existe no banco ainda.</strong>' +
         (culpa
@@ -10016,6 +10175,7 @@ window.JP.ATIVIDADES.push(
       ['Tela', T.tela[a.tela]],
       ['Grupo', T.grupo[a.grupo]],
       ['Preparação', T.preparo[a.preparo].rotulo + ', ' + T.preparo[a.preparo].detalhe],
+      ['Precisa ter', arr(a.precisa).map(function (r) { return T.precisa[r].rotulo; }).join(', ')],
       ['Onde usar', arr(a.contexto).map(function (c) { return T.contexto[c]; }).join(', ')],
       ['Tema', arr(a.situacao).map(function (s) { return T.situacao[s]; }).join(', ')],
       ['Origem', a.fonte]
@@ -10081,6 +10241,7 @@ window.JP.ATIVIDADES.push(
       ['Tela', T.tela[a.tela]],
       ['Grupo', T.grupo[a.grupo]],
       ['Preparação', T.preparo[a.preparo].rotulo + ', ' + T.preparo[a.preparo].detalhe],
+      ['Precisa ter', arr(a.precisa).map(function (r) { return T.precisa[r].rotulo; }).join(', ')],
       ['Onde usar', arr(a.contexto).map(function (c) { return T.contexto[c]; }).join(', ')],
       ['Tema', arr(a.situacao).map(function (s) { return T.situacao[s]; }).join(', ')],
       ['Eixo', T.eixos[a.eixo].rotulo + ', nível ' + a.nivel + ' de 5'],
@@ -10174,6 +10335,7 @@ window.JP.ATIVIDADES.push(
         else if (campo === 'colecao') E.colecao = null;
         else if (campo === 'perfil') E.perfil = null;
         else if (campo === 'tipo') E.tipo = null;
+        else if (campo === 'bncc') E.bncc = null;
         else if (el.dataset.valor != null) alternar(campo, el.dataset.valor);
         else E[campo] = [];
         return render();
@@ -10229,7 +10391,7 @@ window.JP.ATIVIDADES.push(
         case 'limpar':
           MULTI.forEach(function (k) { E[k] = []; });
           E.duracao = null; E.perfil = null; E.colecao = null; E.nivel = null;
-          E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
+          E.busca = ''; E.ordem = 'faixa'; E.tipo = null; E.bncc = null;
           return render();
         case 'voltar': E.ficha = null; return render(true);
         case 'imprimir': return window.print();
@@ -10256,6 +10418,7 @@ window.JP.ATIVIDADES.push(
       var campo = s.dataset.slot, v = s.value;
       if (campo === 'duracao') E.duracao = v ? parseInt(v, 10) : null;
       else if (campo === 'ordem') E.ordem = v || 'faixa';
+      else if (campo === 'bncc') E.bncc = v || null;
       else E[campo] = v ? [v] : [];
       render();
     });
@@ -10282,7 +10445,7 @@ window.JP.ATIVIDADES.push(
       if (escrevendoHash) return;
       MULTI.forEach(function (k) { E[k] = []; });
       E.duracao = null; E.perfil = null; E.ficha = null; E.colecao = null; E.nivel = null;
-      E.busca = ''; E.ordem = 'faixa'; E.tipo = null;
+      E.busca = ''; E.ordem = 'faixa'; E.tipo = null; E.bncc = null;
       lerHash(); render();
     });
   }

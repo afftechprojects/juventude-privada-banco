@@ -122,9 +122,24 @@ soltar o tempo disponível, voltam 6 atividades"*.
 
 **Ordenação** por idade, por menor tempo primeiro ou por menos preparo primeiro.
 
-**Doze filtros:** coleção, faixa etária, situação real, duração, uso na escola ou em casa,
-com ou sem tela, formato, disciplina, preparação, tamanho do grupo, eixo e nível de
-progressão, e selos.
+**Quinze filtros, todos opcionais:** tipo de material, faixa etária, situação real, uso na
+escola ou em casa, tela, formato, duração, disciplina, **o que eu preciso ter**, preparação,
+tamanho do grupo, eixo e nível, **sensibilidade do tema**, selos e **habilidade da BNCC**.
+
+Os três em negrito vieram de uma auditoria do próprio filtro. Habilidade da BNCC e
+sensibilidade estavam no briefing original e nunca tinham virado filtro. O de material
+saiu da constatação de que 60 das 77 atividades exigem impressora, e que uma escola sem
+cota de impressão não tinha como descobrir isso sem abrir ficha por ficha.
+
+### O campo `precisa`
+
+Registra o **mínimo para rodar**, não tudo que a ficha menciona. Quando o material cabe no
+quadro, a ficha é `papel` e não `impressao`. Hoje: 60 exigem imprimir, 17 não, 13 pedem
+objetos (dados, moedas, barbante), 7 pedem espaço para circular, 4 pedem aparelho e 3 rodam
+só com conversa.
+
+Ele foi **derivado do volume de material de cada ficha** e vale uma revisão de educador:
+está em `src/dados/*.js`, um campo por ficha, e é só editar.
 
 **Progressão narrativa.** Oito eixos, cinco etapas cada, do 🌱 ao ⚖, com a promessa de cada
 eixo escrita em uma linha. Etapas sem ficha aparecem como **em produção**, e é assim que se

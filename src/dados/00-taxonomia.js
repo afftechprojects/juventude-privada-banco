@@ -91,6 +91,25 @@ window.JP.TAXONOMIA = {
     'Geografia', 'Artes', 'Projeto de Vida', 'Educação Física', 'Ensino Religioso'
   ],
 
+  /* ---- o que a pessoa precisa ter para conseguir aplicar ----------------
+     Campo `precisa`. Responde "eu consigo fazer isso com o que eu tenho?",
+     que é a pergunta que uma escola sem cota de impressão faz primeiro.
+     Registra o MÍNIMO para rodar, não tudo que a ficha menciona: quando o
+     material cabe no quadro, a ficha é 'papel' e não 'impressao'.
+     Derivado do volume de material de cada ficha e revisável a qualquer
+     momento editando o campo direto no arquivo de dados.                   */
+  precisa: {
+    'so-voz':    { rotulo: 'Nada, só conversa',   detalhe: 'Roda sem material nenhum' },
+    /* 'papel' é usado no filtro como "não exige imprimir", e o rótulo diz
+       exatamente isso: prometer "papel e lápis" incluiria itens que rodam sem
+       impressora mas exigem computador, e o rótulo mentiria. */
+    'papel':     { rotulo: 'Sem precisar imprimir', detalhe: 'Dá para escrever no quadro ou em folha comum' },
+    'impressao': { rotulo: 'Precisa imprimir',    detalhe: 'Muitas cartas ou fichas por grupo' },
+    'objetos':   { rotulo: 'Objetos simples',     detalhe: 'Dados, moedas, barbante, caixinha ou cadeado' },
+    'espaco':    { rotulo: 'Espaço para circular', detalhe: 'Pátio ou sala com carteiras afastadas' },
+    'aparelho':  { rotulo: 'Computador ou celular', detalhe: 'Precisa de aparelho com internet' }
+  },
+
   /* ---- preparação necessária ------------------------------------------ */
   preparo: {
     nenhum: { rotulo: 'Nenhuma',   detalhe: 'Dá para abrir e aplicar' },
@@ -196,54 +215,58 @@ window.JP.TAXONOMIA = {
      As contagens são calculadas em tempo de execução: nunca escrever número
      à mão aqui, senão a vitrine promete o que o banco não tem.
 
-     As coleções são nomeadas pelo PROBLEMA, não pelo tema. Professor não chega
-     pensando "quero privacidade", chega pensando "aconteceu isso na minha sala".
-     Antes eram temas, e a de privacidade sozinha continha 43% do banco, o que
-     não filtra nada. */
+     Um macro tema por eixo de progressão, para que "explorar por tema" e
+     "como o aprendizado evolui" falem do mesmo conceito e ninguém precise
+     decidir entre duas taxonomias concorrentes.
+
+     Regra de tamanho: nenhum tema deve passar de cerca de um quarto do banco.
+     Por isso alguns puxam também uma situação (IA puxa "ia-tarefa") e outros
+     ficam só no eixo: "dados" está em 31 fichas e, se entrasse em privacidade,
+     o tema sozinho viraria quase metade do acervo e deixaria de filtrar.     */
   colecoes: [
-    { id: 'ia',            icone: '🤖', rotulo: 'A turma está usando IA',
-      resumo: 'Nos trabalhos, nas respostas, nas fontes. O que é ajuda e o que é atalho.',
-      filtro: function (a) { return a.eixo === 'ia' || a.eixo === 'autoria' ||
-        a.situacao.indexOf('ia-tarefa') >= 0 || a.situacao.indexOf('autoria') >= 0; } },
+    { id: 'privacidade',   icone: '🔒', rotulo: 'Privacidade e dados pessoais',
+      resumo: 'O que se revela sem querer, o que é deduzido a partir disso, e quem usa.',
+      filtro: function (a) { return a.eixo === 'privacidade'; } },
 
-    /* Só quem trata de imagem circulando. Antes esta coleção também pegava
-       situacao "consentimento", que quase toda ficha carrega, e ela virava um
-       terço do banco, que é exatamente o defeito que a reorganização corrigiu. */
-    { id: 'imagem',        icone: '📷', rotulo: 'Circulou uma foto ou um print',
-      resumo: 'Imagem que saiu do grupo, recorte fora de contexto e o direito de pedir para tirar.',
-      filtro: function (a) { return a.situacao.indexOf('foto') >= 0 || a.eixo === 'consentimento'; } },
+    { id: 'ia',            icone: '🤖', rotulo: 'Inteligência artificial',
+      resumo: 'Como a máquina aprende, onde ela erra e quem define as condições de uso.',
+      filtro: function (a) { return a.eixo === 'ia' || a.situacao.indexOf('ia-tarefa') >= 0; } },
 
-    { id: 'convivencia',   icone: '💔', rotulo: 'Alguém está sendo machucado',
-      resumo: 'Piada que virou outra coisa, plateia que ri junto, e o que fazer com prova e denúncia.',
-      filtro: function (a) { return a.eixo === 'convivencia'; } },
+    { id: 'algoritmos',    icone: '🔀', rotulo: 'Algoritmos e recomendação',
+      resumo: 'Por que aparece isso e não aquilo, quem escolheu o critério e quem responde.',
+      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
 
-    { id: 'seguranca',     icone: '🎣', rotulo: 'Alguém caiu num golpe',
-      resumo: 'Phishing, senha, conta invadida e o que fazer nos primeiros dez minutos.',
-      filtro: function (a) { return a.eixo === 'seguranca' || a.situacao.indexOf('golpe') >= 0; } },
+    { id: 'imagem',        icone: '📷', rotulo: 'Imagem e consentimento',
+      resumo: 'Foto que circula, print fora de contexto e o direito de pedir para tirar do ar.',
+      filtro: function (a) { return a.eixo === 'consentimento' || a.situacao.indexOf('foto') >= 0; } },
 
-    { id: 'informacao',    icone: '🔍', rotulo: 'Acreditam em tudo que chega',
-      resumo: 'Como conferir antes de compartilhar, e por que parecer confiável não basta.',
+    { id: 'informacao',    icone: '🔍', rotulo: 'Informação e verificação',
+      resumo: 'Como conferir antes de acreditar, e por que parecer confiável não basta.',
       filtro: function (a) { return a.eixo === 'informacao' || a.situacao.indexOf('informacao') >= 0; } },
 
-    { id: 'consumo',       icone: '💸', rotulo: 'Gastam e são influenciados',
+    { id: 'consumo',       icone: '💸', rotulo: 'Consumo, publicidade e games',
       resumo: 'Moeda virtual, recompensa aleatória, publicidade disfarçada e tela que empurra.',
       filtro: function (a) { return a.eixo === 'consumo' ||
         a.situacao.indexOf('jogo') >= 0 || a.situacao.indexOf('propaganda') >= 0; } },
 
-    { id: 'algoritmos',    icone: '🔀', rotulo: 'Por que aparece isso e não aquilo',
-      resumo: 'Quem escolheu o critério, o que ficou de fora e quem responde quando erra.',
-      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
+    { id: 'seguranca',     icone: '🛡', rotulo: 'Segurança e golpes',
+      resumo: 'Phishing, senha, conta invadida e o que fazer nos primeiros dez minutos.',
+      filtro: function (a) { return a.eixo === 'seguranca' || a.situacao.indexOf('golpe') >= 0; } },
 
-    { id: 'privacidade',   icone: '🔒', rotulo: 'Entregam dados sem perceber',
-      resumo: 'O que se revela sem querer, o que é deduzido a partir disso e quem usa.',
-      filtro: function (a) { return a.eixo === 'privacidade'; } },
+    { id: 'autoria',       icone: '✍', rotulo: 'Autoria e direitos',
+      resumo: 'Crédito, licença, remix e como declarar com honestidade o que foi seu.',
+      filtro: function (a) { return a.eixo === 'autoria' || a.situacao.indexOf('autoria') >= 0; } },
 
-    { id: 'bemestar',      icone: '😵', rotulo: 'Não conseguem parar',
-      resumo: 'Cansaço, rolagem infinita, notificação e o desenho que existe para prender.',
+    { id: 'convivencia',   icone: '💔', rotulo: 'Convivência digital',
+      resumo: 'Piada que virou outra coisa, plateia que ri junto, prova e denúncia.',
+      filtro: function (a) { return a.eixo === 'convivencia'; } },
+
+    { id: 'bemestar',      icone: '😵', rotulo: 'Bem-estar e tempo de tela',
+      resumo: 'Cansaço, rolagem infinita, notificação e o desenho feito para prender.',
       filtro: function (a) { return a.eixo === 'bemestar'; } },
 
-    { id: 'infraestrutura', icone: '⚙', rotulo: 'Não sabem como funciona por dentro',
-      resumo: 'Onde o dado passa, o que é criptografia, de que o aparelho é feito e quanto custa.',
+    { id: 'infraestrutura', icone: '⚙', rotulo: 'Como a tecnologia funciona',
+      resumo: 'Por onde o dado passa, o que é criptografia, de que o aparelho é feito.',
       filtro: function (a) { return a.eixo === 'infraestrutura'; } }
   ],
 
