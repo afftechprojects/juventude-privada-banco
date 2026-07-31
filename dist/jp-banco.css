@@ -23,6 +23,16 @@
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+
+  /* O componente traz o próprio respiro vertical. Assim ele pode ser solto
+     direto no Body do Webflow, sem Section nem Container por fora, e não
+     encosta no menu nem no rodapé. Não acrescentar padding no Webflow: dobra. */
+  display: block;
+  padding: 56px 0 80px;
+}
+
+@media (max-width: 700px) {
+  #jp-banco { padding: 32px 0 56px; }
 }
 
 /* reset local, defensivo contra o CSS do Webflow */
@@ -465,7 +475,7 @@
    O kit imprimível sai limpo: sem navegação, sem cores de fundo pesadas,
    cada material começando em página nova.                                */
 @media print {
-  #jp-banco { font-size: 11pt; color: #000; }
+  #jp-banco { font-size: 11pt; color: #000; padding: 0; }
   #jp-banco .jp-nao-imprime,
   #jp-banco .jp-portas, #jp-banco .jp-cenario, #jp-banco .jp-filtros,
   #jp-banco .jp-grade, #jp-banco .jp-barra, #jp-banco .jp-prog,
