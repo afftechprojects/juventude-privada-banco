@@ -7,8 +7,9 @@ artificial e uso responsável da tecnologia, da Educação Infantil ao Ensino M�
 A pessoa diz quanto tempo tem, com quem, com ou sem tela e sobre o quê, e recebe uma
 atividade aplicável com roteiro, kit imprimível, perguntas de mediação e adaptação para casa.
 
-**57 fichas completas**: 10 por faixa etária (Educação Infantil, 6 a 8, 9 a 10, 11 a 14 e
-Ensino Médio) mais 7 para famílias. 35 das 40 etapas de progressão preenchidas.
+**77 atividades**: 73 fichas completas mais 4 materiais já publicados pelo projeto
+(Eu Nunca, Puxa Papo digital e impresso, Datamundi), integrados aos mesmos filtros.
+50 códigos da BNCC Computação cobertos. 47 das 55 etapas de progressão preenchidas.
 
 ---
 
@@ -59,16 +60,12 @@ git add -A && git commit -m "nova ficha" && git push
 O site atualiza sozinho em um ou dois minutos. Se demorar a aparecer, é cache do navegador:
 abra em aba anônima para conferir.
 
-#### Rota B, sem hospedagem nenhuma
+#### Rota B, sem hospedagem: aposentada
 
-Tudo dentro do Webflow, ao custo de colar **22 blocos** de Embed, um embaixo do outro,
-com os arquivos de `dist/embeds-sem-host/` **na ordem numérica**. O último bloco, o do app,
-precisa ser o último mesmo.
-
-> **Não use esta rota.** Com 57 fichas são 22 blocos, e o do app ocupa 45.522 dos 50.000
-> caracteres permitidos por Embed. Manter isso à mão significa recolar blocos a cada
-> correção de vírgula numa ficha. O `build.py` sai com erro se algum bloco estourar, mas
-> o recado é outro: a rota A resolve com um Embed só e um `git push`.
+Existia uma rota que colava o banco inteiro em vários Embeds, sem hospedagem. Ela morreu
+quando o arquivo do app passou de 50.000 caracteres, que é o limite por Embed do Webflow,
+e ele não pode ser fatiado sem minificar, o que tornaria o código ilegível para quem
+mantém o projeto. Como a hospedagem já está no ar, não há perda prática.
 
 ### Passo 4, o link na página Materiais
 

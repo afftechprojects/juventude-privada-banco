@@ -167,49 +167,84 @@ window.JP.TAXONOMIA = {
       rotulo: 'Consumo digital',
       promessa: 'De reconhecer uma propaganda a analisar como plataformas ganham dinheiro com a atenção de menores.',
       niveis: ['reconhecer publicidade', 'perceber compras em jogos', 'identificar influência e design manipulativo', 'compreender monetização por dados', 'analisar perfilamento, verificação de idade e direitos']
+    },
+
+    /* Três eixos acrescentados depois da auditoria de cobertura contra a BNCC.
+       Convivência e Bem-estar não cabiam em privacidade nem em consumo, e a
+       BNCC pede os dois explicitamente (EF07CO08, EF07CO09, EM13CO24, EM13CO25).
+       Infraestrutura existe porque o banco ensinava a criticar sistemas sem
+       nunca abrir um, e crítica sem mecanismo vira opinião. */
+    convivencia: {
+      rotulo: 'Convivência',
+      promessa: 'De perceber que a brincadeira machucou alguém a saber denunciar, guardar prova e reparar.',
+      niveis: ['perceber que machucou alguém', 'não rir junto', 'sair do papel de plateia', 'proteger quem foi atingido e guardar prova', 'denunciar, reparar e mudar a regra do grupo']
+    },
+    bemestar: {
+      rotulo: 'Bem-estar',
+      promessa: 'De reconhecer o próprio cansaço a definir as condições em que você aceita usar uma tecnologia.',
+      niveis: ['reconhecer que cansou', 'perceber o que prende', 'medir o próprio uso', 'analisar o design que prende', 'decidir as próprias condições']
+    },
+    infraestrutura: {
+      rotulo: 'Como funciona por dentro',
+      promessa: 'De perceber que existe máquina atrás da tela a avaliar quem controla a infraestrutura e a que custo.',
+      niveis: ['perceber que existe máquina atrás', 'saber que a informação vira código e viaja', 'seguir o caminho do dado e do aparelho', 'entender proteção, criptografia e custo', 'avaliar arquitetura, controle e exclusão']
     }
   },
 
-  /* ---- coleções temáticas -----------------------------------------------
+  /* ---- coleções por problema ---------------------------------------------
      Uma atividade pode estar em mais de uma coleção, de propósito.
      As contagens são calculadas em tempo de execução: nunca escrever número
-     à mão aqui, senão a vitrine promete o que o banco não tem.            */
+     à mão aqui, senão a vitrine promete o que o banco não tem.
+
+     As coleções são nomeadas pelo PROBLEMA, não pelo tema. Professor não chega
+     pensando "quero privacidade", chega pensando "aconteceu isso na minha sala".
+     Antes eram temas, e a de privacidade sozinha continha 43% do banco, o que
+     não filtra nada. */
   colecoes: [
-    { id: 'ia',            icone: '🤖', rotulo: 'Inteligência artificial',
-      resumo: 'O que a máquina aprende, onde ela erra e quem decide como usá-la.',
-      filtro: function (a) { return a.eixo === 'ia' || a.situacao.indexOf('ia-tarefa') >= 0; } },
+    { id: 'ia',            icone: '🤖', rotulo: 'A turma está usando IA',
+      resumo: 'Nos trabalhos, nas respostas, nas fontes. O que é ajuda e o que é atalho.',
+      filtro: function (a) { return a.eixo === 'ia' || a.eixo === 'autoria' ||
+        a.situacao.indexOf('ia-tarefa') >= 0 || a.situacao.indexOf('autoria') >= 0; } },
 
-    { id: 'privacidade',   icone: '🔒', rotulo: 'Privacidade e dados',
-      resumo: 'O que revelamos sem perceber e o que fazem com isso.',
-      filtro: function (a) { return a.eixo === 'privacidade' || a.situacao.indexOf('dados') >= 0; } },
+    /* Só quem trata de imagem circulando. Antes esta coleção também pegava
+       situacao "consentimento", que quase toda ficha carrega, e ela virava um
+       terço do banco, que é exatamente o defeito que a reorganização corrigiu. */
+    { id: 'imagem',        icone: '📷', rotulo: 'Circulou uma foto ou um print',
+      resumo: 'Imagem que saiu do grupo, recorte fora de contexto e o direito de pedir para tirar.',
+      filtro: function (a) { return a.situacao.indexOf('foto') >= 0 || a.eixo === 'consentimento'; } },
 
-    { id: 'algoritmos',    icone: '🔀', rotulo: 'Algoritmos e recomendação',
-      resumo: 'Por que aparece isso e não aquilo, e quem escolheu o critério.',
-      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
+    { id: 'convivencia',   icone: '💔', rotulo: 'Alguém está sendo machucado',
+      resumo: 'Piada que virou outra coisa, plateia que ri junto, e o que fazer com prova e denúncia.',
+      filtro: function (a) { return a.eixo === 'convivencia'; } },
 
-    { id: 'games',         icone: '🎮', rotulo: 'Games e gastos',
-      resumo: 'Moedas virtuais, recompensas aleatórias e o preço do que é de graça.',
-      filtro: function (a) { return a.situacao.indexOf('jogo') >= 0; } },
-
-    { id: 'imagem',        icone: '📷', rotulo: 'Imagem e consentimento',
-      resumo: 'Fotos que circulam, prints fora de contexto e o direito de pedir para tirar do ar.',
-      filtro: function (a) { return a.situacao.indexOf('foto') >= 0 || a.situacao.indexOf('consentimento') >= 0; } },
-
-    { id: 'seguranca',     icone: '🛡', rotulo: 'Golpes e segurança',
-      resumo: 'Phishing, contas invadidas e o que fazer nos primeiros dez minutos.',
+    { id: 'seguranca',     icone: '🎣', rotulo: 'Alguém caiu num golpe',
+      resumo: 'Phishing, senha, conta invadida e o que fazer nos primeiros dez minutos.',
       filtro: function (a) { return a.eixo === 'seguranca' || a.situacao.indexOf('golpe') >= 0; } },
 
-    { id: 'informacao',    icone: '🔍', rotulo: 'Informação e verificação',
-      resumo: 'Como conferir antes de acreditar, e por que parecer confiável não basta.',
+    { id: 'informacao',    icone: '🔍', rotulo: 'Acreditam em tudo que chega',
+      resumo: 'Como conferir antes de compartilhar, e por que parecer confiável não basta.',
       filtro: function (a) { return a.eixo === 'informacao' || a.situacao.indexOf('informacao') >= 0; } },
 
-    { id: 'autoria',       icone: '✍', rotulo: 'IA nos trabalhos e autoria',
-      resumo: 'O que é ajuda, o que é atalho, e como declarar com honestidade.',
-      filtro: function (a) { return a.eixo === 'autoria' || a.situacao.indexOf('autoria') >= 0; } },
+    { id: 'consumo',       icone: '💸', rotulo: 'Gastam e são influenciados',
+      resumo: 'Moeda virtual, recompensa aleatória, publicidade disfarçada e tela que empurra.',
+      filtro: function (a) { return a.eixo === 'consumo' ||
+        a.situacao.indexOf('jogo') >= 0 || a.situacao.indexOf('propaganda') >= 0; } },
 
-    { id: 'propaganda',    icone: '📣', rotulo: 'Propaganda e influência',
-      resumo: 'Publicidade disfarçada, telas que empurram e design que manipula.',
-      filtro: function (a) { return a.situacao.indexOf('propaganda') >= 0; } }
+    { id: 'algoritmos',    icone: '🔀', rotulo: 'Por que aparece isso e não aquilo',
+      resumo: 'Quem escolheu o critério, o que ficou de fora e quem responde quando erra.',
+      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
+
+    { id: 'privacidade',   icone: '🔒', rotulo: 'Entregam dados sem perceber',
+      resumo: 'O que se revela sem querer, o que é deduzido a partir disso e quem usa.',
+      filtro: function (a) { return a.eixo === 'privacidade'; } },
+
+    { id: 'bemestar',      icone: '😵', rotulo: 'Não conseguem parar',
+      resumo: 'Cansaço, rolagem infinita, notificação e o desenho que existe para prender.',
+      filtro: function (a) { return a.eixo === 'bemestar'; } },
+
+    { id: 'infraestrutura', icone: '⚙', rotulo: 'Não sabem como funciona por dentro',
+      resumo: 'Onde o dado passa, o que é criptografia, de que o aparelho é feito e quanto custa.',
+      filtro: function (a) { return a.eixo === 'infraestrutura'; } }
   ],
 
   /* ---- selos visíveis ---------------------------------------------------

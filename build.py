@@ -14,7 +14,7 @@ externo, mas exige colar vários blocos de Embed em ordem no Webflow.
 
 Uso:  python build.py [--base https://usuario.github.io/repo]
 """
-import os, sys, io, shutil
+import os, sys, io, shutil, time
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(RAIZ, 'src')
@@ -26,6 +26,7 @@ ORDEM_DADOS = [
     '07-infantil-lote2.js', '08-6a8-lote2.js', '09-9a10-lote2.js', '10-11a14-lote2.js', '11-15a17-lote2.js',
     '12-infantil-lote3.js', '13-6a8-lote3.js', '14-9a10-lote3.js', '15-11a14-lote3.js', '16-15a17-lote3.js',
     '17-acervo.js',
+    '18-convivencia.js', '19-bemestar.js', '20-infraestrutura.js', '21-lacunas.js',
 ]
 
 LIMITE_EMBED = 45000  # o Webflow aceita 50 mil por Embed; deixamos folga
@@ -34,6 +35,33 @@ LIMITE_EMBED = 45000  # o Webflow aceita 50 mil por Embed; deixamos folga
 def ler(caminho):
     with io.open(caminho, encoding='utf-8') as f:
         return f.read()
+
+
+def limpar_dist():
+    """Esvazia dist/ sem depender de conseguir remover as pastas.
+
+    O projeto vive dentro do OneDrive, que trava diretórios enquanto sincroniza,
+    e rmtree falha com PermissionError de forma intermitente. Apagar só os
+    arquivos resolve: as pastas podem ficar, porque escrever() recria o que
+    precisa e arquivo antigo nenhum sobrevive.
+    """
+    if not os.path.isdir(DIST):
+        return
+    restaram = []
+    for raiz, _dirs, arquivos in os.walk(DIST):
+        for nome in arquivos:
+            alvo = os.path.join(raiz, nome)
+            for tentativa in range(3):
+                try:
+                    os.remove(alvo)
+                    break
+                except PermissionError:
+                    time.sleep(0.3)
+            else:
+                restaram.append(alvo)
+    if restaram:
+        print('AVISO: nao consegui apagar %d arquivo(s) antigo(s) em dist/.' % len(restaram))
+        print('       Pause a sincronizacao do OneDrive e rode de novo se o resultado parecer velho.')
 
 
 def escrever(caminho, conteudo):
@@ -48,8 +76,7 @@ def main():
     if '--base' in sys.argv:
         base = sys.argv[sys.argv.index('--base') + 1].rstrip('/')
 
-    if os.path.isdir(DIST):
-        shutil.rmtree(DIST)
+    limpar_dist()
 
     css = ler(os.path.join(SRC, 'jp-banco.css'))
     partes = [ler(os.path.join(SRC, 'dados', n)) for n in ORDEM_DADOS]
@@ -74,58 +101,28 @@ def main():
     )
     escrever(os.path.join(DIST, 'embed-hospedado.html'), embed)
 
-    # ---------------------------------------------------------------- rota B
-    # Cada arquivo de dados vira um Embed próprio. Se algum passar do limite,
-    # ele é quebrado em pedaços que continuam sendo JS válido, porque a quebra
-    # acontece entre objetos de ficha (na linha em branco antes de "/* ===").
-    blocos = []
-    blocos.append(('01-estilo', '<style>\n' + css + '\n</style>\n<div id="jp-banco"></div>'))
-
-    idx = 2
-    for nome in ORDEM_DADOS:
-        conteudo = ler(os.path.join(SRC, 'dados', nome))
-        if len(conteudo) <= LIMITE_EMBED:
-            blocos.append(('%02d-%s' % (idx, nome.replace('.js', '')),
-                           '<script>\n' + conteudo + '\n</script>'))
-            idx += 1
-            continue
-        # quebra em pedaços, cada um com o seu próprio push()
-        cabeca = conteudo.split('window.JP.ATIVIDADES.push(')[0]
-        corpo = conteudo.split('window.JP.ATIVIDADES.push(', 1)[1].rsplit(');', 1)[0]
-        fichas = [f for f in corpo.split('\n/* ====') if f.strip()]
-        atual, pedaco = [], 1
-        def descarrega(lista, p):
-            texto = cabeca + 'window.JP.ATIVIDADES.push(\n/* ====' + '\n/* ===='.join(lista) + '\n);'
-            blocos.append(('%02d-%s-p%d' % (idx, nome.replace('.js', ''), p),
-                           '<script>\n' + texto + '\n</script>'))
-        for f in fichas:
-            if atual and len(''.join(atual)) + len(f) > LIMITE_EMBED - len(cabeca) - 200:
-                descarrega(atual, pedaco); idx += 1; pedaco += 1; atual = []
-            atual.append(f)
-        if atual:
-            descarrega(atual, pedaco); idx += 1
-
-    blocos.append(('%02d-app' % idx, '<script>\n' + ler(os.path.join(SRC, 'jp-banco-app.js')) + '\n</script>'))
-
-    for nome, conteudo in blocos:
-        escrever(os.path.join(DIST, 'embeds-sem-host', nome + '.html'), conteudo)
+    # --------------------------------------------------- rota B, aposentada
+    # A rota B colava o banco inteiro em vários Embeds do Webflow, sem
+    # hospedagem. Ela morreu quando o app passou de 50 mil caracteres, que é o
+    # limite por Embed, e o arquivo do app não pode ser fatiado sem minificar,
+    # o que tornaria o código ilegível para quem mantém o projeto.
+    # A hospedagem já está no ar, então não há perda prática.
+    app_tam = len(ler(os.path.join(SRC, 'jp-banco-app.js')))
 
     # ------------------------------------------------------------- relatório
     print('dist/jp-banco.css .......... %6d caracteres' % n_css)
     print('dist/jp-banco.js ........... %6d caracteres' % n_js)
-    print('dist/embed-hospedado.html .. %6d caracteres  (rota A, cabe em 1 Embed)' % len(embed))
+    print('dist/embed-hospedado.html .. %6d caracteres  (cabe em 1 Embed)' % len(embed))
     print('')
-    print('rota B, %d blocos de Embed:' % len(blocos))
-    estourou = False
-    for nome, conteudo in blocos:
-        marca = '  OK ' if len(conteudo) <= 50000 else '  ESTOUROU '
-        if len(conteudo) > 50000:
-            estourou = True
-        print('%s %-28s %6d' % (marca, nome, len(conteudo)))
-    if estourou:
-        print('\nATENCAO: algum bloco passou de 50 mil caracteres e nao vai colar no Webflow.')
-        sys.exit(1)
-    print('\nbase usada nos links da rota A: %s' % base)
+    print('%d atividades em %d arquivos de dados.' % (
+        sum(ler(os.path.join(SRC, 'dados', n)).count('\n  n: ') for n in ORDEM_DADOS),
+        len(ORDEM_DADOS) - 1))
+    print('')
+    if app_tam > LIMITE_EMBED:
+        print('Nota: o app tem %d caracteres e nao cabe mais em um Embed do Webflow' % app_tam)
+        print('      (limite 50.000). Publicar sem hospedagem deixou de ser possivel.')
+        print('      A rota com GitHub Pages, ja no ar, e a unica suportada.')
+    print('base usada nos links: %s' % base)
 
 
 if __name__ == '__main__':

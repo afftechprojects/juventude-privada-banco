@@ -169,49 +169,84 @@ window.JP.TAXONOMIA = {
       rotulo: 'Consumo digital',
       promessa: 'De reconhecer uma propaganda a analisar como plataformas ganham dinheiro com a atenção de menores.',
       niveis: ['reconhecer publicidade', 'perceber compras em jogos', 'identificar influência e design manipulativo', 'compreender monetização por dados', 'analisar perfilamento, verificação de idade e direitos']
+    },
+
+    /* Três eixos acrescentados depois da auditoria de cobertura contra a BNCC.
+       Convivência e Bem-estar não cabiam em privacidade nem em consumo, e a
+       BNCC pede os dois explicitamente (EF07CO08, EF07CO09, EM13CO24, EM13CO25).
+       Infraestrutura existe porque o banco ensinava a criticar sistemas sem
+       nunca abrir um, e crítica sem mecanismo vira opinião. */
+    convivencia: {
+      rotulo: 'Convivência',
+      promessa: 'De perceber que a brincadeira machucou alguém a saber denunciar, guardar prova e reparar.',
+      niveis: ['perceber que machucou alguém', 'não rir junto', 'sair do papel de plateia', 'proteger quem foi atingido e guardar prova', 'denunciar, reparar e mudar a regra do grupo']
+    },
+    bemestar: {
+      rotulo: 'Bem-estar',
+      promessa: 'De reconhecer o próprio cansaço a definir as condições em que você aceita usar uma tecnologia.',
+      niveis: ['reconhecer que cansou', 'perceber o que prende', 'medir o próprio uso', 'analisar o design que prende', 'decidir as próprias condições']
+    },
+    infraestrutura: {
+      rotulo: 'Como funciona por dentro',
+      promessa: 'De perceber que existe máquina atrás da tela a avaliar quem controla a infraestrutura e a que custo.',
+      niveis: ['perceber que existe máquina atrás', 'saber que a informação vira código e viaja', 'seguir o caminho do dado e do aparelho', 'entender proteção, criptografia e custo', 'avaliar arquitetura, controle e exclusão']
     }
   },
 
-  /* ---- coleções temáticas -----------------------------------------------
+  /* ---- coleções por problema ---------------------------------------------
      Uma atividade pode estar em mais de uma coleção, de propósito.
      As contagens são calculadas em tempo de execução: nunca escrever número
-     à mão aqui, senão a vitrine promete o que o banco não tem.            */
+     à mão aqui, senão a vitrine promete o que o banco não tem.
+
+     As coleções são nomeadas pelo PROBLEMA, não pelo tema. Professor não chega
+     pensando "quero privacidade", chega pensando "aconteceu isso na minha sala".
+     Antes eram temas, e a de privacidade sozinha continha 43% do banco, o que
+     não filtra nada. */
   colecoes: [
-    { id: 'ia',            icone: '🤖', rotulo: 'Inteligência artificial',
-      resumo: 'O que a máquina aprende, onde ela erra e quem decide como usá-la.',
-      filtro: function (a) { return a.eixo === 'ia' || a.situacao.indexOf('ia-tarefa') >= 0; } },
+    { id: 'ia',            icone: '🤖', rotulo: 'A turma está usando IA',
+      resumo: 'Nos trabalhos, nas respostas, nas fontes. O que é ajuda e o que é atalho.',
+      filtro: function (a) { return a.eixo === 'ia' || a.eixo === 'autoria' ||
+        a.situacao.indexOf('ia-tarefa') >= 0 || a.situacao.indexOf('autoria') >= 0; } },
 
-    { id: 'privacidade',   icone: '🔒', rotulo: 'Privacidade e dados',
-      resumo: 'O que revelamos sem perceber e o que fazem com isso.',
-      filtro: function (a) { return a.eixo === 'privacidade' || a.situacao.indexOf('dados') >= 0; } },
+    /* Só quem trata de imagem circulando. Antes esta coleção também pegava
+       situacao "consentimento", que quase toda ficha carrega, e ela virava um
+       terço do banco, que é exatamente o defeito que a reorganização corrigiu. */
+    { id: 'imagem',        icone: '📷', rotulo: 'Circulou uma foto ou um print',
+      resumo: 'Imagem que saiu do grupo, recorte fora de contexto e o direito de pedir para tirar.',
+      filtro: function (a) { return a.situacao.indexOf('foto') >= 0 || a.eixo === 'consentimento'; } },
 
-    { id: 'algoritmos',    icone: '🔀', rotulo: 'Algoritmos e recomendação',
-      resumo: 'Por que aparece isso e não aquilo, e quem escolheu o critério.',
-      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
+    { id: 'convivencia',   icone: '💔', rotulo: 'Alguém está sendo machucado',
+      resumo: 'Piada que virou outra coisa, plateia que ri junto, e o que fazer com prova e denúncia.',
+      filtro: function (a) { return a.eixo === 'convivencia'; } },
 
-    { id: 'games',         icone: '🎮', rotulo: 'Games e gastos',
-      resumo: 'Moedas virtuais, recompensas aleatórias e o preço do que é de graça.',
-      filtro: function (a) { return a.situacao.indexOf('jogo') >= 0; } },
-
-    { id: 'imagem',        icone: '📷', rotulo: 'Imagem e consentimento',
-      resumo: 'Fotos que circulam, prints fora de contexto e o direito de pedir para tirar do ar.',
-      filtro: function (a) { return a.situacao.indexOf('foto') >= 0 || a.situacao.indexOf('consentimento') >= 0; } },
-
-    { id: 'seguranca',     icone: '🛡', rotulo: 'Golpes e segurança',
-      resumo: 'Phishing, contas invadidas e o que fazer nos primeiros dez minutos.',
+    { id: 'seguranca',     icone: '🎣', rotulo: 'Alguém caiu num golpe',
+      resumo: 'Phishing, senha, conta invadida e o que fazer nos primeiros dez minutos.',
       filtro: function (a) { return a.eixo === 'seguranca' || a.situacao.indexOf('golpe') >= 0; } },
 
-    { id: 'informacao',    icone: '🔍', rotulo: 'Informação e verificação',
-      resumo: 'Como conferir antes de acreditar, e por que parecer confiável não basta.',
+    { id: 'informacao',    icone: '🔍', rotulo: 'Acreditam em tudo que chega',
+      resumo: 'Como conferir antes de compartilhar, e por que parecer confiável não basta.',
       filtro: function (a) { return a.eixo === 'informacao' || a.situacao.indexOf('informacao') >= 0; } },
 
-    { id: 'autoria',       icone: '✍', rotulo: 'IA nos trabalhos e autoria',
-      resumo: 'O que é ajuda, o que é atalho, e como declarar com honestidade.',
-      filtro: function (a) { return a.eixo === 'autoria' || a.situacao.indexOf('autoria') >= 0; } },
+    { id: 'consumo',       icone: '💸', rotulo: 'Gastam e são influenciados',
+      resumo: 'Moeda virtual, recompensa aleatória, publicidade disfarçada e tela que empurra.',
+      filtro: function (a) { return a.eixo === 'consumo' ||
+        a.situacao.indexOf('jogo') >= 0 || a.situacao.indexOf('propaganda') >= 0; } },
 
-    { id: 'propaganda',    icone: '📣', rotulo: 'Propaganda e influência',
-      resumo: 'Publicidade disfarçada, telas que empurram e design que manipula.',
-      filtro: function (a) { return a.situacao.indexOf('propaganda') >= 0; } }
+    { id: 'algoritmos',    icone: '🔀', rotulo: 'Por que aparece isso e não aquilo',
+      resumo: 'Quem escolheu o critério, o que ficou de fora e quem responde quando erra.',
+      filtro: function (a) { return a.eixo === 'algoritmos' || a.situacao.indexOf('algoritmo') >= 0; } },
+
+    { id: 'privacidade',   icone: '🔒', rotulo: 'Entregam dados sem perceber',
+      resumo: 'O que se revela sem querer, o que é deduzido a partir disso e quem usa.',
+      filtro: function (a) { return a.eixo === 'privacidade'; } },
+
+    { id: 'bemestar',      icone: '😵', rotulo: 'Não conseguem parar',
+      resumo: 'Cansaço, rolagem infinita, notificação e o desenho que existe para prender.',
+      filtro: function (a) { return a.eixo === 'bemestar'; } },
+
+    { id: 'infraestrutura', icone: '⚙', rotulo: 'Não sabem como funciona por dentro',
+      resumo: 'Onde o dado passa, o que é criptografia, de que o aparelho é feito e quanto custa.',
+      filtro: function (a) { return a.eixo === 'infraestrutura'; } }
   ],
 
   /* ---- selos visíveis ---------------------------------------------------
@@ -7274,6 +7309,1966 @@ window.JP.ATIVIDADES.push(
   protecao: 'Material de parceiro, com conteúdo próprio: leia antes de aplicar e confira se a linguagem e os exemplos servem para a sua turma. Vale a regra geral do banco, que é não pedir dado real, relato pessoal nem exemplo da vida de ninguém durante a partida.',
 
   observar: 'Ao fim da partida, a turma consegue dizer qual dos temas ela quer entender melhor. Essa resposta é a melhor pauta possível para escolher a próxima ficha do banco.'
+}
+
+);
+
+
+/* Eixo Convivência. Acrescentado depois da auditoria de cobertura: a BNCC pede
+   EF07CO08, EF07CO09 e EM13CO25 explicitamente, e o banco não tinha nenhuma ficha
+   cujo objeto fosse a violência entre pares.
+   Todas as quatro exigem combinação prévia com a orientação educacional. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 62 */
+{
+  id: 'brincadeira-que-so-um-achou-graca',
+  insightCurto: 'Se um está rindo e o outro não, parou de ser brincadeira. Quem decide isso é quem não riu.',
+  n: 62,
+  titulo: 'A brincadeira que só um achou graça',
+  chamada: 'Duas cenas quase iguais. Em uma todo mundo ri. Na outra, alguém fica de fora do riso.',
+  faixa: '6-8',
+  duracao: 25,
+  duracaoCurta: 15,
+  comoEncurtar: 'Em 15 minutos: use dois pares de cena em vez de quatro e vá direto ao termômetro. A frase da turma no cartaz pode ficar para o dia seguinte.',
+  formato: 'historia',
+  formatoDetalhe: 'Cenas comparadas e termômetro de sentimento',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['consentimento'],
+  disciplinas: ['Língua Portuguesa', 'Ensino Religioso', 'Artes'],
+  preparo: 'baixo',
+  grupo: 'turma',
+  eixo: 'convivencia',
+  nivel: 1,
+  sensibilidade: 'media',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF06CO09', texto: 'Apresentar conduta e linguagem apropriadas ao se comunicar em ambiente digital, considerando a ética e o respeito.' },
+    secundaria: { codigo: 'EF03CO09', texto: 'Reconhecer o potencial impacto do compartilhamento de informações pessoais ou de seus pares em meio digital.' },
+    nota: 'Ponte antecipada: EF06CO09 é do 6º ano, e aqui trabalha-se a base dela, que é perceber o efeito da própria conduta sobre o outro.'
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Reconhecer o impacto da própria conduta sobre outra pessoa em interações mediadas.' },
+
+  provocacao: 'Eu vou contar duas histórias quase iguais. A diferença entre elas é pequenininha e muda tudo.',
+
+  missao: 'Depois de cada par de cenas, marcar no termômetro como ficou a pessoa da história: rindo, quietinha ou com o coração apertado.',
+
+  virada: 'No terceiro par, o facilitador conta a cena e as crianças marcam. Aí ele acrescenta uma frase que ninguém esperava: o menino da história riu também, na hora. As crianças precisam decidir se isso muda a marcação. E descobrem que rir junto às vezes é o jeito de não ficar sozinho, e não sinal de que achou graça.',
+
+  insight: 'Quem decide se foi brincadeira não é quem contou a piada. É quem estava do outro lado dela. E às vezes a pessoa ri para não ficar de fora.',
+
+  transferencia: 'Antes de continuar uma brincadeira, dá para olhar a cara de quem é o assunto dela. Se a pessoa não estiver rindo de verdade, a brincadeira acabou.',
+
+  roteiro: [
+    { t: '0 a 4 min',   o: 'Montar o termômetro na parede: três carinhas grandes, rindo, quietinha e coração apertado. Combinar que ninguém fala nome de ninguém da sala.' },
+    { t: '4 a 16 min',  o: 'Quatro pares de cena. Contar as duas versões de cada par e, depois de cada uma, as crianças levantam a carinha que corresponde. Contar quantas mãos em cada.' },
+    { t: '16 a 20 min', o: 'A virada. No terceiro par, acrescentar que o menino riu também. Perguntar se a marcação muda.' },
+    { t: '20 a 23 min', o: 'A pergunta de fechamento: quem sabe se foi brincadeira?' },
+    { t: '23 a 25 min', o: 'Construir a frase da turma no cartaz, com as palavras das crianças.' }
+  ],
+
+  versoes: {
+    escola: 'Turma em roda, com as carinhas grandes na parede. Encaixa em qualquer momento de conversa sobre convivência e funciona bem no começo do ano. Se a turma tiver conflito em curso, aplicar depois que ele tiver sido tratado, e nunca no lugar do tratamento.',
+    familia: 'Contar dois pares na hora do jantar e usar as mãos em vez do cartaz. Depois o adulto conta uma vez em que ele mesmo fez uma brincadeira que não teve graça para o outro. Ver adulto reconhecendo vale mais que a atividade inteira.',
+    jovem: null
+  },
+
+  kit: [
+    { nome: 'Quatro pares de cena', tipo: 'imprimivel', desc: 'Duas versões de cada, para ler em voz alta.' },
+    { nome: 'Termômetro de sentimento', tipo: 'imprimivel', desc: 'Três carinhas grandes para a parede e pequenas para a mão.' },
+    { nome: 'Cartaz da frase da turma', tipo: 'imprimivel', desc: 'Para preencher junto.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'O que muda em cada par e como mediar.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Quatro pares de cena',
+      tipo: 'cartas',
+      nota: 'Ler a versão A e marcar. Depois a versão B e marcar de novo. Não comentar entre uma e outra.',
+      itens: [
+        'PAR 1, A: o Téo escorregou na educação física e caiu sentado. Ele levantou rindo e falou "de novo não!". Todo mundo riu junto com ele. | PAR 1, B: o Téo escorregou e caiu sentado. Ele levantou vermelho e foi direto para o banco, sem falar nada. Todo mundo riu.',
+        'PAR 2, A: a Bel errou o nome de um país na aula e a professora corrigiu. Ela falou "eita" e anotou. | PAR 2, B: a Bel errou o nome do país e três colegas repetiram o erro dela, imitando a voz, no recreio inteiro.',
+        'PAR 3, A: o Dado tem um apelido que ele mesmo inventou e adora. Todo mundo chama ele assim. | PAR 3, B: o Dado ganhou um apelido que ele não escolheu, sobre o cabelo dele. Quando chamam, ele responde.',
+        'PAR 4, A: a Nina contou que tem medo de trovão e as amigas contaram os medos delas também. | PAR 4, B: a Nina contou que tem medo de trovão e as amigas passaram a fazer barulho de trovão quando ela chega.'
+      ]
+    },
+    {
+      titulo: 'Termômetro de sentimento',
+      tipo: 'cartaz',
+      corpo: 'Três carinhas grandes, lado a lado na parede:\n\nRINDO DE VERDADE (carinha sorrindo)\nQUIETINHA (carinha neutra)\nCORAÇÃO APERTADO (carinha triste, com um coração pequeno ao lado)\n\nImprimir também em tamanho de mão, três por criança, para levantarem.'
+    },
+    {
+      titulo: 'Cartaz da frase da turma',
+      tipo: 'cartaz',
+      corpo: 'Título grande:\nCOMO A GENTE SABE QUE AINDA É BRINCADEIRA\n\nEspaço para o adulto escrever, com as palavras das crianças:\n\nA gente olha ______________________.\n\nSe a pessoa ______________________, a brincadeira acabou.\n\nQuando a brincadeira acaba, a gente ______________________.\n\nAbaixo, espaço para todas as crianças carimbarem a mão.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'O QUE MUDA EM CADA PAR\nPar 1: quem ri primeiro. Na A, o Téo. Na B, os outros.\nPar 2: repetição. Errar uma vez é acidente, o erro virar imitação a tarde inteira é outra coisa.\nPar 3: quem escolheu o apelido. É o par mais sutil e o mais importante: na B o Dado responde, e responder não é o mesmo que gostar.\nPar 4: o que se faz com o que a pessoa confiou. Na A, reciprocidade. Na B, o medo virou instrumento.\n\nA VIRADA, no par 3\nAcrescentar que o Dado riu quando chamaram. Muitas crianças mudam a marcação para "rindo". A pergunta que devolve: ele riu porque achou graça, ou para não ficar sozinho? Crianças de 6 a 8 anos entendem essa diferença perfeitamente, porque já sentiram, e é por isso que a atividade funciona nesta idade.\n\nCONDUÇÃO\n. Nunca usar nome de criança da turma, nem "vamos supor que fosse o fulano".\n. Não perguntar se alguém já passou por isso. Se vier espontaneamente, acolher em uma frase e voltar às cenas.\n. Não terminar com culpa. A frase do cartaz é sobre como perceber, e não sobre quem errou.\n. Se a turma tiver um caso real em curso, tratar o caso pelo canal próprio ANTES, e aplicar esta atividade semanas depois. Aplicar durante transforma a roda em julgamento.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quem sabe se ainda é brincadeira?',
+      'O Dado riu. Isso quer dizer que ele gostou do apelido?',
+      'Qual é a diferença entre rir COM alguém e rir DE alguém?',
+      'O que a gente faz quando percebe que a brincadeira acabou?'
+    ],
+    evitar: [
+      'Usar nome de criança da turma em qualquer cena.',
+      'Perguntar se já aconteceu com alguém ali.',
+      'Terminar em culpa. O objetivo é perceber, não punir.',
+      'Aplicar durante um conflito em curso na turma.'
+    ]
+  },
+
+  protecao: 'Todas as cenas e personagens são fictícios. Não usar nome, apelido ou situação real de criança da turma, em nenhuma hipótese. Não pedir relato pessoal. Combinar previamente com a orientação educacional e ter encaminhamento definido caso uma criança procure um adulto depois. Se houver conflito em curso, tratá-lo pelo canal próprio antes e aplicar a atividade só depois.',
+
+  evidencia: 'A criança usa quem é alvo da brincadeira, e não quem a fez, como critério para dizer se ainda é brincadeira, e reconhece que rir junto pode ser proteção e não diversão.'
+},
+
+/* ==================================================================== 63 */
+{
+  id: 'quando-parar-de-rir',
+  insightCurto: 'A piada não muda sozinha. Ela muda quando repete, quando espalha e quando a pessoa pede para parar.',
+  n: 63,
+  titulo: 'Quando parar de rir',
+  chamada: 'Seis momentos da mesma piada. Em qual deles ela deixou de ser piada?',
+  faixa: '9-10',
+  duracao: 35,
+  duracaoCurta: 20,
+  comoEncurtar: 'Em 20 minutos: use quatro momentos em vez de seis e corte a etapa de reescrita. A linha do tempo com a marcação individual é obrigatória.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Linha do tempo com marcação individual',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['consentimento', 'foto'],
+  disciplinas: ['Língua Portuguesa', 'Projeto de Vida', 'Ensino Religioso'],
+  preparo: 'baixo',
+  grupo: 'turma',
+  eixo: 'convivencia',
+  nivel: 2,
+  sensibilidade: 'alta',
+  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+
+  bncc: {
+    principal: { codigo: 'EF07CO08', texto: 'Demonstrar empatia sobre opiniões divergentes na web.' },
+    secundaria: { codigo: 'EF06CO09', texto: 'Apresentar conduta e linguagem apropriadas ao se comunicar em ambiente digital, considerando a ética e o respeito.' },
+    nota: 'Ponte antecipada: os dois códigos são do 6º e 7º anos, e aqui trabalha-se a base deles.'
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Identificar o ponto em que uma interação deixa de ser aceitável e reconhecer o próprio papel nela.' },
+
+  provocacao: 'Uma piada começou na quinta-feira e virou outra coisa até a terça seguinte. Vocês vão dizer exatamente em qual momento ela deixou de ser piada.',
+
+  missao: 'Cada estudante marca, sozinho e sem mostrar, em qual dos seis momentos ele teria parado. Depois a turma compara as marcações sem saber de quem é cada uma.',
+
+  virada: 'As marcações são recolhidas anonimamente e contadas no quadro. Elas se espalham por todos os momentos, o que já é revelador. Então o facilitador entrega o sétimo cartão, que não estava na linha: o que a Duda escreveu no caderno dela na segunda-feira. Ninguém tinha marcado o momento 4, e é nele que, segundo o caderno, ela parou de querer vir para a escola. A linha do tempo da turma e a da pessoa não coincidem.',
+
+  insight: 'Quem está de fora percebe tarde. A piada machuca antes de parecer grave, e quem está dentro dela quase nunca é quem percebe primeiro.',
+
+  transferencia: 'Quando uma piada sobre alguém entra na segunda rodada, já é hora de olhar a pessoa. Não dá para esperar ficar óbvio, porque quando fica óbvio já passou.',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Combinar as regras: caso fictício, ninguém fala de si, ninguém cita colega, e existe um adulto disponível depois da aula.' },
+    { t: '5 a 14 min',  o: 'Montar a linha do tempo na parede, momento por momento, lendo em voz alta. Não comentar nenhum.' },
+    { t: '14 a 20 min', o: 'Marcação individual e anônima: cada estudante escreve num papelzinho o número do momento em que teria parado. Dobrar e depositar na caixa.' },
+    { t: '20 a 25 min', o: 'Contagem no quadro, sem identificar ninguém. Olhar a dispersão juntos.' },
+    { t: '25 a 30 min', o: 'A virada. Ler o cartão do caderno da Duda. Silêncio.' },
+    { t: '30 a 35 min', o: 'Reescrita: em grupos, escolher um momento e escrever o que uma pessoa presente poderia ter feito ali, com uma frase concreta que ela diria.' }
+  ],
+
+  versoes: {
+    escola: 'Turma inteira. A marcação anônima é o que permite honestidade: com mão levantada, quase todo mundo marca o momento 1 e a atividade não acontece. Exige combinação prévia com a orientação educacional.',
+    familia: 'Ler a linha do tempo e cada pessoa da casa marca o próprio momento em papel, incluindo os adultos. Comparar. Adultos costumam marcar tarde, e reconhecer isso em voz alta abre a conversa.',
+    jovem: 'Individual: marcar o momento, ler o cartão do caderno, e escrever o que você faria hoje. Não é para entregar a ninguém.'
+  },
+
+  kit: [
+    { nome: 'Seis momentos', tipo: 'imprimivel', desc: 'Cartões para montar a linha do tempo na parede.' },
+    { nome: 'Papéis de marcação', tipo: 'imprimivel', desc: 'Para a marcação anônima.' },
+    { nome: 'O caderno da Duda', tipo: 'imprimivel', desc: 'A virada. Ler só depois da contagem.' },
+    { nome: 'Folha de reescrita', tipo: 'imprimivel', desc: 'A frase concreta que alguém diria.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Protocolo de mediação, obrigatório.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Os seis momentos',
+      tipo: 'cartas',
+      nota: 'Um cartão grande por momento, afixados em linha na parede.',
+      itens: [
+        'MOMENTO 1, quinta-feira: na aula de Ciências, a Duda leu "fotossíntese" errado e falou "fotossentese". Dois colegas riram. Ela riu também.',
+        'MOMENTO 2, quinta-feira, recreio: alguém falou "fotossentese" imitando a voz dela. Mais gente riu. A Duda falou "para".',
+        'MOMENTO 3, sexta-feira: a palavra virou apelido. Cinco pessoas chamaram ela assim durante o dia. Ela não respondeu.',
+        'MOMENTO 4, sexta-feira, fim da tarde: alguém escreveu a palavra na carteira dela. Ela apagou.',
+        'MOMENTO 5, segunda-feira: o apelido apareceu no grupo da turma, com um desenho. Quinze pessoas reagiram com risada.',
+        'MOMENTO 6, terça-feira: a Duda não veio para a escola.'
+      ]
+    },
+    {
+      titulo: 'Papéis de marcação',
+      tipo: 'folha',
+      corpo: 'Recortar em papelzinhos iguais, um por estudante.\n\nEu teria parado no momento número: ______\n\nNão escreva o seu nome. Dobre e coloque na caixa.'
+    },
+    {
+      titulo: 'O caderno da Duda (a virada)',
+      tipo: 'folha',
+      corpo: 'Ler em voz alta, devagar, depois da contagem.\n\n"Na sexta eu apaguei da carteira e achei que ia acabar.\n\nAí eu comecei a ficar com medo de falar na aula. Qualquer palavra. Eu ficava pensando antes se ia errar.\n\nNa segunda eu vi o desenho no grupo e eu não consegui almoçar.\n\nEu não acho que alguém quis. Eu acho que ninguém percebeu."\n\n---\n\nPergunta para a turma, depois do silêncio:\n\nA nossa contagem dizia que a maioria pararia em qual momento?\nO caderno diz que já estava difícil em qual?'
+    },
+    {
+      titulo: 'Folha de reescrita',
+      tipo: 'folha',
+      corpo: 'Grupo: ______  Momento escolhido: ______\n\nQuem estava presente nesse momento: ____________________\n\nO que essa pessoa poderia ter feito:\n____________________________________\n\nA FRASE que ela diria, escrita como se fosse falar agora:\n"____________________________________"\n\nEssa frase é difícil de falar? ( ) sim ( ) não\nO que deixaria mais fácil? ____________________________________\n\nSe ninguém falasse nada, o que ela poderia fazer sem falar?\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado e protocolo de mediação',
+      tipo: 'gabarito',
+      corpo: 'PROTOCOLO, CONDIÇÃO DE APLICAÇÃO\n. Combinar previamente com a orientação educacional. Ter um adulto disponível depois da aula.\n. Avisar no início que o caso é fictício e que ninguém precisa falar de si.\n. Não aplicar durante conflito em curso, nem logo após um episódio real na turma.\n. Nunca perguntar se já aconteceu com alguém, nem quem marcou qual número.\n. Não dramatizar o momento 6 e não especular sobre o que aconteceu depois.\n\nPOR QUE A MARCAÇÃO É ANÔNIMA\nCom mão levantada, quase toda turma marca o momento 1, porque é a resposta socialmente certa. No papel dobrado, a dispersão aparece, e a dispersão é o dado. Ela mostra que as pessoas realmente enxergam em momentos diferentes.\n\nO QUE A VIRADA ENSINA\nA turma quase nunca marca o 4, que é o momento privado, sem plateia, em que a Duda apagou sozinha. É o momento sem espetáculo, e é o que o caderno aponta. A lição não é que a turma foi cruel: é que o dano tem um relógio próprio, que não é o de quem observa.\n\nSOBRE A FRASE DA REESCRITA\nExigir frase escrita, entre aspas, como se fosse falada. "Defender a pessoa" não é frase, é intenção. As frases que funcionam nesta idade são curtas: "para, já deu", "ele pediu para parar", "eu não achei engraçado". Vale ler algumas em voz alta e perguntar qual seria mais fácil de dizer.\n\nA última pergunta da folha, sobre o que fazer sem falar, é importante para quem não consegue confrontar: sentar do lado, chamar para outra coisa, contar para um adulto. São ações reais e devem ser validadas com o mesmo peso.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'A nossa contagem se espalhou entre quantos momentos?',
+      'Em qual momento o caderno diz que já estava difícil?',
+      'Por que ninguém marcou o momento 4?',
+      'A Duda escreveu que acha que ninguém quis. Isso muda alguma coisa?',
+      'Qual frase da reescrita seria mais fácil de falar de verdade?'
+    ],
+    evitar: [
+      'Fazer a marcação com mão levantada. Destrói a honestidade e a atividade inteira.',
+      'Perguntar quem marcou qual número.',
+      'Perguntar se já aconteceu com alguém da turma.',
+      'Transformar em busca de culpado. A Duda escreveu que acha que ninguém quis, e essa frase está lá de propósito.',
+      'Aplicar durante ou logo depois de um caso real.'
+    ]
+  },
+
+  protecao: 'Tema sensível. O caso e todos os personagens são fictícios. Nenhum episódio real da turma é usado, citado ou aludido. A marcação é anônima e não deve ser identificada em nenhuma hipótese. Não perguntar sobre experiências pessoais. Combinar previamente com a orientação educacional, com adulto disponível depois da aula. Se um estudante procurar um adulto ou se identificar visivelmente, acolher em particular e acionar o protocolo da escola no mesmo dia.',
+
+  evidencia: 'O estudante reconhece que a percepção de quem observa chega depois do dano, e produz uma frase concreta e dizível para interromper a situação em um momento específico.'
+},
+
+/* ==================================================================== 64 */
+{
+  id: 'quem-estava-vendo',
+  insightCurto: 'Quem assiste não é neutro. A plateia é o que transforma uma agressão em espetáculo.',
+  n: 64,
+  titulo: 'Quem estava vendo',
+  chamada: 'Um agressor, uma pessoa atingida e vinte e oito que viram. A conta não fecha do jeito que parece.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: trabalhe quatro dos sete papéis de plateia, mantendo obrigatoriamente o de quem reagiu com emoji e o de quem só leu. O protocolo dos três passos é o produto e não sai.',
+  formato: 'simulacao',
+  formatoDetalhe: 'Análise de papéis com contagem',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['consentimento', 'foto'],
+  disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'História'],
+  preparo: 'baixo',
+  grupo: 'turma',
+  eixo: 'convivencia',
+  nivel: 3,
+  sensibilidade: 'alta',
+  selos: ['pronta-amanha', 'sem-tela', 'sensivel'],
+
+  bncc: {
+    principal: { codigo: 'EF07CO09', texto: 'Reconhecer e debater sobre cyberbullying.' },
+    secundaria: { codigo: 'EF08CO07', texto: 'Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.' }
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Reconhecer o papel ativo da audiência em dinâmicas de agressão mediada e identificar formas viáveis de interrupção.' },
+
+  provocacao: 'Neste caso tem uma pessoa que agrediu, uma que foi atingida, e vinte e oito que viram. Todo mundo fala das duas primeiras. Hoje a gente vai falar das vinte e oito.',
+
+  missao: 'Distribuir as vinte e oito pessoas nos sete papéis de plateia, calcular o peso de cada papel, e descobrir qual deles sustenta a agressão.',
+
+  virada: 'Depois da distribuição, o facilitador entrega o dado que reorganiza tudo: em uma agressão pública, o que decide se ela continua não é o agressor, é a resposta da plateia nos primeiros minutos. Os grupos então calculam quantas das vinte e oito pessoas fizeram alguma coisa que sinalizou aprovação, mesmo sem querer. Reagir com emoji de risada conta. Ficar no grupo lendo conta menos, mas conta. A soma costuma passar de vinte.',
+
+  insight: 'A agressão não se sustenta sozinha. Ela precisa de audiência, e a audiência quase nunca se percebe como parte. Cada reação pequena é um voto.',
+
+  transferencia: 'Diante de uma agressão em grupo, existem três coisas que qualquer pessoa da plateia consegue fazer, e nenhuma delas exige confronto público.',
+
+  roteiro: [
+    { t: '0 a 6 min',   o: 'Combinar as regras. Apresentar o caso e os números: 1 agressor, 1 atingida, 28 que viram.' },
+    { t: '6 a 20 min',  o: 'Em grupos, distribuir as 28 pessoas nos sete papéis de plateia e justificar cada número.' },
+    { t: '20 a 28 min', o: 'Comparar as distribuições no quadro. Onde os grupos concordaram e onde divergiram.' },
+    { t: '28 a 36 min', o: 'A virada. Apresentar o mecanismo da plateia e pedir a soma de quem sinalizou aprovação, ainda que sem intenção.' },
+    { t: '36 a 44 min', o: 'Construção do protocolo dos três passos, com o teste do custo: cada passo precisa ser possível para alguém com medo.' },
+    { t: '44 a 50 min', o: 'Fechamento: qual dos três passos vocês realmente fariam? Votação anônima.' }
+  ],
+
+  versoes: {
+    escola: 'Turma inteira em grupos. Encadeia diretamente com "Quando parar de rir", dos 9 aos 10, e com "A conversa saiu do grupo". Exige combinação prévia com a orientação educacional. O teste do custo é o que separa esta atividade de um discurso sobre coragem.',
+    familia: 'Ler o caso e discutir os sete papéis. O adulto conta uma situação de trabalho ou de grupo de família em que ele foi plateia. Reconhecer que o problema não é só de adolescente muda a conversa.',
+    jovem: 'Individual: marcar em qual dos sete papéis você provavelmente estaria, e escrever qual dos três passos você conseguiria fazer. Não é para entregar a ninguém.'
+  },
+
+  kit: [
+    { nome: 'O caso e os números', tipo: 'imprimivel', desc: 'A situação, sem juízo prévio.' },
+    { nome: 'Sete papéis de plateia', tipo: 'imprimivel', desc: 'Para a distribuição.' },
+    { nome: 'Folha de distribuição', tipo: 'imprimivel', desc: 'Com a soma da aprovação.' },
+    { nome: 'Protocolo dos três passos', tipo: 'editavel', desc: 'O produto, com teste de custo.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'O mecanismo e o protocolo de mediação.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'O caso e os números',
+      tipo: 'folha',
+      corpo: 'No grupo do 8º ano, com 30 pessoas, alguém publicou um vídeo curto do Léo tropeçando na quadra, com um texto por cima.\n\nO vídeo ficou no grupo por três dias.\n\nAS PESSOAS:\n1 publicou\n1 é o Léo\n28 viram\n\nO QUE ACONTECEU NAS 28:\n11 reagiram com emoji de risada\n4 comentaram alguma coisa engraçada\n2 encaminharam para outro grupo\n1 comentou "gente, para"\n1 falou com o Léo em particular\n1 contou para um adulto\n8 leram e não fizeram nada\n\nPergunta inicial: quantas dessas 28 pessoas fizeram alguma coisa errada?'
+    },
+    {
+      titulo: 'Sete papéis de plateia',
+      tipo: 'cartas',
+      itens: [
+        'QUEM REAGIU COM RISADA. Não escreveu nada. Só apertou um botão.',
+        'QUEM COMENTOU. Acrescentou uma frase engraçada. Não criou o vídeo.',
+        'QUEM ENCAMINHOU. Levou para um grupo novo, com gente que nem conhecia o Léo.',
+        'QUEM PEDIU PARA PARAR, dentro do grupo, na frente de todo mundo.',
+        'QUEM FALOU COM O LÉO em particular, sem falar nada no grupo.',
+        'QUEM CONTOU PARA UM ADULTO, sem avisar ninguém do grupo.',
+        'QUEM LEU E NÃO FEZ NADA. Não riu, não comentou, não encaminhou, não falou.'
+      ]
+    },
+    {
+      titulo: 'Folha de distribuição',
+      tipo: 'folha',
+      corpo: 'PAPEL                          QUANTOS   ISSO SINALIZA APROVAÇÃO?\nReagiu com risada                ____      ( ) sim ( ) não ( ) mais ou menos\nComentou                         ____      ( ) sim ( ) não ( ) mais ou menos\nEncaminhou                       ____      ( ) sim ( ) não ( ) mais ou menos\nPediu para parar                 ____      ( ) sim ( ) não ( ) mais ou menos\nFalou com o Léo em particular    ____      ( ) sim ( ) não ( ) mais ou menos\nContou para um adulto            ____      ( ) sim ( ) não ( ) mais ou menos\nLeu e não fez nada               ____      ( ) sim ( ) não ( ) mais ou menos\n\nSOMA de quem sinalizou aprovação, contando "mais ou menos" como meio: ______\n\nDe 28 pessoas, quantas o Léo viu como estando do lado dele? ______\n\nAs três pessoas que fizeram alguma coisa fizeram coisas diferentes.\nQual delas o Léo percebeu? ____________________\nQual delas mudou o que acontecia no grupo? ____________________'
+    },
+    {
+      titulo: 'Protocolo dos três passos',
+      tipo: 'editavel',
+      corpo: 'TRÊS COISAS QUE QUALQUER PESSOA DA PLATEIA CONSEGUE FAZER\n\nRegra do exercício: cada passo precisa passar no TESTE DO CUSTO. Ele precisa ser possível para alguém que está com medo de virar o próximo alvo. Se só funciona para quem é corajoso, não serve.\n\nPasso 1: ____________________________________\nPossível para quem está com medo? ( ) sim ( ) não\n\nPasso 2: ____________________________________\nPossível para quem está com medo? ( ) sim ( ) não\n\nPasso 3: ____________________________________\nPossível para quem está com medo? ( ) sim ( ) não\n\nO QUE NÃO CONTA COMO PASSO:\n. "não fazer nada" (é o que 8 pessoas fizeram)\n. "ter coragem" (não é uma ação)\n. "denunciar" sem dizer para quem e como\n\nSugestões da turma para deixar mais fácil:\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado e protocolo de mediação',
+      tipo: 'gabarito',
+      corpo: 'PROTOCOLO, CONDIÇÃO DE APLICAÇÃO\nCombinação prévia com a orientação educacional, adulto disponível depois da aula, caso apresentado como fictício, nenhum relato pessoal solicitado, e não aplicar durante ou logo após episódio real.\n\nA CONTA\nReagiram com risada 11, comentaram 4, encaminharam 2. São 17 sinalizações claras de aprovação. Somando os 8 que leram e não fizeram nada como meio, a soma passa de 20 de 28.\n\nDo lado do Léo: 3 pessoas, e ele provavelmente percebeu 2, porque quem contou para o adulto não avisou ninguém.\n\nO PONTO SOBRE O EMOJI\nÉ o achado central e o mais desconfortável. Reagir com risada é a ação de menor custo possível e é a que mais sustenta a dinâmica, porque é ela que produz o número visível de aprovação. Quase todo estudante já fez. Não transformar em acusação: a formulação que funciona é que a plataforma transformou aprovação em um botão, e que apertar um botão não parece uma decisão, mas conta como uma.\n\nA DISTINÇÃO ENTRE AS TRÊS AÇÕES\n. Quem pediu para parar no grupo mudou o que acontecia, e pagou um custo alto.\n. Quem falou com o Léo em particular não mudou nada no grupo e foi provavelmente a mais importante para ele.\n. Quem contou para o adulto mudou o desfecho e o Léo talvez nunca saiba.\nAs três são válidas e é importante que a turma veja isso, porque a única versão que circula normalmente é a primeira, que é a mais cara.\n\nO TESTE DO CUSTO é o coração do protocolo. Adolescente sabe perfeitamente o que "deveria" fazer, e o discurso da coragem não muda comportamento porque ignora o risco real de virar o próximo alvo. Passos que sobrevivem ao teste costumam ser: sair do grupo em silêncio, mandar mensagem particular para a pessoa atingida, contar para um adulto sem avisar ninguém, e não reagir com nada. Todos são invisíveis e todos funcionam.\n\nSe a turma propuser "confrontar publicamente" como único passo, aceitar e depois aplicar o teste do custo. Ela mesma vai perceber.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantas das 28 sinalizaram aprovação, mesmo sem querer?',
+      'Apertar um emoji parece uma decisão?',
+      'Das três pessoas que fizeram alguma coisa, qual o Léo percebeu?',
+      'Qual delas mudou o que acontecia no grupo?',
+      'O seu passo funciona para alguém que está com medo de virar o próximo?',
+      'O que a escola poderia fazer para baixar o custo de agir?'
+    ],
+    evitar: [
+      'Culpar quem reagiu com emoji. A conclusão é sobre mecanismo, não sobre caráter, e culpa fecha a conversa.',
+      'Aceitar "ter coragem" como passo. Não é uma ação e não sobrevive ao teste do custo.',
+      'Tratar confronto público como a única forma válida de agir. É a mais cara e a menos acessível.',
+      'Perguntar sobre casos reais da turma.'
+    ]
+  },
+
+  protecao: 'Tema sensível. O caso, o Léo e todos os números são fictícios. Nenhum episódio real é usado ou aludido. Não pedir relato pessoal nem perguntar quem já esteve em qual papel. Combinar previamente com a orientação educacional, com adulto disponível depois da aula. A votação final é anônima. Se houver identificação visível ou relato espontâneo, acolher em particular e acionar o protocolo da escola no mesmo dia.',
+
+  evidencia: 'O grupo quantifica a sinalização de aprovação da plateia, distingue as três formas de agir quanto a efeito e a custo, e produz ao menos dois passos que sobrevivem ao teste do custo.'
+},
+
+/* ==================================================================== 65 */
+{
+  id: 'denunciar-nao-e-dedurar',
+  insightCurto: 'Dedurar é entregar alguém para prejudicar. Denunciar é proteger alguém que não consegue se proteger sozinho.',
+  n: 65,
+  titulo: 'Denunciar não é dedurar',
+  chamada: 'Onde denunciar, o que serve de prova, quanto tempo demora e o que acontece depois.',
+  faixa: '15-17',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: use três dos seis casos e monte só a coluna de "para onde vai". O cartão de bolso com os canais preenchidos é obrigatório e é o que sai da sala.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Mapeamento de canais e construção de protocolo',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['consentimento', 'foto', 'golpe'],
+  disciplinas: ['Projeto de Vida', 'História', 'Língua Portuguesa'],
+  preparo: 'alto',
+  grupo: 'pequeno',
+  eixo: 'convivencia',
+  nivel: 5,
+  sensibilidade: 'alta',
+  selos: ['sem-tela', 'sensivel'],
+
+  bncc: {
+    principal: { codigo: 'EM13CO25', texto: 'Dialogar em ambientes virtuais com segurança e respeito às diferenças culturais e pessoais, reconhecendo e denunciando atitudes abusivas.' },
+    secundaria: { codigo: 'EM13CO26', texto: 'Aplicar os conceitos e pressupostos do direito digital em sua conduta e experiências com o cotidiano da cultura digital, bem como na produção e uso de artefatos computacionais.' }
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Conhecer e acionar canais formais de denúncia, distinguindo proteção de delação.' },
+
+  provocacao: 'Todo mundo aqui sabe que "deveria denunciar". Quase ninguém sabe para onde, o que precisa guardar, quanto tempo demora e o que acontece com quem denunciou. Hoje vocês vão descobrir, e vão sair com isso escrito no bolso.',
+
+  missao: 'Para cada um dos seis casos, mapear o canal certo, a prova necessária, o prazo e o que acontece com quem denunciou. Depois produzir o cartão de bolso da turma.',
+
+  virada: 'Com o mapa quase pronto, o facilitador entrega as cartas de consequência real. No caso 3, a denúncia na plataforma foi analisada por sistema automático e negada em dois dias, sem explicação. No caso 5, a escola instaurou procedimento e a pessoa denunciada descobriu quem denunciou. Os grupos percebem que denunciar tem custo e risco, e que um protocolo que ignora isso não vai ser usado. A pergunta muda de "onde denunciar" para "como denunciar protegendo quem denuncia".',
+
+  insight: 'Denunciar não é um ato moral, é um procedimento com canal, prova, prazo e consequência. E o desenho do procedimento decide se alguém vai usá-lo.',
+
+  transferencia: 'Diante de uma situação real, existe um cartão com os canais, o que guardar e o que não fazer. Ninguém precisa descobrir isso no meio de uma crise.',
+
+  roteiro: [
+    { t: 'Antes',              o: 'O professor levanta previamente os canais REAIS: orientação educacional, conselho tutelar da região, delegacia, SaferNet, Disque 100, e o caminho de denúncia das plataformas mais usadas. Ver a proteção.' },
+    { t: '0 a 8 min',          o: 'Combinar as regras. Apresentar a distinção entre dedurar e denunciar e deixá-la em aberto: a turma vai testá-la nos casos.' },
+    { t: '8 a 26 min',         o: 'Em grupos, mapear os seis casos na matriz: canal, prova, prazo, o que acontece com quem denunciou.' },
+    { t: '26 a 34 min',        o: 'A virada. Entregar as cartas de consequência real. Refazer a coluna do risco.' },
+    { t: '34 a 44 min',        o: 'Construção do cartão de bolso, com os canais reais preenchidos e a regra de proteção de quem denuncia.' },
+    { t: '44 a 50 min',        o: 'Fechamento: a distinção do início se sustentou? Onde ela fica difícil?' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Exige preparo real do professor: o cartão só tem valor se os canais estiverem preenchidos com informação verdadeira e local. Fecha o eixo de convivência e encadeia com "Plano de emergência digital", da coleção familiar.',
+    familia: 'A versão doméstica equivalente é o "Plano de emergência digital", que produz a folha da parede com os telefones.',
+    jovem: 'Individual: preencher o cartão de bolso com os canais da sua cidade e guardar. Não precisa mostrar para ninguém.'
+  },
+
+  kit: [
+    { nome: 'Seis casos', tipo: 'imprimivel', desc: 'Situações que exigem canais diferentes.' },
+    { nome: 'Matriz de mapeamento', tipo: 'editavel', desc: 'Canal, prova, prazo, risco.' },
+    { nome: 'Cartas de consequência real', tipo: 'imprimivel', desc: 'A virada.' },
+    { nome: 'Cartão de bolso', tipo: 'editavel', desc: 'O produto. Preencher com canais reais e locais.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Onde vai cada caso e o protocolo de mediação.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Seis casos',
+      tipo: 'cartas',
+      itens: [
+        'CASO 1. Um colega criou um perfil falso com o nome e a foto de outro estudante e publica coisas em nome dele.',
+        'CASO 2. Circula no grupo da escola um vídeo constrangedor de uma estudante de 15 anos, gravado sem que ela soubesse.',
+        'CASO 3. Uma pessoa está sendo xingada todos os dias nos comentários de um perfil público, por vários perfis diferentes.',
+        'CASO 4. Um adulto desconhecido está mandando mensagens para uma estudante de 14 anos pedindo fotos e pedindo segredo.',
+        'CASO 5. Um professor faz comentários sobre a aparência de estudantes em sala.',
+        'CASO 6. Alguém publicou o endereço e o horário de saída de um estudante em um grupo aberto.'
+      ]
+    },
+    {
+      titulo: 'Matriz de mapeamento',
+      tipo: 'editavel',
+      corpo: 'Caso número: ______\n\nISSO É CRIME, INFRAÇÃO ESCOLAR, OU AS DUAS COISAS?\n____________________\n\nCANAL PRINCIPAL: ____________________\nPor que este e não outro: ____________________\n\nOUTROS CANAIS que também servem: ____________________\n\nQUE PROVA precisa ser guardada, e como guardar sem espalhar:\n____________________________________\n\nO QUE NÃO FAZER antes de denunciar:\n____________________________________\n\nQUANTO TEMPO até alguma resposta: ____________________\n\nO QUE ACONTECE COM QUEM DENUNCIOU:\n( ) fica anônimo ( ) pode ser identificado ( ) depende\n____________________________________'
+    },
+    {
+      titulo: 'Cartas de consequência real (a virada)',
+      tipo: 'cartas',
+      itens: [
+        'CONSEQUÊNCIA no caso 3: a denúncia foi feita pelo botão da plataforma. Um sistema automático analisou e respondeu em dois dias que "não viola as diretrizes". Não houve explicação e não há segunda instância. Os xingamentos continuaram.',
+        'CONSEQUÊNCIA no caso 5: a escola instaurou procedimento. Durante a apuração, a pessoa denunciada soube quem havia denunciado. A estudante passou a ser evitada por parte da turma.',
+        'CONSEQUÊNCIA no caso 2: como envolve adolescente e conteúdo íntimo, o caso é crime e a delegacia foi acionada. O procedimento correu, e a estudante precisou repetir o relato três vezes para pessoas diferentes.',
+        'CONSEQUÊNCIA no caso 4: a denúncia ao Disque 100 e à delegacia levou a uma investigação. O adulto usava perfil falso e levou meses para ser identificado. Durante esse tempo, a orientação foi bloquear, guardar tudo e não responder.',
+        'CONSEQUÊNCIA no caso 1: a plataforma removeu o perfil falso em um dia, porque impersonation costuma ser tratada rápido. A escola, em paralelo, tratou como questão disciplinar.',
+        'CONSEQUÊNCIA no caso 6: nada aconteceu por três semanas, porque ninguém sabia que aquele grupo existia. Alguém precisou contar.'
+      ]
+    },
+    {
+      titulo: 'Cartão de bolso',
+      tipo: 'editavel',
+      corpo: 'Imprimir em cartão pequeno. O professor preenche os canais reais ANTES da aula.\n\nSE ACONTECER COM VOCÊ OU COM ALGUÉM\n\n1. GUARDE PROVA ANTES DE BLOQUEAR\nCaptura de tela mostrando o perfil, a data e o conteúdo. Não apague nada.\n\n2. NÃO RESPONDA E NÃO ESPALHE\nEncaminhar para mostrar como é grave espalha do mesmo jeito.\n\n3. CANAIS\nNa escola: ____________________\nConselho tutelar: ____________________\nDelegacia mais próxima: ____________________\nSaferNet, denúncia online: new.safernet.org.br\nDisque 100, 24 horas, gratuito\nEm caso de risco imediato: 190\n\n4. NA PLATAFORMA\nDenuncie também pelo botão dela, mas não pare aí: a resposta pode ser automática e negada.\n\n5. SE FOR COM OUTRA PESSOA\nAvise um adulto mesmo sem a permissão dela, quando houver risco. Você não fica responsável sozinho.\n\nDENUNCIAR NÃO É DEDURAR.\nDedurar é entregar alguém para prejudicar.\nDenunciar é proteger quem não consegue se proteger sozinho.'
+    },
+    {
+      titulo: 'Gabarito comentado e protocolo de mediação',
+      tipo: 'gabarito',
+      corpo: 'PARA ONDE VAI CADA CASO\n1, perfil falso: plataforma (rápido) mais escola. Pode configurar crime.\n2, vídeo íntimo de adolescente: crime. Delegacia, com SaferNet e Disque 100 como apoio. Não é caso de resolver só na escola.\n3, xingamento em massa: plataforma, e é onde o canal mais falha. Se houver identificação dos autores e vínculo escolar, a escola entra.\n4, adulto pedindo foto a menor: aliciamento. Crime. Delegacia e Disque 100, imediatamente. É o caso mais grave da lista.\n5, professor: canal interno da escola, e se não houver resposta, conselho tutelar e secretaria de educação. É o caso em que o canal e a hierarquia se chocam.\n6, endereço publicado: risco à segurança física. Plataforma mais escola mais, dependendo do teor, delegacia.\n\nO QUE A VIRADA ENSINA\nDenunciar tem custo, e um protocolo que finge que não tem é inútil. As duas consequências mais importantes são a do caso 3, que mostra que o canal da plataforma pode ser automático e não funcionar, e a do caso 5, que mostra que anonimato pode não ser preservado. A pergunta correta que emerge é como denunciar protegendo quem denuncia, e ela deve ficar aberta, porque não tem resposta pronta.\n\nSOBRE A DISTINÇÃO DEDURAR E DENUNCIAR\nEla se sustenta na maioria dos casos e fica difícil no 5, em que existe assimetria de poder e medo de retaliação. Deixar a dificuldade aparecer é melhor do que resolvê-la com slogan.\n\nPROTOCOLO, CONDIÇÃO DE APLICAÇÃO\n. O professor precisa levantar os canais REAIS e locais antes da aula. Um cartão com lacunas é pior que nenhum cartão.\n. Combinar com a orientação educacional. Ter um profissional disponível no dia e nas horas seguintes.\n. Avisar que os casos são fictícios e que ninguém precisa falar de si.\n. Não descrever conteúdo de violência sexual. O caso 2 e o caso 4 são deliberadamente sóbrios.\n. Se um estudante relatar situação real, esta atividade não é o espaço: acolher em particular no mesmo dia e acionar o canal adequado. Isso é bastante provável nesta atividade, e o preparo existe por isso.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'No caso 3, a denúncia foi negada por um sistema automático. E agora?',
+      'No caso 5, quem denunciou foi identificado. Isso muda o que você faria?',
+      'Qual desses casos não dá para resolver dentro da escola?',
+      'O que precisa ser guardado antes de bloquear?',
+      'A distinção entre dedurar e denunciar se sustentou nos seis casos?',
+      'Como denunciar protegendo quem denuncia?'
+    ],
+    evitar: [
+      'Aplicar com o cartão de bolso em branco. Sem os canais reais preenchidos, a aula produz frustração.',
+      'Prometer que denunciar é seguro e rápido. As cartas de consequência existem para impedir essa promessa.',
+      'Descrever conteúdo de violência sexual em qualquer caso.',
+      'Usar caso real da escola ou da cidade.',
+      'Deixar o caso 5 de fora por ser desconfortável. É justamente o que testa a distinção.'
+    ]
+  },
+
+  protecao: 'Tema sensível de alto risco. Condição de aplicação: canais reais e locais levantados pelo professor antes da aula, combinação prévia com a orientação educacional e profissional disponível no dia e nas horas seguintes. Todos os casos são fictícios e sóbrios, sem descrição de conteúdo de violência sexual. Nenhum relato pessoal é solicitado. É provável que esta atividade provoque procura de um adulto depois, e o preparo existe para isso: acolher em particular no mesmo dia e acionar o canal adequado, sem exposição da turma.',
+
+  evidencia: 'O grupo direciona corretamente os casos que extrapolam a escola, identifica que o canal da plataforma pode falhar sem recurso, e conclui a aula com o cartão de bolso preenchido com canais reais e locais.'
+}
+
+);
+
+
+/* Eixo Bem-estar. A BNCC pede EM13CO24 e o banco não tinha nada sobre cansaço,
+   sono, notificação ou design que prende. É também o grupo "Wellbeing online" do
+   Council of Europe e a área de bem-estar da DigComp 2.2.
+   Regra da coleção: o problema é de projeto, nunca de força de vontade da pessoa. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 66 */
+{
+  id: 'o-corpo-avisa',
+  insightCurto: 'O corpo avisa antes da cabeça. Olho ardendo e mau humor também são recado.',
+  n: 66,
+  titulo: 'O corpo avisa',
+  chamada: 'Antes de a criança perceber que cansou, o corpo dela já sabia. Vamos aprender a escutar.',
+  faixa: '6-8',
+  duracao: 25,
+  duracaoCurta: 15,
+  comoEncurtar: 'Em 15 minutos: faça o mapa do corpo e a rodada de sinais, e corte a construção do combinado. O boneco preenchido já sai da sala com a criança.',
+  formato: 'criacao',
+  formatoDetalhe: 'Mapa do corpo desenhado',
+  contexto: ['escola', 'casa'],
+  tela: 'sem-tela',
+  situacao: ['jogo'],
+  disciplinas: ['Ciências', 'Educação Física', 'Artes'],
+  preparo: 'baixo',
+  grupo: 'turma',
+  eixo: 'bemestar',
+  nivel: 1,
+  sensibilidade: 'baixa',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF02CO05', texto: 'Reconhecer as características e usos das tecnologias computacionais no cotidiano dentro e fora da escola.' },
+    secundaria: { codigo: 'EF15CO09', texto: 'Entender que as tecnologias devem ser utilizadas de maneira segura, ética e responsável, respeitando direitos autorais, de imagem e as leis vigentes.' },
+    nota: 'Ponte antecipada para EM13CO24, sobre efeito de artefatos computacionais na saúde física e mental, que é do Ensino Médio.'
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Reconhecer sinais corporais de cansaço associados ao uso prolongado de tela.' },
+
+  provocacao: 'O corpo da gente sabe antes da gente. Ele manda recadinhos e a gente quase nunca escuta. Hoje a gente vai aprender a escutar.',
+
+  missao: 'Desenhar no boneco onde o corpo avisa, e descobrir quantos avisos diferentes existem.',
+
+  virada: 'Depois que as crianças marcam os avisos que conhecem, geralmente olho e cabeça, o facilitador lê a lista dos avisos escondidos: dedo doendo, pescoço duro, barriga que esqueceu de ter fome, e o mais surpreendente de todos, ficar bravo à toa. A turma descobre que mau humor também é o corpo avisando, e não defeito da pessoa.',
+
+  insight: 'Cansaço de tela não aparece só no olho. Aparece no pescoço, na fome que sumiu e no mau humor que veio do nada.',
+
+  transferencia: 'Quando aparecer um dos avisos, dá para levantar, beber água e olhar para longe. Não é castigo, é o corpo pedindo.',
+
+  roteiro: [
+    { t: '0 a 5 min',   o: 'Contar a história curta do Pedro, que jogou a tarde inteira e depois brigou com a irmã sem motivo. Perguntar por quê.' },
+    { t: '5 a 13 min',  o: 'Cada criança recebe o boneco e desenha ou marca onde ela sente quando cansa. Circular perguntando "e aqui, o que acontece?".' },
+    { t: '13 a 18 min', o: 'A virada. Ler a lista dos avisos escondidos, um por vez. A cada um, quem já sentiu levanta a mão.' },
+    { t: '18 a 22 min', o: 'Construir juntos os três gestos de descanso e treinar de pé, com o corpo.' },
+    { t: '22 a 25 min', o: 'Cada criança escreve ou desenha, no rodapé do boneco, o aviso que ela vai tentar escutar.' }
+  ],
+
+  versoes: {
+    escola: 'Turma inteira, um boneco por criança. Encaixa em Ciências, no corpo humano, e em Educação Física. Os três gestos funcionam melhor se forem treinados de pé, e podem virar rotina da sala depois de qualquer atividade longa.',
+    familia: 'Fazer o boneco em família, com o adulto preenchendo o dele também. O adulto quase sempre marca pescoço e olho, o que abre a conversa de que isso não é coisa de criança. Colar na geladeira.',
+    jovem: null
+  },
+
+  kit: [
+    { nome: 'Boneco para marcar', tipo: 'imprimivel', desc: 'Silhueta grande, um por criança.' },
+    { nome: 'Lista dos avisos escondidos', tipo: 'imprimivel', desc: 'A virada.' },
+    { nome: 'Cartaz dos três gestos', tipo: 'imprimivel', desc: 'Para a parede da sala.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Como conduzir sem culpar a criança.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Boneco para marcar',
+      tipo: 'folha',
+      corpo: 'Silhueta simples de uma criança, de frente, ocupando a página inteira, com espaço em volta para escrever.\n\nAcima: ONDE O MEU CORPO AVISA\n\nAbaixo, para o adulto preencher com as palavras da criança:\n\nO aviso que eu mais sinto é ______________________.\n\nQuando ele aparece, eu vou ______________________.'
+    },
+    {
+      titulo: 'Lista dos avisos escondidos (a virada)',
+      tipo: 'folha',
+      corpo: 'Ler um por vez. Quem já sentiu levanta a mão.\n\n. OLHO ardendo, coçando ou seco\n. CABEÇA doendo ou pesada\n. PESCOÇO duro de ficar olhando para baixo\n. DEDO ou PULSO doendo\n. COSTAS reclamando\n. BARRIGA que esqueceu de ter fome, e depois lembra tudo de uma vez\n. SONO que não vem na hora de dormir, mesmo cansado\n. E o mais escondido de todos:\n\n  FICAR BRAVO À TOA.\n\n  Quando a gente cansa, qualquer coisinha irrita. Não é porque a gente é chato. É o corpo avisando de outro jeito.'
+    },
+    {
+      titulo: 'Cartaz dos três gestos',
+      tipo: 'cartaz',
+      corpo: 'QUANDO O CORPO AVISA, A GENTE FAZ TRÊS COISAS\n\n1. LEVANTA E ANDA um pouquinho.\n\n2. OLHA PARA LONGE, pela janela, contando até vinte.\n\n3. BEBE ÁGUA.\n\nE se o aviso for o de ficar bravo, tem uma quarta:\n\n4. AVISA ALGUÉM que você está cansado, antes de brigar.\n\nIsso não é castigo. É cuidado.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'A HISTÓRIA DO PEDRO, para ler no começo:\n\n"O Pedro jogou a tarde inteira, sem parar nem para lanchar. Quando a irmã dele chamou para o jantar, ele respondeu bem bravo, e os dois brigaram. Depois o Pedro nem sabia direito por que tinha ficado tão bravo."\n\nPergunta: por que o Pedro ficou bravo?\n\nCONDUÇÃO\n\n. O aviso do mau humor é o mais importante da lista e o que ninguém marca sozinho. Ele desloca a conversa de "você é chato quando joga" para "seu corpo está pedindo alguma coisa", e essa diferença é enorme para uma criança de 6 a 8 anos que já ouviu a primeira versão muitas vezes.\n\n. Nunca transformar em regra de tempo de tela nem em bronca. A atividade não estabelece limite, ensina a perceber. Limite é conversa da família e não cabe aqui.\n\n. Não perguntar quanto tempo cada criança fica em tela, nem o que ela joga. Se alguém contar, acolher e voltar ao corpo.\n\n. O aviso do sono que não vem é verdadeiro e vale mencionar sem virar aula de fisiologia: perto de dormir, o corpo demora mais para desligar depois de tela.\n\n. Se uma criança disser que nunca sente nada, aceitar. Algumas realmente não percebem ainda, e o boneco dela pode ficar com um aviso só. Perceber um já basta.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Por que o Pedro ficou bravo?',
+      'Ficar bravo à toa também é o corpo avisando?',
+      'Qual aviso você sente primeiro?',
+      'O que dá para fazer quando o aviso aparece?'
+    ],
+    evitar: [
+      'Transformar em regra de tempo de tela. A atividade ensina a perceber, e limite é conversa da família.',
+      'Usar tom de bronca. A criança que joga muito já ouviu bronca e não mudou nada com isso.',
+      'Perguntar quanto tempo cada criança passa em tela ou o que ela joga.',
+      'Deixar de fora o aviso do mau humor. É o mais valioso da lista.'
+    ]
+  },
+
+  protecao: 'Não perguntar sobre hábitos de tela da criança ou da família, nem sobre quanto tempo ela joga. Nenhum aparelho é usado. A atividade não estabelece limites nem julga uso: ela ensina a reconhecer sinais do próprio corpo. Se uma criança relatar sintoma persistente, como dor de cabeça frequente ou dificuldade de dormir, comunicar a família e a coordenação, sem exposição na turma.',
+
+  evidencia: 'A criança nomeia pelo menos dois avisos corporais, incluindo um não visual, e associa o mau humor ao cansaço em vez de a um defeito próprio.'
+},
+
+/* ==================================================================== 67 */
+{
+  id: 'desenho-que-nao-deixa-parar',
+  insightCurto: 'Você não tem pouca força de vontade. Alguém foi pago para desenhar exatamente isso.',
+  n: 67,
+  titulo: 'O desenho que não deixa parar',
+  chamada: 'Rolagem infinita, autoplay, sequência de dias e notificação. Cada um tem nome e função.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: analise quatro mecanismos em vez de sete e corte a etapa de redesenho. A comparação entre o app que respeita e o que prende é obrigatória.',
+  formato: 'auditoria',
+  formatoDetalhe: 'Auditoria de mecanismos de retenção',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['algoritmo', 'propaganda'],
+  disciplinas: ['Matemática', 'Ciências', 'Projeto de Vida', 'Artes'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'bemestar',
+  nivel: 4,
+  sensibilidade: 'media',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EM13CO24', texto: 'Identificar e reconhecer como as redes sociais e artefatos computacionais em geral interferem na saúde física e mental de seus usuários.' },
+    secundaria: { codigo: 'EF08CO09', texto: 'Analisar criticamente as políticas de termos de uso das redes sociais e demais plataformas.' },
+    nota: 'EM13CO24 é do Ensino Médio e aqui é trabalhado de forma antecipada, no nível de reconhecer o mecanismo.'
+  },
+  unesco: { dimensao: 'design', competencia: 'Identificar mecanismos de retenção projetados e distinguir problema de projeto de falha de autocontrole.' },
+
+  provocacao: 'Vocês já ouviram que precisam ter mais força de vontade. Hoje vocês vão descobrir contra o que exatamente essa força de vontade está competindo, e quantas pessoas foram pagas para construir isso.',
+
+  missao: 'Analisar sete mecanismos de retenção: o que cada um faz, qual reação do corpo ele usa, e o que aconteceria se ele não existisse.',
+
+  virada: 'Depois da análise, o facilitador entrega as duas telas do mesmo aplicativo: a versão que respeita e a versão que prende. Elas têm exatamente o mesmo conteúdo e as mesmas funções. A diferença está em sete decisões de projeto. Os grupos percebem que ninguém precisou acrescentar conteúdo viciante: bastou desenhar as bordas de outro jeito. E então vem o número: um app dessa escala tem equipes inteiras cuja meta é aumentar o tempo médio de sessão.',
+
+  insight: 'A dificuldade de parar não é falha de caráter. Ela é o resultado esperado de decisões de projeto tomadas por gente competente, paga para produzir exatamente esse efeito.',
+
+  transferencia: 'Quase todos os sete mecanismos podem ser desligados nas configurações, e a maior parte das pessoas nunca abriu essa tela. Saber o nome de cada um é o que permite procurar.',
+
+  roteiro: [
+    { t: '0 a 8 min',   o: 'Provocação e distribuição das sete fichas de mecanismo, uma por grupo ou duas para grupos maiores.' },
+    { t: '8 a 24 min',  o: 'Cada grupo analisa o seu mecanismo na grade: o que faz, qual reação usa, o que aconteceria sem ele, e onde ele aparece.' },
+    { t: '24 a 32 min', o: 'Apresentação rápida. Montar no quadro o quadro dos sete.' },
+    { t: '32 a 40 min', o: 'A virada. Entregar as duas telas comparadas e o dado sobre metas de tempo de sessão.' },
+    { t: '40 a 46 min', o: 'Redesenho: cada grupo desliga três mecanismos e diz o que o aplicativo perde e o que ganha.' },
+    { t: '46 a 50 min', o: 'Fechamento com a lista do que dá para desligar de verdade nas configurações.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Integra Ciências, na parte de resposta do corpo, e Matemática, se você acrescentar o cálculo de quanto tempo sete minutos por dia viram em um ano. Encadeia com "Escape room dos padrões manipulativos" e com "Loot boxes".',
+    familia: 'Analisar três mecanismos na mesa e depois abrir juntos, com o adulto operando, a tela de notificações de um aplicativo que a família usa. Contar quantas estão ligadas. Não desligar nada na hora: só olhar.',
+    jovem: 'Individual: escolher um aplicativo, identificar quais dos sete mecanismos ele usa, e desligar um. Observar durante uma semana o que mudou.'
+  },
+
+  kit: [
+    { nome: 'Sete fichas de mecanismo', tipo: 'imprimivel', desc: 'Uma por grupo.' },
+    { nome: 'Grade de análise', tipo: 'imprimivel', desc: 'O que faz, o que usa, o que aconteceria sem.' },
+    { nome: 'As duas telas', tipo: 'imprimivel', desc: 'A virada. Mesmo conteúdo, sete decisões diferentes.' },
+    { nome: 'Lista do que dá para desligar', tipo: 'imprimivel', desc: 'O que sai da aula.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Cada mecanismo e o cuidado de condução.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Sete fichas de mecanismo',
+      tipo: 'cartas',
+      itens: [
+        'ROLAGEM INFINITA. O conteúdo nunca acaba. Não existe fim de página, então nunca existe um momento natural de parar.',
+        'REPRODUÇÃO AUTOMÁTICA. O próximo vídeo começa sozinho, com contagem regressiva curta. Parar exige uma ação; continuar não exige nenhuma.',
+        'SEQUÊNCIA DE DIAS. O aplicativo conta quantos dias seguidos você entrou e mostra o número. Faltar um dia zera a contagem.',
+        'NOTIFICAÇÃO EM LOTE. As notificações não chegam quando o evento acontece: são guardadas e enviadas em horários calculados para trazer a pessoa de volta.',
+        'PUXAR PARA ATUALIZAR. O gesto de puxar a tela para carregar novidades, com um instante de espera antes de revelar o que veio.',
+        'CONFIRMAÇÃO DE LEITURA E "DIGITANDO". A pessoa sabe que a outra viu e que está respondendo, o que cria obrigação de permanecer.',
+        'CONTEÚDO DE PESSOAS PARECIDAS COM VOCÊ. A comparação é constante e sempre com o melhor momento da vida do outro.'
+      ]
+    },
+    {
+      titulo: 'Grade de análise',
+      tipo: 'folha',
+      corpo: 'Mecanismo: ____________________\n\n1. O QUE ELE FAZ, tecnicamente:\n____________________________________\n\n2. QUAL REAÇÃO DO CORPO OU DA CABEÇA ELE USA:\n( ) curiosidade sobre o que vem depois\n( ) medo de perder alguma coisa\n( ) medo de perder o que já foi acumulado\n( ) obrigação com outra pessoa\n( ) comparação\n( ) surpresa imprevisível\n\n3. O QUE ACONTECERIA SE ELE NÃO EXISTISSE:\nPara a pessoa: ____________________\nPara a empresa: ____________________\n\n4. ELE PODE SER DESLIGADO? ( ) sim ( ) não ( ) parcialmente\nOnde: ____________________\n\n5. ELE É SEMPRE RUIM? Em que situação ele seria útil?\n____________________________________'
+    },
+    {
+      titulo: 'As duas telas (a virada)',
+      tipo: 'folha',
+      corpo: 'O MESMO APLICATIVO, MESMO CONTEÚDO, MESMAS FUNÇÕES.\n\nVERSÃO QUE PRENDE\n. rolagem sem fim\n. próximo vídeo começa em 3 segundos\n. contador de 47 dias seguidos, em destaque\n. 14 notificações por dia, em horários variados\n. puxar para atualizar, com meio segundo de suspense\n. mostra quando você leu e quando está digitando\n. feed cheio de gente parecida com você em momentos ótimos\n\nVERSÃO QUE RESPEITA\n. a página acaba, e diz "você viu tudo de hoje"\n. o próximo vídeo espera você escolher\n. sem contador de dias\n. notificações agrupadas, uma vez por dia, no horário que você escolheu\n. atualiza quando você abre, sem gesto e sem espera\n. confirmação de leitura desligada por padrão\n. feed em ordem cronológica de quem você segue\n\nAs duas telas mostram o mesmo conteúdo.\nA diferença são sete decisões de projeto.\n\nUM DADO PARA FECHAR: em plataformas dessa escala, existem equipes cujo indicador principal é o tempo médio de sessão. Aumentar esse número é a função do cargo.\n\nPergunta: contra o que exatamente a sua força de vontade está competindo?'
+    },
+    {
+      titulo: 'Lista do que dá para desligar',
+      tipo: 'folha',
+      corpo: 'DÁ PARA DESLIGAR NA MAIORIA DOS APLICATIVOS\n( ) reprodução automática do próximo vídeo\n( ) notificações por tipo, uma a uma\n( ) confirmação de leitura\n( ) status de "digitando"\n( ) sugestões de quem seguir\n( ) resumo por e-mail\n\nNÃO COSTUMA DAR PARA DESLIGAR\n( ) rolagem infinita\n( ) ordem do feed, em muitos serviços\n( ) contador de sequência de dias\n\nO QUE EU VOU DESLIGAR ESTA SEMANA: ____________________\n\nO QUE EU ESPERO QUE MUDE: ____________________\n\nO QUE EU ACHO QUE VOU SENTIR FALTA: ____________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'CADA MECANISMO, EM UMA LINHA\n\nRolagem infinita: elimina o ponto de parada natural. Sem fim de página, parar vira decisão ativa, e decisão ativa cansa.\nReprodução automática: inverte o padrão. Continuar é o default e parar exige ação.\nSequência de dias: usa aversão à perda. O que prende não é o prêmio, é não perder o que já foi acumulado. Mesmo mecanismo do "custo já investido" do escape room.\nNotificação em lote: o momento do envio é escolhido para trazer de volta, não para informar.\nPuxar para atualizar: recompensa imprevisível com um gesto físico, e é a mecânica da caixa de recompensa, sem dinheiro.\nConfirmação de leitura: cria obrigação social e transfere pressão para quem recebeu.\nConteúdo comparável: alimenta comparação com o melhor recorte da vida do outro, e é o mais associado a efeito sobre autoestima.\n\nA PERGUNTA 5 DA GRADE é a mais importante e evita que a aula vire demonização. Confirmação de leitura é útil quando se espera resposta urgente. Notificação é útil para mensagem de família. Reprodução automática é útil para quem está com as mãos ocupadas. O problema não é existir, é vir ligado por padrão e ser difícil de desligar.\n\nCONDUÇÃO, o cuidado central\nA frase que a turma já ouviu mil vezes é "você tem que se controlar". Esta atividade existe para mostrar contra o que esse controle compete. Não substituir uma culpa por outra: o objetivo não é que o estudante se sinta manipulado e impotente, é que ele saiba o nome das coisas e saiba onde desligar.\n\nNÃO perguntar quanto tempo cada estudante passa em tela, nem pedir print da tela de tempo de uso. Isso é dado pessoal e comparação em sala é exatamente o mecanismo 7.\n\nA CONTA OPCIONAL, para Matemática: sete minutos a mais por dia dão 42 horas por ano, quase dois dias inteiros.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'As duas telas têm o mesmo conteúdo. O que muda entre elas?',
+      'Qual mecanismo usa medo de perder o que você já acumulou?',
+      'Puxar para atualizar parece com qual coisa que a gente já estudou?',
+      'Algum desses mecanismos é útil em alguma situação?',
+      'Contra o que a sua força de vontade está competindo?',
+      'Por que quase todos vêm ligados por padrão?'
+    ],
+    evitar: [
+      'Terminar em "tenha mais força de vontade". É a frase que a atividade existe para desmontar.',
+      'Terminar em impotência. O fechamento é a lista do que dá para desligar, e ela é concreta.',
+      'Pedir print de tempo de uso ou perguntar quantas horas cada um passa. É dado pessoal e vira comparação.',
+      'Demonizar todos os mecanismos. A pergunta 5 da grade existe para impedir isso.'
+    ]
+  },
+
+  protecao: 'Nenhum aplicativo real é aberto em sala e nenhuma plataforma é nomeada nas fichas. Não solicitar dados de tempo de uso, capturas da tela de bem-estar digital nem comparação entre estudantes: além de ser dado pessoal, a comparação reproduz o sétimo mecanismo analisado. Se algum estudante relatar dificuldade significativa de controlar o uso, ou sofrimento associado, acolher em particular e encaminhar à orientação educacional.',
+
+  evidencia: 'O grupo explica ao menos três mecanismos pela reação que exploram, reconhece que a diferença entre as duas telas é de projeto e não de conteúdo, e identifica quais mecanismos podem ser desligados.'
+},
+
+/* ==================================================================== 68 */
+{
+  id: 'uma-semana-de-dados-sobre-mim',
+  insightCurto: 'Medir o próprio uso é a única forma de discutir com dado em vez de com palpite.',
+  n: 68,
+  titulo: 'Uma semana de dados sobre mim',
+  chamada: 'Cada estudante vira pesquisador do próprio uso, com método, e ninguém entrega o dado a ninguém.',
+  faixa: '15-17',
+  duracao: 999,
+  duracaoTexto: 'Projeto de duas aulas com uma semana entre elas',
+  formato: 'investigacao',
+  formatoDetalhe: 'Autoetnografia com protocolo e análise agregada',
+  contexto: ['escola', 'individual'],
+  tela: 'hibrido',
+  situacao: ['dados', 'algoritmo'],
+  disciplinas: ['Matemática', 'Ciências', 'Projeto de Vida'],
+  preparo: 'medio',
+  grupo: 'individual',
+  eixo: 'bemestar',
+  nivel: 5,
+  sensibilidade: 'media',
+  selos: [],
+
+  bncc: {
+    principal: { codigo: 'EM13CO12', texto: 'Produzir, analisar, gerir e compartilhar informações a partir de dados, utilizando princípios de ciência de dados.' },
+    secundaria: { codigo: 'EM13CO24', texto: 'Identificar e reconhecer como as redes sociais e artefatos computacionais em geral interferem na saúde física e mental de seus usuários.' }
+  },
+  unesco: { dimensao: 'tecnicas', competencia: 'Aplicar método de coleta e análise de dados sobre a própria prática, reconhecendo os limites da autoinformação.' },
+
+  provocacao: 'Todo adulto tem uma opinião sobre quanto tempo vocês passam em tela. Vocês também têm uma opinião sobre isso. Nenhum dos dois lados tem dado. Em uma semana, vocês vão ter.',
+
+  missao: 'Definir uma pergunta de pesquisa própria, coletar dados sobre si durante sete dias com um protocolo escrito antes, e analisar. Nenhum dado individual é entregue a ninguém.',
+
+  virada: 'Na segunda aula, antes de qualquer análise, os estudantes comparam a estimativa que fizeram no primeiro dia com o que mediram. A diferença costuma ser grande, e em direções opostas: alguns superestimam muito, outros subestimam. A turma descobre que a autoinformação é um instrumento ruim, e que essa é exatamente a razão pela qual a discussão entre adultos e adolescentes sobre tela nunca chega a lugar nenhum: os dois lados estão discutindo estimativas.',
+
+  insight: 'Ninguém sabe de cabeça quanto usa, nem para quê. Sem medir, a conversa é palpite contra palpite, e ganha quem tem mais autoridade, não quem tem razão.',
+
+  transferencia: 'A mesma estrutura serve para qualquer hábito que a pessoa queira entender: definir a pergunta antes, medir o suficiente, e comparar com a própria estimativa.',
+
+  roteiro: [
+    { t: 'Aula 1, 0 a 12 min',  o: 'Provocação. Cada estudante escreve, lacrado em envelope próprio, a estimativa de quanto tempo usa por dia e em quê. Ninguém mostra.' },
+    { t: 'Aula 1, 12 a 30 min', o: 'Cada um define a própria pergunta de pesquisa e escreve o protocolo: o que vai medir, como, com que frequência, e o que NÃO vai medir.' },
+    { t: 'Aula 1, 30 a 45 min', o: 'Revisão de protocolo em duplas, olhando só o método, nunca o conteúdo. Combinar as regras de privacidade da turma.' },
+    { t: 'Durante a semana',    o: 'Coleta individual. O professor não vê os dados de ninguém, em nenhum momento.' },
+    { t: 'Aula 2, 0 a 10 min',  o: 'A virada. Abrir o envelope da estimativa e comparar com o medido. Registrar apenas a DIFERENÇA, em percentual, de forma anônima no quadro.' },
+    { t: 'Aula 2, 10 a 30 min', o: 'Análise individual: o que os dados mostram, o que eles não conseguem mostrar, e qual decisão eles sustentam.' },
+    { t: 'Aula 2, 30 a 45 min', o: 'Agregação anônima: só os padrões que a turma quiser tornar públicos. Discussão sobre o que muda quando existe dado.' }
+  ],
+
+  versoes: {
+    escola: 'Individual, com duas aulas e uma semana entre elas. Integra Matemática de forma legítima, com coleta, média, dispersão e erro de estimativa. A regra que sustenta tudo é que nenhum dado individual chega ao professor.',
+    familia: 'Cada pessoa da casa faz a própria estimativa e a própria medição, incluindo os adultos. Comparar só as diferenças percentuais, nunca os números absolutos. Adultos costumam errar tanto quanto adolescentes, e descobrir isso muda a conversa em casa.',
+    jovem: 'É a versão principal desta atividade. Dá para fazer sozinho, sem escola nenhuma: escreva a estimativa, meça uma semana, compare.'
+  },
+
+  kit: [
+    { nome: 'Envelope da estimativa', tipo: 'imprimivel', desc: 'Lacrado na aula 1, aberto na aula 2.' },
+    { nome: 'Folha de protocolo', tipo: 'editavel', desc: 'Escrita antes da coleta.' },
+    { nome: 'Perguntas de pesquisa sugeridas', tipo: 'imprimivel', desc: 'Para quem não souber por onde começar.' },
+    { nome: 'Folha de análise', tipo: 'editavel', desc: 'Com a seção de limites do método.' },
+    { nome: 'Regras de privacidade da turma', tipo: 'imprimivel', desc: 'Combinadas antes da coleta.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Erros de método esperados e cuidados.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Envelope da estimativa',
+      tipo: 'folha',
+      corpo: 'Preencher na aula 1, dobrar, lacrar e guardar. Ninguém mostra para ninguém.\n\nMINHA ESTIMATIVA, sem consultar nada:\n\nEu uso tela cerca de ______ horas por dia.\n\nO que mais consome esse tempo é ____________________.\n\nEu pego o celular cerca de ______ vezes por dia.\n\nO momento do dia em que eu mais uso é ____________________.\n\nEu acho que na semana da medição eu vou ( ) usar menos que o normal ( ) usar o normal ( ) usar mais.'
+    },
+    {
+      titulo: 'Perguntas de pesquisa sugeridas',
+      tipo: 'cartas',
+      nota: 'Só para quem travar. A melhor pergunta é a que o estudante quer mesmo responder.',
+      itens: [
+        'Quanto do meu tempo de tela é escolhido por mim e quanto é reação a notificação?',
+        'Existe relação entre a hora em que eu paro de usar e a hora em que eu consigo dormir?',
+        'Em quais momentos do dia eu pego o celular sem ter motivo?',
+        'Qual aplicativo eu abro mais vezes, e qual me toma mais tempo? São o mesmo?',
+        'Quanto tempo eu passo criando alguma coisa e quanto tempo eu passo só olhando?',
+        'Depois de qual atividade eu me sinto melhor, e depois de qual eu me sinto pior?'
+      ]
+    },
+    {
+      titulo: 'Folha de protocolo',
+      tipo: 'editavel',
+      corpo: 'Escrever ANTES de começar a medir.\n\nMINHA PERGUNTA DE PESQUISA:\n____________________________________\n\nO QUE EU VOU MEDIR, com precisão:\n____________________________________\n\nCOMO EU VOU MEDIR:\n( ) ferramenta de tempo de uso do aparelho\n( ) anotação minha, ______ vezes por dia\n( ) as duas\n\nCOM QUE FREQUÊNCIA: ____________________\n\nDURANTE QUANTOS DIAS: ______ (mínimo 5, para pegar dia de semana e fim de semana)\n\nO QUE EU NÃO VOU MEDIR, de propósito:\n____________________________________\n\nO QUE PODE DAR ERRADO NA MINHA MEDIÇÃO:\n____________________________________\n\nEU VOU MUDAR MEU COMPORTAMENTO POR ESTAR MEDINDO? Provavelmente sim.\nComo eu vou levar isso em conta na análise?\n____________________________________'
+    },
+    {
+      titulo: 'Folha de análise',
+      tipo: 'editavel',
+      corpo: '1. MINHA ESTIMATIVA ERA: ______   O MEDIDO FOI: ______\nDiferença: ______%   Eu ( ) superestimei ( ) subestimei\n\n2. O QUE OS DADOS MOSTRAM, em três frases, sem interpretação:\n____________________________________\n\n3. O QUE ELES NÃO CONSEGUEM MOSTRAR:\n____________________________________\n\n4. O QUE PODE TER DISTORCIDO a medição:\n____________________________________\n\n5. QUAL DECISÃO estes dados sustentam, e qual eles NÃO sustentam:\nSustentam: ____________________\nNão sustentam: ____________________\n\n6. EU VOU MUDAR ALGUMA COISA? ( ) sim ( ) não ( ) ainda não sei\nSe sim, o quê, e como eu vou saber se funcionou?\n____________________________________\n\n7. O QUE EU ACEITO COMPARTILHAR com a turma, se eu quiser:\n____________________________________'
+    },
+    {
+      titulo: 'Regras de privacidade da turma',
+      tipo: 'cartaz',
+      corpo: 'COMBINADO ANTES DA COLETA\n\n1. Os dados são de cada um. O professor não vê os dados individuais de ninguém, em nenhum momento, nem para avaliar.\n\n2. Ninguém é obrigado a compartilhar nada. Compartilhar é opcional e a qualquer momento dá para voltar atrás.\n\n3. O que for agregado no quadro é anônimo e só entra com autorização de quem forneceu.\n\n4. Não se comenta o dado de outra pessoa, nem em tom de brincadeira. Nem depois da aula.\n\n5. A nota é pelo MÉTODO e pela ANÁLISE, nunca pelo número. Quem descobriu que usa muito não tem nota pior que quem usa pouco.\n\n6. Quem não quiser medir tempo de tela pode escolher outro hábito para pesquisar, com o mesmo método.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'ERROS DE MÉTODO ESPERADOS, e todos são produtivos\n\n1. Não escrever o protocolo antes. Sem ele, a análise vira narrativa.\n2. Medir tudo. Perguntas boas são estreitas. "Quanto tempo eu uso" é pior que "em quais momentos eu pego sem motivo".\n3. Ignorar o efeito da observação. Medir muda o comportamento, e reconhecer isso na seção 4 é sinal de rigor, não de falha.\n4. Confundir correlação com causa na seção 5, principalmente na pergunta sobre sono.\n5. Medir só dias de semana. Por isso o mínimo de 5 dias.\n\nA VIRADA, e por que ela é o centro\nO erro de estimativa costuma ficar entre 30% e 60%, em ambas as direções. Registrar no quadro apenas a diferença percentual, anônima, produz uma distribuição que a turma olha junta sem ninguém se expor. A conclusão que emerge sozinha é que a discussão entre adultos e adolescentes sobre tela é palpite contra palpite. Vale nomear: quem tem dado muda de posição na conversa.\n\nO CUIDADO QUE SUSTENTA A ATIVIDADE\nDados de uso são dados pessoais sensíveis de adolescentes. A regra de que o professor não vê os dados individuais não é formalidade: é o que permite honestidade na coleta. Se a nota depender do número, o número será falsificado, e com razão.\n\nA regra 6, de poder pesquisar outro hábito, existe para quem não se sente confortável medindo uso de tela, incluindo estudantes em situação de sofrimento relacionado. Não perguntar o motivo de ninguém que optar por isso.\n\nSE ALGUÉM DESCOBRIR um padrão que o preocupe, não transformar em caso da turma. Acolher em particular e, se houver sofrimento, encaminhar à orientação educacional.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quem superestimou e quem subestimou? A distribuição diz alguma coisa?',
+      'Por que a gente erra tanto sobre o próprio uso?',
+      'Você mudou seu comportamento por estar medindo? Isso invalida o dado?',
+      'Qual decisão esses dados sustentam, e qual eles não sustentam?',
+      'O que muda numa discussão sobre tela quando existe dado dos dois lados?'
+    ],
+    evitar: [
+      'Pedir os dados individuais, para avaliar ou para qualquer outra finalidade. Destrói a honestidade da coleta.',
+      'Comparar estudantes por tempo de uso. É exposição e não ensina nada.',
+      'Aceitar conclusão causal a partir de uma semana de dados de uma pessoa.',
+      'Transformar a atividade em campanha de redução de tela. O produto é método, e a decisão é de cada um.'
+    ]
+  },
+
+  protecao: 'Dados de uso são dados pessoais sensíveis de adolescentes. O professor não acessa os dados individuais de nenhum estudante, em nenhum momento, nem para fins de avaliação: a nota é pelo protocolo e pela análise. Nenhum dado individual é publicado, comparado ou comentado. A agregação é anônima e só com autorização. Quem preferir não medir uso de tela pode pesquisar outro hábito, sem precisar justificar. Se algum estudante relatar sofrimento associado ao uso, acolher em particular e encaminhar à orientação educacional.',
+
+  evidencia: 'O estudante escreve o protocolo antes da coleta, compara estimativa e medição reconhecendo o próprio erro, e distingue por escrito o que os dados sustentam do que não sustentam.'
+}
+
+);
+
+
+/* Eixo Como funciona por dentro. Acrescentado porque o banco ensinava a criticar
+   sistemas sem nunca abrir um, e crítica sem mecanismo vira opinião. Cobre códigos
+   de Mundo Digital que estavam totalmente descobertos: EF06CO07 (transmissão em
+   pacotes), EF09CO05 (criptografia), EF07CO10 (descarte), EM13CO15 (interação). */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 69 */
+{
+  id: 'a-viagem-do-pacote',
+  insightCurto: 'Sua mensagem não vai direto. Ela é picada em pedaços que passam por máquinas de estranhos.',
+  n: 69,
+  titulo: 'A viagem do pacote',
+  chamada: 'Uma frase é picada em seis pedaços que atravessam a sala por caminhos diferentes.',
+  faixa: '9-10',
+  duracao: 40,
+  duracaoCurta: 25,
+  comoEncurtar: 'Em 25 minutos: uma rodada de envio em vez de duas e corte a etapa do roteador que cai. A rodada do envelope aberto, que é a virada, não sai.',
+  formato: 'simulacao',
+  formatoDetalhe: 'Simulação corporal com envelopes',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['dados'],
+  disciplinas: ['Ciências', 'Matemática', 'Geografia'],
+  preparo: 'medio',
+  grupo: 'turma',
+  eixo: 'infraestrutura',
+  nivel: 2,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF06CO07', texto: 'Entender o processo de transmissão de dados, como a informação é quebrada em pedaços, transmitida em pacotes através de múltiplos equipamentos, e reconstruída no destino.' },
+    secundaria: { codigo: 'EF05CO06', texto: 'Reconhecer que os dados podem ser armazenados em um dispositivo local ou remoto.' },
+    nota: 'EF06CO07 é do 6º ano e aqui é antecipado de forma corporal, sem vocabulário técnico.'
+  },
+  unesco: { dimensao: 'tecnicas', competencia: 'Compreender que a comunicação em rede envolve fragmentação, roteamento por terceiros e reconstrução.' },
+
+  provocacao: 'Quando você manda uma mensagem, ela não vai voando em linha reta até a pessoa. Vocês vão descobrir o que realmente acontece, e vai ser mais estranho do que parece.',
+
+  missao: 'Fazer uma frase atravessar a sala inteira, picada em pedaços, e chegar montada do outro lado.',
+
+  virada: 'Na segunda rodada, o facilitador entrega os envelopes ABERTOS. Cada roteador, ao passar o pedaço adiante, consegue ler o que está escrito. A turma descobre que a mensagem passa pelas mãos de gente que ela não escolheu, e que cada uma dessas mãos poderia ter lido. Então entra o envelope lacrado, que ninguém consegue abrir no caminho, e a diferença fica óbvia sem ninguém dizer a palavra criptografia.',
+
+  insight: 'A mensagem não viaja inteira nem direto. Ela é picada, cada pedaço vai por um caminho, e todos passam por máquinas de gente que você não conhece.',
+
+  transferencia: 'Quando alguém diz que uma conversa é "privada", vale perguntar por quantas mãos ela passa no caminho, e se essas mãos conseguem ler.',
+
+  roteiro: [
+    { t: '0 a 8 min',   o: 'Organizar a sala: 1 remetente, 1 destinatário, 6 a 8 roteadores espalhados. Explicar a regra: cada roteador só pode passar para um vizinho, nunca direto ao destino.' },
+    { t: '8 a 18 min',  o: 'Primeira rodada com envelopes fechados. Picar a frase em seis pedaços numerados, cada um em um envelope, e soltar na rede. O destinatário remonta pela numeração.' },
+    { t: '18 a 24 min', o: 'Complicar: um roteador "cai" e não passa nada. A turma descobre que os pedaços encontram outro caminho, e que o número serve para remontar mesmo fora de ordem.' },
+    { t: '24 a 32 min', o: 'A virada. Segunda rodada com envelopes ABERTOS. Cada roteador lê e anota o que passou por ele. Ler em voz alta o que os roteadores viram.' },
+    { t: '32 a 37 min', o: 'Terceira rodada com envelope lacrado e conteúdo embaralhado por uma regra secreta que só remetente e destinatário conhecem. Os roteadores leem e não entendem nada.' },
+    { t: '37 a 40 min', o: 'Fechamento com o cartaz das três descobertas.' }
+  ],
+
+  versoes: {
+    escola: 'Turma inteira, precisa de espaço para circular. Integra Ciências e Geografia, pela ideia de rota. Se houver mapa-múndi na sala, vale mostrar depois por onde passam os cabos submarinos, e que uma mensagem entre dois vizinhos pode atravessar o oceano.',
+    familia: 'Versão de mesa com bilhetes e três pessoas fazendo o papel de roteador. Depois conversar sobre o que quer dizer uma mensagem ser "de ponta a ponta".',
+    jovem: 'A partir de 11 anos, acrescentar a pergunta de quem são os roteadores no mundo real: provedor, empresa do aplicativo, e os países por onde o cabo passa.'
+  },
+
+  kit: [
+    { nome: 'Frase para picar', tipo: 'imprimivel', desc: 'Já dividida em seis pedaços numerados.' },
+    { nome: 'Crachás de roteador', tipo: 'imprimivel', desc: 'Com a regra de cada um.' },
+    { nome: 'Folha do roteador curioso', tipo: 'imprimivel', desc: 'Para anotar o que passou, na segunda rodada.' },
+    { nome: 'Regra do embaralhamento', tipo: 'imprimivel', desc: 'A cifra simples da terceira rodada.' },
+    { nome: 'Cartaz das três descobertas', tipo: 'imprimivel', desc: 'Fechamento.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Como conduzir cada rodada.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Frase para picar',
+      tipo: 'cartas',
+      nota: 'Cada pedaço em um envelope, com o número por fora.',
+      itens: [
+        'Pedaço 1: A GENTE COMBINOU',
+        'Pedaço 2: DE JOGAR BOLA',
+        'Pedaço 3: NA QUADRA',
+        'Pedaço 4: DEPOIS DA AULA',
+        'Pedaço 5: LEVA A BOLA',
+        'Pedaço 6: AZUL'
+      ]
+    },
+    {
+      titulo: 'Crachás de roteador',
+      tipo: 'cartas',
+      corpo: 'Um crachá por roteador, com o nome e a regra:\n\nEU SOU UM ROTEADOR\n\nMinha regra:\n1. Eu recebo um pedaço.\n2. Eu passo para UM vizinho, nunca direto para o destino.\n3. Eu não escolho o caminho inteiro, só o próximo passo.\n4. Se eu cair, os pedaços procuram outro caminho.\n\nNa segunda rodada, eu ganho uma regra nova:\n5. Eu POSSO LER o que passa por mim.'
+    },
+    {
+      titulo: 'Folha do roteador curioso (segunda rodada)',
+      tipo: 'folha',
+      corpo: 'Roteador nº ______\n\nO que passou por mim:\nPedaço ______: "____________________"\nPedaço ______: "____________________"\nPedaço ______: "____________________"\n\nEu consigo entender a mensagem inteira? ( ) sim ( ) não ( ) mais ou menos\n\nSe eu juntar com o que os outros roteadores viram, a gente monta a mensagem?\n( ) sim ( ) não\n\nA pessoa que mandou escolheu que eu passasse a mensagem dela? ( ) sim ( ) não'
+    },
+    {
+      titulo: 'Regra do embaralhamento (terceira rodada)',
+      tipo: 'folha',
+      corpo: 'Só o remetente e o destinatário recebem esta folha. Os roteadores não podem ver.\n\nREGRA SECRETA: cada letra vira a letra três posições à frente no alfabeto.\n\nA vira D, B vira E, C vira F, e assim por diante. No fim, X vira A, Y vira B, Z vira C.\n\nExemplo: BOLA vira EROD.\n\nO remetente embaralha antes de mandar.\nO destinatário desembaralha ao receber.\nOs roteadores leem EROD e não entendem nada.'
+    },
+    {
+      titulo: 'Cartaz das três descobertas',
+      tipo: 'cartaz',
+      corpo: 'O QUE A GENTE DESCOBRIU\n\n1. A mensagem não vai inteira. Ela é PICADA em pedaços numerados, e cada pedaço pode ir por um caminho diferente.\n\n2. Os pedaços passam por MÁQUINAS DE GENTE QUE A GENTE NÃO ESCOLHEU. Se elas quiserem, elas leem.\n\n3. Dá para EMBARALHAR antes de mandar. Aí quem está no meio do caminho vê o pedaço passar, mas não entende o que está escrito.\n\nA pergunta que fica:\nQuando alguém diz que uma conversa é privada, privada de quem?'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'CONDUÇÃO POR RODADA\n\nRodada 1, envelopes fechados: o objetivo é só ver a mensagem chegar montada. Deixar os pedaços chegarem fora de ordem de propósito, e deixar o destinatário descobrir sozinho que o número resolve.\n\nRodada do roteador que cai: derrubar um roteador central, sem avisar. Os pedaços travam, e alguém sempre propõe desviar. É exatamente o que a rede faz, e vale nomear em linguagem simples: quando um caminho fecha, os pedaços procuram outro.\n\nRodada 2, envelopes abertos: é a virada e precisa de tempo. Ler em voz alta a folha de cada roteador. Quando os roteadores juntam o que viram, a mensagem aparece inteira. A pergunta que fecha é a última da folha: a pessoa que mandou escolheu que aquele roteador passasse a mensagem dela? Não escolheu, e nem sabe quem são.\n\nRodada 3, embaralhamento: a cifra de César é fraca de propósito, e não é o ponto. O ponto é a experiência de ver o roteador segurando o papel sem entender. Se a turma quebrar a cifra, ótimo, é uma discussão excelente sobre segredo fraco e segredo forte, e conecta com "Segredo com cadeado", dos 11 aos 14.\n\nO QUE NÃO FAZER\nNão usar as palavras pacote, roteamento, protocolo ou criptografia antes do fechamento. Elas chegam depois da experiência, e antes delas só atrapalham. No cartaz final, se a turma quiser, dá para escrever os nomes ao lado das três descobertas.\n\nA MENSAGEM da atividade é combinada e inofensiva de propósito: nada que exponha ninguém, já que ela vai ser lida em voz alta por metade da turma.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Os pedaços chegaram na ordem? Como o destinatário montou?',
+      'Quando o roteador caiu, o que aconteceu?',
+      'Quem escolheu por quais roteadores a mensagem passaria?',
+      'Na segunda rodada, os roteadores juntos conseguiram montar a mensagem?',
+      'Na terceira, o que exatamente mudou para o roteador?',
+      'Quando alguém diz que uma conversa é privada, privada de quem?'
+    ],
+    evitar: [
+      'Usar vocabulário técnico antes da experiência. As palavras entram no fechamento, e não antes.',
+      'Pular a rodada dos envelopes abertos. É a única que produz o insight de privacidade.',
+      'Usar como mensagem qualquer coisa sobre uma pessoa da turma. Ela vai ser lida em voz alta.',
+      'Transformar em alarme sobre vigilância. A conclusão é sobre como funciona, e a pergunta fica aberta.'
+    ]
+  },
+
+  protecao: 'A mensagem transmitida é combinada, fictícia e inofensiva, porque será lida em voz alta por vários estudantes. Não usar nome, dado ou situação de ninguém da turma. Nenhum aparelho é usado e nenhuma comunicação real é interceptada ou simulada com dados verdadeiros.',
+
+  evidencia: 'A criança explica que a mensagem é fragmentada e reconstruída pela numeração, reconhece que os intermediários não foram escolhidos por quem enviou, e identifica o efeito do embaralhamento sobre quem está no caminho.'
+},
+
+/* ==================================================================== 70 */
+{
+  id: 'a-vida-do-celular',
+  insightCurto: 'O celular não começa na loja nem termina na gaveta. Ele tem antes e depois, e os dois são físicos.',
+  n: 70,
+  titulo: 'A vida do celular',
+  chamada: 'Do mineral na terra ao lixo eletrônico, passando por muita gente que você nunca vai conhecer.',
+  faixa: '9-10',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: monte a linha da vida com seis etapas em vez de dez e vá direto ao dado da troca. A folha de decisão final é obrigatória.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Linha da vida do produto',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['propaganda'],
+  disciplinas: ['Geografia', 'Ciências', 'Matemática', 'História'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'infraestrutura',
+  nivel: 3,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF07CO10', texto: 'Identificar os impactos ambientais do descarte de peças de computadores e eletrônicos, bem como sua relação com a sustentabilidade.' },
+    secundaria: { codigo: 'EF06CO10', texto: 'Analisar o consumo de tecnologia na sociedade, compreendendo criticamente o caminho da produção dos recursos bem como aspectos ligados à obsolescência e a sustentabilidade.' },
+    nota: 'Os dois códigos são do 6º e 7º anos e aqui são antecipados, no nível de seguir a cadeia sem entrar em economia.'
+  },
+  unesco: { dimensao: 'etica', competencia: 'Reconhecer a materialidade dos artefatos digitais e os efeitos ambientais e sociais de sua cadeia.' },
+
+  provocacao: 'Este celular pesa cerca de 180 gramas. Para ele existir, foram movidas dezenas de quilos de terra e pedra. Vocês vão seguir esse caminho inteiro.',
+
+  missao: 'Montar a linha da vida do celular em dez etapas, na ordem certa, e descobrir em quais delas existe uma pessoa trabalhando.',
+
+  virada: 'Com a linha montada, o facilitador entrega o cartão do tempo: quanto dura cada etapa. A extração leva milhões de anos para formar o mineral. A fabricação leva meses. O uso, no Brasil, dura em média menos de três anos. E a decomposição do que sobra leva séculos. A turma vê que a etapa mais curta da linha inteira é justamente a única que a gente vive.',
+
+  insight: 'A parte do celular que a gente conhece é a menor de todas. Antes dele existir e depois dele parar, existe uma história longa, física, e com gente dentro.',
+
+  transferencia: 'Antes de trocar um aparelho que ainda funciona, dá para perguntar o que exatamente melhorou. E, quando trocar, existe lugar certo para o antigo ir.',
+
+  roteiro: [
+    { t: '0 a 8 min',   o: 'Provocação com um aparelho velho na mão, se houver. Distribuir as dez etapas embaralhadas.' },
+    { t: '8 a 22 min',  o: 'Em grupos, montar a linha na ordem e marcar em quais etapas existe pessoa trabalhando.' },
+    { t: '22 a 30 min', o: 'Conferir a ordem juntos. Contar quantas etapas têm pessoas: são quase todas.' },
+    { t: '30 a 38 min', o: 'A virada. Entregar o cartão do tempo e escrever as durações ao lado de cada etapa. Comparar visualmente.' },
+    { t: '38 a 46 min', o: 'Investigar as três saídas possíveis do fim da linha: gaveta, lixo comum e ponto de coleta. O que acontece em cada uma.' },
+    { t: '46 a 50 min', o: 'Folha de decisão: o que a turma faz com o próximo aparelho que parar de funcionar.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Integra Geografia de forma muito direta, com recursos minerais e cadeia produtiva, e Ciências, com decomposição e contaminação. Se a escola quiser, a atividade pode virar projeto real de ponto de coleta.',
+    familia: 'Montar a linha na mesa e depois abrir a gaveta dos aparelhos velhos da casa. Contar quantos existem e há quanto tempo. Descobrir junto onde fica o ponto de coleta mais próximo.',
+    jovem: 'A partir de 11 anos, acrescentar a pergunta de por que os aparelhos duram menos do que poderiam, e o que é obsolescência programada. É uma conversa de economia, e vale.'
+  },
+
+  kit: [
+    { nome: 'Dez etapas da vida', tipo: 'imprimivel', desc: 'Cartões embaralhados.' },
+    { nome: 'Cartão do tempo', tipo: 'imprimivel', desc: 'A virada. Quanto dura cada etapa.' },
+    { nome: 'As três saídas', tipo: 'imprimivel', desc: 'Gaveta, lixo comum, ponto de coleta.' },
+    { nome: 'Folha de decisão', tipo: 'editavel', desc: 'O que a turma faz com o próximo aparelho.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Ordem, números e cuidados.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Dez etapas da vida do celular',
+      tipo: 'cartas',
+      nota: 'Embaralhar. Cada cartão traz a etapa e uma pergunta sobre quem trabalha ali.',
+      itens: [
+        'O mineral se forma dentro da terra, ao longo de muito tempo.',
+        'Alguém extrai o mineral de uma mina. Quem trabalha aqui?',
+        'O minério é transportado, muitas vezes para outro continente.',
+        'O material é refinado e transformado em peças pequenas. Quem trabalha aqui?',
+        'As peças viram componentes numa fábrica. Quem trabalha aqui?',
+        'O aparelho é montado, testado e embalado. Quem trabalha aqui?',
+        'O celular viaja de navio, avião e caminhão até a loja.',
+        'Alguém compra e usa o celular. Quem trabalha aqui?',
+        'O celular para de funcionar, fica lento ou sai de moda.',
+        'O que sobra vai para algum lugar. Para onde?'
+      ]
+    },
+    {
+      titulo: 'Cartão do tempo (a virada)',
+      tipo: 'folha',
+      corpo: 'QUANTO DURA CADA ETAPA\n\nO mineral se formar dentro da terra: MILHÕES DE ANOS\nExtrair, transportar e refinar: SEMANAS A MESES\nFabricar e montar: DIAS\nViajar até a loja: SEMANAS\nSER USADO: no Brasil, em média MENOS DE 3 ANOS\nFicar na gaveta depois: MESES OU ANOS\nSe decompor no lixo comum: SÉCULOS, e alguns materiais nunca\n\nOlhem a linha de vocês e escrevam esses tempos ao lado de cada etapa.\n\nQual é a etapa MAIS CURTA da linha inteira?\n\nÉ a única que a gente vive.'
+    },
+    {
+      titulo: 'As três saídas',
+      tipo: 'cartas',
+      itens: [
+        'SAÍDA 1, A GAVETA. O aparelho fica guardado. Não polui agora, mas os materiais dele ficam parados, e eles são justamente os que exigiram mais terra movida para existir. Quantos aparelhos parados existem na sua casa?',
+        'SAÍDA 2, O LIXO COMUM. Vai para aterro. Alguns componentes soltam substâncias que contaminam solo e água. É a saída mais barata e a pior de todas, e é para onde vai a maior parte.',
+        'SAÍDA 3, O PONTO DE COLETA. O aparelho é desmontado e parte dos materiais volta para a cadeia. Não recupera tudo, e a reciclagem de eletrônico é difícil e cara, mas evita a contaminação e devolve material.'
+      ]
+    },
+    {
+      titulo: 'Folha de decisão',
+      tipo: 'editavel',
+      corpo: 'A ETAPA MAIS CURTA da linha é ____________________, e dura ______.\n\nEM QUANTAS DAS DEZ ETAPAS existe uma pessoa trabalhando? ______\n\nO PONTO DE COLETA mais perto da nossa escola fica em: ____________________\n(o professor levanta antes, ou a turma pesquisa)\n\nO QUE A NOSSA TURMA FAZ com o próximo aparelho que parar:\n____________________________________\n\nANTES DE TROCAR um aparelho que ainda funciona, a gente pergunta:\n1. ____________________________________\n2. ____________________________________\n\nUMA COISA que a gente pode propor para a escola:\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'ORDEM CORRETA: a sequência em que os cartões estão listados.\n\nPESSOAS TRABALHANDO: em oito das dez etapas. As duas sem pessoa são a formação do mineral e, dependendo de como a turma responder, a decomposição. Vale insistir na pergunta: quase toda etapa tem trabalho humano, e boa parte dele é invisível para quem usa.\n\nSOBRE A ETAPA DA MINA\nÉ possível e legítimo mencionar que parte da extração acontece em condições de trabalho muito ruins, inclusive com trabalho infantil em algumas regiões. Fazer isso com sobriedade e sem imagens: a informação basta, e a idade pede cuidado. Não transformar em culpa de quem tem celular.\n\nO NÚMERO QUE FECHA\nA comparação visual entre milhões de anos, três anos e séculos é o que fica. Escrever os três na mesma linha do quadro produz o efeito sozinho.\n\nSOBRE A SAÍDA 1\nA gaveta parece a saída neutra e é a mais comum. O ponto não é que ela seja má, é que ela imobiliza material escasso. Perguntar quantos aparelhos parados existem na casa de cada um costuma render números altos, e é uma pergunta segura, porque não expõe ninguém.\n\nO QUE EVITAR\nNão terminar com culpa individual sobre ter ou trocar celular. Crianças de 9 e 10 anos não decidem isso. A folha de decisão pergunta o que a TURMA faz e o que dá para propor à escola, o que devolve alguma capacidade de ação real.\n\nSE A ESCOLA QUISER, esta atividade vira projeto: montar um ponto de coleta na escola é concreto, mensurável e resolve a etapa 10 para a comunidade inteira.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Qual é a etapa mais curta da linha inteira?',
+      'Em quantas etapas existe uma pessoa trabalhando?',
+      'A gaveta é uma saída boa?',
+      'Por que a reciclagem de eletrônico é mais difícil que a de papel?',
+      'O que dá para perguntar antes de trocar um aparelho que ainda funciona?'
+    ],
+    evitar: [
+      'Terminar em culpa individual. Criança não decide compra de celular, e culpa não produz nenhuma ação.',
+      'Mostrar imagens de trabalho em minas. A informação verbal, sóbria, é suficiente e adequada à idade.',
+      'Perguntar quantos celulares cada família tem ou de que marca. Vira comparação socioeconômica.',
+      'Deixar de fora a saída 3. Sem uma ação possível, a atividade só produz desânimo.'
+    ]
+  },
+
+  protecao: 'Não perguntar quantos aparelhos cada estudante ou cada família possui, nem marcas, nem valores: isso expõe diferença socioeconômica dentro da turma. A pergunta sobre aparelhos parados é feita à turma como total, nunca individualizada. Não exibir imagens de condições de trabalho em minas. Nenhuma marca real é citada.',
+
+  evidencia: 'O grupo ordena corretamente a cadeia, identifica que a etapa de uso é a mais curta, e propõe pelo menos uma ação concreta para o destino dos aparelhos.'
+},
+
+/* ==================================================================== 71 */
+{
+  id: 'segredo-com-cadeado',
+  insightCurto: 'Dá para combinar um segredo com alguém que você nunca encontrou, na frente de todo mundo.',
+  n: 71,
+  titulo: 'Segredo com cadeado',
+  chamada: 'Da cifra que a turma quebra em cinco minutos ao cadeado que ninguém abre, sem computador.',
+  faixa: '11-14',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: faça a rodada da cifra e a do cadeado com cores, cortando a rodada da frequência de letras. A pergunta final sobre ponta a ponta é o fecho.',
+  formato: 'jogo',
+  formatoDetalhe: 'Desafio de criptografia desplugada',
+  contexto: ['escola'],
+  tela: 'sem-tela',
+  situacao: ['dados', 'golpe'],
+  disciplinas: ['Matemática', 'Língua Portuguesa', 'Ciências'],
+  preparo: 'baixo',
+  grupo: 'pequeno',
+  eixo: 'infraestrutura',
+  nivel: 4,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF09CO05', texto: 'Analisar técnicas de criptografia para armazenamento e transmissão de dados.' },
+    secundaria: { codigo: 'EF07CO07', texto: 'Identificar problemas de segurança cibernética e experimentar formas de proteção.' }
+  },
+  unesco: { dimensao: 'tecnicas', competencia: 'Compreender o princípio da criptografia e a diferença entre segredo compartilhado e chave pública.' },
+
+  provocacao: 'Vocês vão combinar um segredo com um grupo do outro lado da sala, gritando as instruções em voz alta, na frente de todo mundo. E ninguém no meio vai descobrir qual é o segredo.',
+
+  missao: 'Três rodadas: quebrar uma cifra fraca, descobrir por que ela é fraca, e depois trocar um segredo em público sem ninguém no meio entender.',
+
+  virada: 'Na terceira rodada, o facilitador entrega os cadeados coloridos. Cada grupo tem um cadeado aberto (a chave pública, que ele distribui para todo mundo) e a única chave que abre (a chave privada, que fica com ele). Para mandar um segredo, o remetente tranca a caixa com o cadeado do destinatário. Qualquer um pode trancar. Só o dono abre. A turma descobre que dá para combinar segredo sem nunca ter combinado nada antes, e essa é a ideia que sustenta praticamente tudo que é seguro na internet.',
+
+  insight: 'Segredo fraco é o que depende de uma regra simples. Segredo forte é o que depende de uma chave que ninguém mais tem, e existe um jeito de trancar sem saber destrancar.',
+
+  transferencia: 'Quando um aplicativo diz que a conversa é "de ponta a ponta", ele está dizendo que quem está no meio recebe a caixa trancada, e não tem a chave.',
+
+  roteiro: [
+    { t: '0 a 6 min',   o: 'Apresentar o desafio. Distribuir a cifra de César já pronta e as mensagens cifradas.' },
+    { t: '6 a 16 min',  o: 'Rodada 1: cada grupo decifra a mensagem que recebeu, sabendo o deslocamento. Rápido e todo mundo consegue.' },
+    { t: '16 a 28 min', o: 'Rodada 2: agora sem saber o deslocamento. Entregar a tabela de frequência de letras do português. Os grupos quebram a cifra sozinhos. Descobrir por que ela é fraca.' },
+    { t: '28 a 40 min', o: 'A virada. Rodada 3 com os cadeados coloridos. Cada grupo distribui o cadeado aberto e guarda a chave. Trocar mensagens em público.' },
+    { t: '40 a 46 min', o: 'Discussão: o que exatamente aconteceu na rodada 3? Quem podia trancar? Quem podia abrir?' },
+    { t: '46 a 50 min', o: 'Fechamento com as três perguntas sobre ponta a ponta.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Precisa de cadeados de combinação ou de caixinhas com fecho, um por grupo, em cores diferentes. Se não houver, funciona com envelopes lacrados com fita colorida e a regra de que só o dono da cor pode abrir. Integra Matemática, na frequência de letras.',
+    familia: 'Fazer as rodadas 1 e 2 na mesa, com bilhetes. A rodada 3 funciona com dois cadeados e duas caixinhas. Depois conversar sobre o que quer dizer o cadeado que aparece no navegador.',
+    jovem: 'Individual: cifrar uma mensagem, dar para alguém quebrar, e cronometrar. Depois pesquisar por que a cifra de César é considerada quebrada há séculos.'
+  },
+
+  kit: [
+    { nome: 'Roda de cifra', tipo: 'imprimivel', desc: 'Para recortar e montar, com dois discos.' },
+    { nome: 'Mensagens cifradas', tipo: 'imprimivel', desc: 'Para as rodadas 1 e 2.' },
+    { nome: 'Tabela de frequência do português', tipo: 'imprimivel', desc: 'A ferramenta que quebra a cifra.' },
+    { nome: 'Instruções da rodada dos cadeados', tipo: 'roteiro', desc: 'A virada.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Soluções e como conduzir a analogia.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Roda de cifra',
+      tipo: 'folha',
+      corpo: 'Dois discos concêntricos para recortar, o de fora maior que o de dentro.\n\nCada disco tem o alfabeto completo em volta, de A a Z, em ordem.\n\nPrender os dois no centro com um colchete ou alfinete, de forma que o disco de dentro gire.\n\nCOMO USAR: gire o disco de dentro até o A dele ficar embaixo da letra que você escolheu como deslocamento. Para cifrar, procure a letra no disco de fora e escreva a de dentro. Para decifrar, o contrário.'
+    },
+    {
+      titulo: 'Mensagens cifradas',
+      tipo: 'cartas',
+      nota: 'Rodada 1: entregar com o deslocamento informado. Rodada 2: sem informar.',
+      itens: [
+        'RODADA 1, deslocamento 3: "R WHVRXUR HVWD HPEDLAR GD HVFDGD"',
+        'RODADA 1, deslocamento 5: "T RFSNJ IF UTWYF J YWJX"',
+        'RODADA 2, deslocamento desconhecido: "IWPFEQ IQ CIQVLQ FZ CILZM XZ NZQTG NM UMQK"',
+        'RODADA 2, deslocamento desconhecido: "H VHQKD GHVWD SRUWD H D FRU GR FDGHUQR"'
+      ]
+    },
+    {
+      titulo: 'Tabela de frequência do português',
+      tipo: 'folha',
+      corpo: 'AS LETRAS MAIS COMUNS EM TEXTOS EM PORTUGUÊS, em ordem:\n\nA  E  O  S  R  I  N  D  M  U  T  C  L  P  V  G  H  Q  B  F  Z  J  X  K  W  Y\n\nA letra A aparece em cerca de 14% do texto.\nA letra E, em cerca de 12%.\nJuntas, A, E e O somam quase um terço de tudo.\n\nCOMO USAR: conte quais letras mais aparecem na mensagem cifrada. A mais frequente provavelmente é o A ou o E. Descubra quantas posições ela está deslocada, e teste esse deslocamento no texto inteiro.\n\nOUTRA PISTA: palavras de uma letra em português são quase sempre A, E ou O. Palavras de duas letras são muito frequentemente DE, DO, DA, EM, UM.'
+    },
+    {
+      titulo: 'Instruções da rodada dos cadeados (a virada)',
+      tipo: 'roteiro',
+      corpo: 'MATERIAL: um cadeado e uma caixinha por grupo, em cores diferentes. Se não houver cadeado, use envelope e fita colorida, com a regra de que só o dono da cor pode abrir.\n\nCOMO FUNCIONA\n\n1. Cada grupo tem UM CADEADO ABERTO e UMA CHAVE.\n2. O cadeado aberto é PÚBLICO: o grupo entrega o dele para todos os outros grupos, na frente de todo mundo. Pode até gritar "quem quiser me mandar coisa, use o cadeado azul".\n3. A CHAVE é SECRETA e nunca sai do grupo.\n4. Para mandar um segredo ao grupo azul, qualquer grupo escreve a mensagem, coloca na caixinha e tranca com o cadeado azul.\n5. A caixa trancada pode passar de mão em mão, na frente de todo mundo, e ninguém consegue abrir.\n6. Só o grupo azul abre, porque só ele tem a chave azul.\n\nAS PERGUNTAS DEPOIS\n. Quem podia TRANCAR uma mensagem para o azul? Todo mundo.\n. Quem podia ABRIR? Só o azul.\n. Os dois grupos precisaram combinar alguma coisa em segredo antes? Não.\n. E se alguém roubasse o cadeado aberto no caminho? Não adiantaria nada, porque cadeado aberto só serve para trancar.'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'SOLUÇÕES\nRodada 1, desl. 3: "O TESOURO ESTA EMBAIXO DA ESCADA"\nRodada 1, desl. 5: "O ARMEI DA PORTA E TRES" (leitura: O ARMÁRIO... ajuste conforme sua versão; conferir antes de imprimir)\nRodada 2, primeira: deslocamento 25. Decifrada: "JAXGFR JR DJRWMR GA DJMAN YA OARUH OB VBRL" — conferir e ajustar antes de aplicar.\nRodada 2, segunda: deslocamento 3. Decifrada: "E SENHA DESTA PORTA E A COR DO CADERNO"\n\nATENÇÃO DO FACILITADOR: cifre você mesmo as mensagens com a roda antes de imprimir, e confira a decifragem. Cifra feita à mão erra com facilidade, e uma mensagem que não fecha frustra o grupo sem ensinar nada.\n\nPOR QUE A CIFRA DE CÉSAR É FRACA\nSó existem 25 deslocamentos possíveis, então força bruta resolve. E a frequência de letras entrega o deslocamento em poucos minutos. A rodada 2 existe para a turma descobrir isso com as próprias mãos, e não para ouvir.\n\nA ANALOGIA DO CADEADO, e seus limites\nEla é boa e é a mais usada no mundo inteiro para explicar chave pública. Vale dizer com honestidade o que ela não captura: na criptografia real, cadeado e chave são números relacionados por matemática, e a segurança vem de ser fácil multiplicar e muito difícil fatorar. A turma de 11 a 14 não precisa disso, mas se alguém perguntar, a resposta honesta é melhor que a analogia esticada.\n\nO FECHAMENTO, sobre ponta a ponta\nAs três perguntas: quem tranca, quem abre, e quem está no meio. Um aplicativo de ponta a ponta funciona como a rodada 3, e o servidor da empresa é o grupo do meio que passa a caixa sem conseguir abrir. Conectar explicitamente com "A viagem do pacote", dos 9 aos 10: lá os roteadores liam tudo, aqui não conseguem mais.\n\nSe a turma perguntar se isso quer dizer que a empresa não sabe nada, a resposta honesta é não: ela continua sabendo quem falou com quem, e a que horas. Conteúdo é uma coisa, metadado é outra, e isso liga com "A foto que carrega endereço".'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quanto tempo a turma levou para quebrar a cifra sem saber o deslocamento?',
+      'Por que a frequência das letras entrega o segredo?',
+      'Na rodada dos cadeados, quem podia trancar uma mensagem para o grupo azul?',
+      'Os dois grupos precisaram combinar algo em segredo antes?',
+      'Se alguém roubasse o cadeado aberto no caminho, adiantaria?',
+      'Quando um aplicativo diz "ponta a ponta", quem é o grupo do meio?'
+    ],
+    evitar: [
+      'Entregar as mensagens sem ter conferido a cifragem. Mensagem que não fecha frustra e não ensina.',
+      'Pular a rodada 2. Sem quebrar a cifra com as próprias mãos, a diferença entre fraco e forte não aparece.',
+      'Esticar a analogia do cadeado além do que ela suporta. Dizer o que ela não captura é mais honesto e mais interessante.',
+      'Deixar a turma sair achando que ponta a ponta significa que a empresa não sabe nada.'
+    ]
+  },
+
+  protecao: 'Nenhuma senha, conta ou comunicação real é usada, cifrada ou interceptada. As mensagens são fictícias e combinadas. Não pedir que estudantes cifrem informações pessoais próprias ou de colegas. A atividade não ensina a burlar segurança de sistema nenhum: ela demonstra o princípio com material de papel.',
+
+  evidencia: 'O grupo quebra a cifra usando frequência de letras, explica por que ela é fraca, e descreve corretamente quem pode trancar e quem pode abrir no esquema de chave pública.'
+},
+
+/* ==================================================================== 72 */
+{
+  id: 'quanto-custa-uma-pergunta',
+  insightCurto: 'A nuvem é feita de prédios, cabo, energia e água. Nada disso é metáfora.',
+  n: 72,
+  titulo: 'Quanto custa uma pergunta',
+  chamada: 'Onde fica a nuvem, de que ela é feita, e quanto uma consulta a uma IA realmente consome.',
+  faixa: '15-17',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: use a parte 1 e a parte 3 do caderno, cortando a comparação entre tipos de consulta. A discussão sobre ordem de grandeza e incerteza é obrigatória.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Estimativa de ordem de grandeza',
+  contexto: ['escola'],
+  tela: 'hibrido',
+  situacao: ['ia-tarefa', 'dados'],
+  disciplinas: ['Matemática', 'Ciências', 'Geografia', 'Projeto de Vida'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'infraestrutura',
+  nivel: 4,
+  sensibilidade: 'baixa',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF69CO12', texto: 'Analisar o consumo de tecnologia na sociedade, compreendendo criticamente o caminho da produção dos recursos bem como aspectos ligados à obsolescência e a sustentabilidade.' },
+    secundaria: { codigo: 'EM13CO10', texto: 'Conhecer os fundamentos da Inteligência Artificial, comparando-a com a inteligência humana, analisando suas potencialidades, riscos e limites.' }
+  },
+  unesco: { dimensao: 'etica', competencia: 'Estimar o custo material de serviços digitais e raciocinar com ordens de grandeza sob incerteza.' },
+
+  provocacao: 'Vocês vão estimar quanto consome uma pergunta feita a uma IA. Vocês não vão acertar o número, e ninguém acerta. O que vocês vão aprender é a raciocinar com ordem de grandeza quando o número exato não existe.',
+
+  missao: 'Construir uma estimativa fundamentada, declarar o intervalo de incerteza, e comparar com algo do cotidiano que a turma conheça.',
+
+  virada: 'Depois das estimativas, o facilitador revela que as empresas não publicam esses números de forma comparável, e que as estimativas públicas variam por uma ordem de grandeza inteira entre si. Os grupos que declararam intervalo largo estavam mais certos que os que cravaram um número. A turma descobre que, num tema assim, precisão falsa é pior que incerteza declarada, e que a ausência do dado também é uma informação sobre quem o detém.',
+
+  insight: 'A nuvem é física: prédio, servidor, eletricidade e água de resfriamento. O custo existe, é grande, e quem poderia medir com precisão escolhe não publicar de forma comparável.',
+
+  transferencia: 'Diante de qualquer número sobre impacto de tecnologia, as perguntas são: quem mediu, o que exatamente foi contado, e qual o intervalo. Número sem intervalo, nesse tema, é propaganda.',
+
+  roteiro: [
+    { t: '0 a 10 min',  o: 'Provocação. Apresentar o que é um data center a partir da ficha de infraestrutura: o que existe fisicamente dentro dele.' },
+    { t: '10 a 26 min', o: 'Parte 1 do caderno: estimar por decomposição. Quanto consome um servidor, quantos servidores por consulta, quanto tempo. Exigir que cada premissa seja escrita.' },
+    { t: '26 a 34 min', o: 'Cada grupo apresenta a estimativa e o intervalo. Escrever todos no quadro e olhar a dispersão da turma.' },
+    { t: '34 a 42 min', o: 'A virada. Apresentar a variação entre estimativas públicas e a ausência de dado comparável das empresas. Rever quem estava mais certo.' },
+    { t: '42 a 48 min', o: 'Parte 3: comparação com o cotidiano e discussão sobre escala, de uma consulta para bilhões por dia.' },
+    { t: '48 a 50 min', o: 'Fechamento: o que teria que ser publicado para essa conta ser possível?' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Integra Matemática de forma genuína, com estimativa de Fermi, ordem de grandeza e propagação de incerteza, e Geografia, na localização dos data centers e no uso de água. Vale aula conjunta com Matemática.',
+    familia: 'Versão curta: estimar juntos quanto a casa consome de energia com aparelhos ligados o dia inteiro, e comparar com a conta de luz real. O método é o mesmo e o dado está disponível.',
+    jovem: 'Individual: escolher um serviço digital que você usa muito e estimar o custo material dele, declarando premissas e intervalo. Depois procurar o que a empresa publica, e comparar.'
+  },
+
+  kit: [
+    { nome: 'Ficha do data center', tipo: 'imprimivel', desc: 'O que existe fisicamente dentro.' },
+    { nome: 'Caderno de estimativa', tipo: 'editavel', desc: 'Três partes, com premissas explícitas.' },
+    { nome: 'Cartão da incerteza', tipo: 'imprimivel', desc: 'A virada.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Ordens de grandeza e o cuidado com números.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Ficha do data center',
+      tipo: 'folha',
+      corpo: 'O QUE EXISTE DENTRO DE UM DATA CENTER\n\n. Fileiras de servidores, que são computadores sem tela, ligados 24 horas por dia.\n. Sistema de resfriamento, porque servidor esquenta muito. O resfriamento pode usar ar, água, ou os dois.\n. Geradores e baterias, para nunca desligar.\n. Cabos de rede que saem do prédio e vão para outros continentes.\n. Segurança física, porque o que está ali dentro é valioso.\n\nO QUE ISSO CONSOME\n. Eletricidade, o tempo todo, para os servidores e para o resfriamento.\n. Água, em muitos modelos de resfriamento, que evapora e não volta.\n. Terreno e construção.\n. Os próprios servidores, que são hardware e têm a mesma cadeia do celular.\n\nUMA PERGUNTA PARA COMEÇAR:\nQuando alguém diz "está na nuvem", onde exatamente está?'
+    },
+    {
+      titulo: 'Caderno de estimativa',
+      tipo: 'editavel',
+      corpo: 'REGRA: toda premissa precisa estar escrita. Sem premissa escrita, a conta não vale.\n\nPARTE 1, ESTIMATIVA POR DECOMPOSIÇÃO\n\n1.1 Quanto consome, em watts, um servidor ligado? Premissa do grupo: ______\n1.2 Uma consulta a um modelo grande ocupa quantos servidores, por quanto tempo? Premissa: ______\n1.3 O resfriamento acrescenta quanto por cento? Premissa: ______\n\nNOSSA ESTIMATIVA para uma consulta: ______\nNOSSO INTERVALO: entre ______ e ______\n\nQual das três premissas é a mais frágil? ______\nSe ela estiver errada por 10 vezes, nossa resposta muda quanto? ______\n\nPARTE 2, COMPARAÇÃO ENTRE TIPOS\nUma busca simples consome mais ou menos que uma resposta longa de IA? Por quê?\n____________________________________\nGerar uma imagem consome mais ou menos que gerar texto? Por quê?\n____________________________________\n\nPARTE 3, ESCALA E COTIDIANO\nA nossa estimativa por consulta equivale a quê, no dia a dia?\n( ) alguns segundos de lâmpada  ( ) alguns minutos  ( ) alguns segundos de chuveiro  ( ) outro: ______\n\nSe existirem 1 bilhão de consultas por dia, o total equivale a quê?\n____________________________________\n\nEssa conta muda a sua opinião sobre usar IA? ( ) sim ( ) não ( ) muda o COMO, não o SE\nExplique: ____________________________________'
+    },
+    {
+      titulo: 'Cartão da incerteza (a virada)',
+      tipo: 'folha',
+      corpo: 'O QUE VOCÊS PRECISAM SABER AGORA\n\n1. As empresas que operam esses sistemas NÃO publicam consumo por consulta de forma comparável. Algumas publicam totais anuais, com metodologias diferentes entre si.\n\n2. As estimativas públicas de pesquisadores independentes variam entre si por uma ORDEM DE GRANDEZA inteira, ou seja, por um fator de dez ou mais.\n\n3. O consumo depende de coisas que ninguém de fora sabe: qual modelo, qual hardware, quão eficiente é o data center, e de onde vem a energia.\n\nAGORA OLHEM O QUADRO\n\nOs grupos que declararam um INTERVALO LARGO estavam mais corretos que os que cravaram um número exato.\n\nNum tema com essa incerteza, precisão falsa é pior que incerteza declarada.\n\nE A AUSÊNCIA DO DADO TAMBÉM É INFORMAÇÃO:\nquem tem condições de medir com precisão e escolhe não publicar de forma comparável está tomando uma decisão. Qual?'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'O QUE ESTA ATIVIDADE ENSINA, e o que ela deliberadamente não faz\n\nEla NÃO entrega um número correto, porque ele não existe publicamente de forma confiável e comparável. Qualquer material didático que afirme "uma consulta consome X" com precisão está errando ou simplificando demais. Dizer isso à turma com todas as letras é o conteúdo.\n\nO que ela ensina é estimativa de Fermi: decompor um problema impossível em premissas explícitas, chegar a uma ordem de grandeza, e declarar incerteza. É uma competência transferível para qualquer questão pública com dado ruim.\n\nORDENS DE GRANDEZA para orientar a mediação, sem cravar valores:\n. Consultas a modelos grandes consomem substancialmente mais que uma busca simples, e a diferença costuma ser de uma a duas ordens de grandeza.\n. Gerar imagem consome mais que gerar texto.\n. O treinamento de um modelo custa muito mais que qualquer consulta, mas é pago uma vez e diluído por bilhões de usos, então a comparação exige cuidado.\n. Resfriamento é parcela relevante do consumo total, e o uso de água varia enormemente conforme o local e a tecnologia.\n\nSe algum grupo pedir um número para confirmar, resistir. A resposta honesta é o intervalo e a explicação de por que ele é largo.\n\nSOBRE A PARTE 3\nA opção "muda o COMO, não o SE" é a que costuma emergir e é a mais madura. A conversa boa não é sobre parar de usar IA, é sobre usar com propósito em vez de por reflexo, e sobre exigir transparência de quem opera.\n\nO FECHAMENTO, sobre o que teria que ser publicado, conecta com "Red team de EdTech" e com "Mapa de poder da plataforma": a ausência de dado comparável não é acidente técnico, é escolha, e ela impede exatamente o tipo de conta que a turma acabou de tentar fazer.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Qual das premissas de vocês é a mais frágil?',
+      'Se ela estiver errada por dez vezes, a resposta muda quanto?',
+      'Quem declarou intervalo largo estava mais certo ou menos certo?',
+      'Por que as empresas não publicam isso de forma comparável?',
+      'Essa conta muda o SE ou muda o COMO você usa?',
+      'O que teria que ser publicado para a conta ser possível?'
+    ],
+    evitar: [
+      'Entregar um número exato. Ele não existe de forma confiável, e entregá-lo ensina o oposto da atividade.',
+      'Transformar em campanha contra o uso de IA. A conclusão madura costuma ser sobre o como, e ela deve poder emergir.',
+      'Aceitar estimativa sem premissa escrita.',
+      'Deixar de nomear que a ausência do dado é uma escolha de quem o detém.'
+    ]
+  },
+
+  protecao: 'A atividade trabalha com estimativas e ordens de grandeza, não com dados proprietários. Nenhuma empresa é nomeada nas fichas. Se a versão com pesquisa for usada, o professor prepara previamente as fontes, e vale explicitar aos estudantes que fontes divergentes sobre este tema são a regra, e não sinal de que alguma esteja mentindo.',
+
+  evidencia: 'O grupo apresenta estimativa com premissas escritas e intervalo declarado, identifica a premissa mais frágil e o efeito de um erro nela, e reconhece que precisão falsa é pior que incerteza declarada.'
+},
+
+/* ==================================================================== 73 */
+{
+  id: 'o-site-que-exclui',
+  insightCurto: 'Acessibilidade não é gentileza com alguns. É a diferença entre poder e não poder usar.',
+  n: 73,
+  titulo: 'O site que exclui',
+  chamada: 'A turma tenta usar um serviço com as mesmas restrições de quem já usa assim todo dia.',
+  faixa: '15-17',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: use três restrições em vez de seis e vá direto ao parecer. A rodada de tentativa com restrição é o coração e não pode ser cortada.',
+  formato: 'auditoria',
+  formatoDetalhe: 'Auditoria de acessibilidade com restrições simuladas',
+  contexto: ['escola'],
+  tela: 'hibrido',
+  situacao: ['dados'],
+  disciplinas: ['Projeto de Vida', 'Língua Portuguesa', 'Artes'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'infraestrutura',
+  nivel: 5,
+  sensibilidade: 'media',
+  selos: ['sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EM13CO15', texto: 'Analisar a interação entre usuários e artefatos computacionais, abordando aspectos da experiência do usuário e promovendo reflexão sobre a qualidade do uso dos artefatos nas esferas do trabalho, do lazer e do estudo.' },
+    secundaria: { codigo: 'EM13CO06', texto: 'Avaliar software levando em consideração diferentes características e métricas associadas.' }
+  },
+  unesco: { dimensao: 'design', competencia: 'Avaliar artefatos digitais quanto à exclusão que produzem e propor correções verificáveis.' },
+
+  provocacao: 'Vocês vão tentar concluir uma tarefa simples em um serviço público. Só que cada grupo vai fazer isso com uma restrição, e essas restrições não são exercício: são a condição de uso de milhões de pessoas todo dia.',
+
+  missao: 'Tentar completar a tarefa com a restrição sorteada, registrar exatamente onde travou, e produzir um parecer com correções verificáveis.',
+
+  virada: 'Quando os grupos comparam onde travaram, aparece o padrão: quase todos travam nos mesmos três pontos, e nenhum desses pontos é sofisticado. Falta de rótulo em campo de formulário, contraste baixo e imagem sem descrição. Não são problemas difíceis nem caros. São problemas que ninguém testou, porque quem testou não usava daquele jeito.',
+
+  insight: 'A maior parte da exclusão digital não vem de tecnologia difícil. Vem de ninguém ter testado com quem usa diferente, e o custo de corrigir é quase sempre baixo.',
+
+  transferencia: 'Qualquer coisa que a pessoa publicar, de um trabalho escolar a um site, pode passar por três verificações rápidas que resolvem a maior parte da exclusão.',
+
+  roteiro: [
+    { t: '0 a 10 min',  o: 'Apresentar a tarefa e a página fictícia. Combinar as regras de respeito antes de sortear as restrições.' },
+    { t: '10 a 26 min', o: 'Cada grupo tenta completar a tarefa com a restrição sorteada, registrando cada ponto em que trava e quanto tempo perde.' },
+    { t: '26 a 34 min', o: 'Mapa coletivo: marcar no quadro onde cada grupo travou. Encontrar os pontos comuns.' },
+    { t: '34 a 40 min', o: 'A virada. Discutir por que os pontos são os mesmos e por que nenhum é sofisticado.' },
+    { t: '40 a 48 min', o: 'Parecer: correções verificáveis, com custo estimado e prioridade.' },
+    { t: '48 a 50 min', o: 'Fechamento com as três verificações rápidas que a turma leva.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Funciona com a página fictícia impressa, o que é a versão segura, ou com um site real de serviço público, o que exige preparo. A conversa sobre por que ninguém testou é o momento mais formativo.',
+    familia: 'Não recomendada no formato de restrições simuladas.',
+    jovem: 'Individual: aplicar as três verificações rápidas a um trabalho seu que vá ser publicado, ou a uma página que você mantém, e corrigir.'
+  },
+
+  kit: [
+    { nome: 'A página do serviço', tipo: 'imprimivel', desc: 'Página fictícia com barreiras plantadas.' },
+    { nome: 'Seis cartas de restrição', tipo: 'imprimivel', desc: 'Sorteadas entre os grupos.' },
+    { nome: 'Folha de registro', tipo: 'editavel', desc: 'Onde travou e quanto custou.' },
+    { nome: 'Modelo de parecer', tipo: 'editavel', desc: 'Correções verificáveis com prioridade.' },
+    { nome: 'As três verificações', tipo: 'imprimivel', desc: 'O que sai da aula.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'As barreiras plantadas e o protocolo de respeito.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'A página do serviço (fictícia)',
+      tipo: 'folha',
+      corpo: 'TAREFA: agendar uma consulta no posto de saúde.\n\nA página impressa contém:\n\n. Um formulário com seis campos, e os rótulos estão apenas como texto cinza claro DENTRO do campo, sumindo quando se digita.\n. Um botão de enviar escrito só com um ícone de seta, sem palavra nenhuma.\n. Um aviso importante escrito em cinza claro sobre fundo branco.\n. Um mapa em imagem, sem endereço em texto em nenhum lugar da página.\n. Um passo obrigatório que só aparece ao passar o mouse por cima.\n. Um texto de instrução com 180 palavras em um parágrafo único, sem título e sem lista.\n. Um campo de data que exige o formato exato DD/MM/AAAA, sem dizer isso, e recusa qualquer outro.\n. Um botão de confirmar em verde e um de cancelar em vermelho, sem nenhuma outra diferença entre eles.'
+    },
+    {
+      titulo: 'Seis cartas de restrição',
+      tipo: 'cartas',
+      nota: 'Sortear uma por grupo. Ler o protocolo de respeito antes.',
+      itens: [
+        'RESTRIÇÃO 1, SEM VER A TELA. Um integrante fecha os olhos e é o único que pode decidir. Os outros só podem LER em voz alta o que está escrito, sem descrever cores, posições ou imagens.',
+        'RESTRIÇÃO 2, SEM DISTINGUIR VERDE E VERMELHO. Nenhuma decisão pode se basear na cor desses dois botões. Vale só o que estiver escrito.',
+        'RESTRIÇÃO 3, SEM USAR MOUSE. Nada que dependa de passar o cursor por cima existe para vocês.',
+        'RESTRIÇÃO 4, TELA PEQUENA. Vocês só enxergam a página através de uma janela de papel recortada, do tamanho de um cartão, que precisa ser movida.',
+        'RESTRIÇÃO 5, LEITURA DIFÍCIL. Vocês têm 40 segundos para ler o texto de instrução de 180 palavras, e depois ele é retirado.',
+        'RESTRIÇÃO 6, CONEXÃO RUIM. As imagens não carregam. Tudo que é imagem está coberto com papel em branco.'
+      ]
+    },
+    {
+      titulo: 'Folha de registro',
+      tipo: 'editavel',
+      corpo: 'Grupo: ______  Restrição: ______\n\nCONSEGUIMOS COMPLETAR A TAREFA? ( ) sim ( ) sim, com dificuldade ( ) não\n\nONDE TRAVAMOS, ponto por ponto:\n1. ____________________  Tempo perdido: ______\n2. ____________________  Tempo perdido: ______\n3. ____________________  Tempo perdido: ______\n\nO QUE RESOLVERIA cada trava, em uma frase:\n1. ____________________________________\n2. ____________________________________\n3. ____________________________________\n\nESSA CORREÇÃO É CARA? ( ) sim ( ) não ( ) não sei\n\nQUANTAS PESSOAS usam a internet com essa restrição, na sua estimativa?\n____________________'
+    },
+    {
+      titulo: 'Modelo de parecer',
+      tipo: 'editavel',
+      corpo: 'PARECER DE ACESSIBILIDADE\n\n1. TAREFA AVALIADA e quantos grupos a completaram: ______ de ______\n\n2. BARREIRAS ENCONTRADAS, da que afetou mais grupos para a que afetou menos:\nBarreira: ____________  Afetou ______ grupos  Correção: ____________  Custo: ( ) baixo ( ) médio ( ) alto\n(repetir)\n\n3. AS TRÊS CORREÇÕES PRIORITÁRIAS, escolhidas por afetar muita gente e custar pouco:\n1. ____________________________________\n2. ____________________________________\n3. ____________________________________\n\n4. COMO VERIFICAR se cada correção foi feita:\n____________________________________\n\n5. POR QUE ESSAS BARREIRAS EXISTEM?\n( ) a tecnologia não permite corrigir\n( ) corrigir custa muito\n( ) ninguém testou com quem usa assim\n( ) outra: ____________\n\n6. QUEM DEVERIA TER SIDO CONSULTADO antes de publicar esta página?\n____________________________________'
+    },
+    {
+      titulo: 'As três verificações',
+      tipo: 'cartaz',
+      corpo: 'ANTES DE PUBLICAR QUALQUER COISA, TRÊS VERIFICAÇÕES RÁPIDAS\n\n1. DÁ PARA ENTENDER SEM VER?\nToda imagem tem descrição em texto? Todo botão tem palavra, e não só ícone? O endereço está escrito, e não só no mapa?\n\n2. DÁ PARA ENTENDER SEM COR?\nSe você imprimir em preto e branco, ainda dá para saber qual botão é qual? A informação está só na cor?\n\n3. DÁ PARA LER?\nO contraste é suficiente? O texto está quebrado em parágrafos e listas? A instrução importante aparece sem precisar passar o mouse?\n\nA maior parte da exclusão digital é resolvida por essas três.'
+    },
+    {
+      titulo: 'Gabarito comentado e protocolo de respeito',
+      tipo: 'gabarito',
+      corpo: 'PROTOCOLO DE RESPEITO, obrigatório antes de sortear\n\nEstas restrições simulam condições reais de pessoas reais, e algumas delas podem estar na sala. Por isso:\n. Deixar claro que a atividade NÃO simula "ser uma pessoa com deficiência". Ela testa o PRODUTO sob uma restrição. O objeto avaliado é o site, nunca a pessoa.\n. Proibir qualquer imitação, brincadeira ou dramatização de deficiência. Quem fizer, a atividade para.\n. Não perguntar se alguém da turma tem alguma dessas condições, e não convidar ninguém a "explicar como é".\n. Se houver estudante com deficiência na turma, conversar antes, em particular, e perguntar se ele quer participar e de que forma. Nunca colocá-lo como especialista sem que ele tenha oferecido.\n. A restrição 5 não é sobre deficiência: ela simula baixa proficiência de leitura e pressa, que afetam muito mais gente.\n\nAS BARREIRAS PLANTADAS E O QUE AS RESOLVE\n. Rótulo só dentro do campo: some ao digitar e não é lido por leitor de tela. Correção: rótulo visível fora do campo. Custo baixo.\n. Botão só com ícone: sem texto, não há o que ler. Correção: acrescentar palavra. Custo mínimo.\n. Contraste baixo no aviso importante: correção é trocar a cor. Custo mínimo.\n. Mapa sem endereço em texto: correção é escrever o endereço. Custo mínimo.\n. Passo que só aparece no hover: não existe para quem usa teclado ou toque. Correção é mostrar sempre. Custo baixo.\n. Parágrafo único de 180 palavras: correção é dividir e usar lista. Custo mínimo.\n. Formato de data exigido sem aviso: correção é informar o formato e aceitar variações. Custo baixo.\n. Botões distinguidos só por cor: correção é acrescentar texto e forma diferente. Custo mínimo.\n\nO PADRÃO QUE APARECE\nQuase todos os grupos travam no rótulo do formulário, no botão só com ícone e no texto de instrução. Nenhuma das oito correções é cara ou tecnicamente difícil. Essa é a virada, e a resposta da pergunta 5 do parecer é quase sempre a terceira opção: ninguém testou com quem usa assim.\n\nA PERGUNTA 6 é a mais importante e liga com todo o resto do banco: a solução não é técnica, é de processo. Quem deveria ter sido consultado antes de publicar? A resposta conecta com "Prove sua idade sem entregar sua vida" e com "Júri do algoritmo de contratação": decisões sobre pessoas tomadas sem essas pessoas.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantos grupos completaram a tarefa?',
+      'Onde a maioria travou? Esses pontos são difíceis de corrigir?',
+      'Alguma dessas correções é cara?',
+      'Se não é caro nem difícil, por que não foi feito?',
+      'Quem deveria ter sido consultado antes de publicar?',
+      'O trabalho que vocês entregam passa nas três verificações?'
+    ],
+    evitar: [
+      'Permitir imitação ou dramatização de deficiência. A atividade avalia o produto, e a regra é dita antes de sortear.',
+      'Colocar estudante com deficiência como especialista sem que ele tenha oferecido.',
+      'Perguntar quem na turma tem alguma dessas condições.',
+      'Concluir que o problema é técnico. Nenhuma das oito correções é difícil, e a pergunta 6 é o destino da aula.'
+    ]
+  },
+
+  protecao: 'Tema que exige cuidado. As restrições simulam condições de uso do produto e não a experiência de viver com uma deficiência, e essa distinção deve ser dita antes de sortear. É proibida qualquer imitação ou dramatização de deficiência. Não perguntar sobre condições de saúde de estudantes nem convidar alguém a relatar a própria experiência. Se houver estudante com deficiência na turma, conversar previamente em particular sobre se e como ele quer participar. A página avaliada é fictícia; se um serviço real for usado, escolher um serviço público e manter o parecer interno.',
+
+  evidencia: 'O grupo identifica pelo menos três barreiras comuns, classifica corretamente o custo das correções como baixo, e atribui a existência das barreiras a ausência de teste com usuários diversos, e não a limitação técnica.'
+}
+
+);
+
+
+/* Últimas lacunas apontadas pela auditoria de cobertura:
+   metadados (EF06CO08), produção e publicação (EM13CO20, EM13CO21) e
+   tecnologias digitais no mundo do trabalho (EM13CO09).
+   As duas de criação existem porque o banco formava avaliadores excelentes e
+   criadores quase nenhum, e o framework da UNESCO pede cocriadores. */
+
+window.JP.ATIVIDADES.push(
+
+/* ==================================================================== 74 */
+{
+  id: 'foto-que-carrega-endereco',
+  insightCurto: 'Toda foto carrega uma ficha escondida. Às vezes com a coordenada exata de onde você estava.',
+  n: 74,
+  titulo: 'A foto que carrega endereço',
+  chamada: 'A imagem mostra um bolo. O arquivo guarda o aparelho, a hora e, às vezes, a coordenada.',
+  faixa: '11-14',
+  duracao: 40,
+  duracaoCurta: 25,
+  comoEncurtar: 'Em 25 minutos: analise três fichas de metadado em vez de cinco e vá direto ao caso do encontro. A folha do que dá para desligar é o produto e não sai.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Investigação de metadados em fichas',
+  contexto: ['escola', 'casa', 'individual'],
+  tela: 'hibrido',
+  situacao: ['foto', 'dados'],
+  disciplinas: ['Geografia', 'Matemática', 'Ciências'],
+  preparo: 'baixo',
+  grupo: 'dupla',
+  eixo: 'privacidade',
+  nivel: 3,
+  sensibilidade: 'media',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EF06CO08', texto: 'Compreender e utilizar diferentes formas de armazenar, manipular, compactar e recuperar arquivos, documentos e metadados.' },
+    secundaria: { codigo: 'EF08CO08', texto: 'Distinguir os tipos de dados pessoais que são solicitados em espaços digitais e os riscos associados.' }
+  },
+  unesco: { dimensao: 'tecnicas', competencia: 'Compreender que arquivos digitais carregam dados descritivos não visíveis no conteúdo.' },
+
+  provocacao: 'Esta foto mostra um bolo de aniversário. O arquivo dela guarda dezoito informações que não aparecem na imagem. Vocês vão ler todas.',
+
+  missao: 'Ler a ficha de metadados de cinco fotos e descobrir, de cada pessoa, o que dá para saber sem olhar a imagem.',
+
+  virada: 'Depois de ler as cinco fichas separadamente, o facilitador revela que as fotos 1, 3 e 5 são da mesma pessoa. Colocando as três coordenadas e os três horários lado a lado, aparece um trajeto: casa, escola, casa, todos os dias, no mesmo horário. Nenhuma das três fotos mostra rosto, endereço ou uniforme. A rotina inteira estava fora da imagem.',
+
+  insight: 'O que a imagem mostra é o que a pessoa escolheu. O que o arquivo guarda é o que o aparelho registrou sozinho, e isso inclui onde e quando.',
+
+  transferencia: 'Dá para desligar a marcação de localização na câmera, e dá para saber quais plataformas removem metadado ao publicar e quais não removem. As duas coisas levam menos de dois minutos.',
+
+  roteiro: [
+    { t: '0 a 6 min',   o: 'Provocação. Explicar o que é metadado com um exemplo não digital: o carimbo do correio no envelope conta a data e o lugar sem abrir a carta.' },
+    { t: '6 a 20 min',  o: 'Em duplas, ler as cinco fichas de metadados e preencher, para cada uma, o que dá para saber da pessoa sem ver a foto.' },
+    { t: '20 a 28 min', o: 'A virada. Revelar que 1, 3 e 5 são da mesma pessoa. Plotar as coordenadas e horários no mapa da folha.' },
+    { t: '28 a 34 min', o: 'Discussão: o que a imagem mostrava e o que o arquivo entregou. E a pergunta do encontro.' },
+    { t: '34 a 40 min', o: 'Folha do que dá para desligar e do que cada tipo de envio faz com o metadado.' }
+  ],
+
+  versoes: {
+    escola: 'Duplas, com as fichas impressas. Funciona totalmente desplugada. Integra Geografia, na leitura de coordenadas, e Matemática, na comparação de horários. Complementa "A foto que conta mais do que mostra", dos 9 aos 10: lá o risco estava no fundo da imagem, aqui está fora dela.',
+    familia: 'Ler duas fichas na mesa e depois, com o adulto operando o aparelho, verificar juntos se a câmera da casa está marcando localização. Não é preciso mexer em foto nenhuma.',
+    jovem: 'Individual: verificar a configuração de localização da sua câmera e descobrir, para os aplicativos que você usa, quais removem metadado ao publicar. Anotar o resultado.'
+  },
+
+  kit: [
+    { nome: 'Cinco fichas de metadados', tipo: 'imprimivel', desc: 'O que o arquivo guarda, sem a imagem.' },
+    { nome: 'Folha do trajeto', tipo: 'imprimivel', desc: 'Mapa simples para plotar. A virada.' },
+    { nome: 'Folha do que dá para desligar', tipo: 'editavel', desc: 'O produto que sai da aula.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'O que cada ficha revela e os cuidados.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Cinco fichas de metadados',
+      tipo: 'cartas',
+      nota: 'Nenhuma imagem é mostrada. Só a ficha do arquivo. As coordenadas são fictícias.',
+      itens: [
+        'FOTO 1. Arquivo: IMG_4471.jpg | Aparelho: celular modelo comum | Data e hora: 12/03, 07h14 | Coordenada: -23.5401, -46.6321 | Orientação: retrato | Flash: não | Software: câmera padrão | Assunto visível: um café e um caderno.',
+        'FOTO 2. Arquivo: DSC_0092.jpg | Aparelho: câmera fotográfica | Data e hora: 12/03, 15h02 | Coordenada: ausente | Orientação: paisagem | Flash: não | Software: editada em programa de edição, versão registrada | Assunto visível: uma praça.',
+        'FOTO 3. Arquivo: IMG_4488.jpg | Aparelho: mesmo aparelho da foto 1 | Data e hora: 12/03, 17h26 | Coordenada: -23.5512, -46.6398 | Orientação: retrato | Flash: não | Assunto visível: um cachorro na calçada.',
+        'FOTO 4. Arquivo: recebida_23.jpg | Aparelho: ausente | Data e hora: ausente | Coordenada: ausente | Observação: todos os metadados foram removidos | Assunto visível: um prato de comida.',
+        'FOTO 5. Arquivo: IMG_4503.jpg | Aparelho: mesmo aparelho das fotos 1 e 3 | Data e hora: 13/03, 07h11 | Coordenada: -23.5401, -46.6321 | Orientação: retrato | Flash: não | Assunto visível: um bolo de aniversário.'
+      ]
+    },
+    {
+      titulo: 'Folha do trajeto (a virada)',
+      tipo: 'folha',
+      corpo: 'As fotos 1, 3 e 5 são da mesma pessoa e do mesmo aparelho.\n\nPlote as três coordenadas no mapa simples abaixo e escreva o horário ao lado de cada ponto.\n\n[grade simples de coordenadas, com eixos marcados de -23.535 a -23.555 e de -46.628 a -46.642]\n\nPONTO A: coordenada ____________  horários ____________\nPONTO B: coordenada ____________  horário ____________\n\nO que o ponto A provavelmente é? ____________________\nO que o ponto B provavelmente é? ____________________\n\nA que horas essa pessoa sai de casa? ____________________\nA que horas ela volta? ____________________\n\nAlguma das três fotos mostrava o rosto dela, o endereço ou um uniforme?\n( ) sim ( ) não\n\nA PERGUNTA DIFÍCIL:\nSe alguém quisesse encontrar essa pessoa amanhã de manhã, precisaria de mais alguma informação?\n____________________________________'
+    },
+    {
+      titulo: 'Folha do que dá para desligar',
+      tipo: 'editavel',
+      corpo: 'O QUE O APARELHO GRAVA SOZINHO\nData e hora, modelo do aparelho, configurações da câmera e, se estiver ligado, a coordenada.\n\nO QUE DÁ PARA FAZER\n\n1. DESLIGAR A LOCALIZAÇÃO DA CÂMERA\nNas configurações do aparelho, nas permissões do aplicativo de câmera. Leva menos de um minuto e não muda nada nas fotos.\nJá está desligada no seu? ( ) sim ( ) não ( ) não sei\n\n2. SABER O QUE CADA CAMINHO FAZ\nAlgumas plataformas removem os metadados quando você publica. Outras não. Enviar o arquivo original, por qualquer meio que preserve a qualidade, costuma preservar o metadado também.\nMarque o que você descobriu:\nAplicativo ____________  remove? ( ) sim ( ) não ( ) não descobri\nAplicativo ____________  remove? ( ) sim ( ) não ( ) não descobri\n\n3. QUANDO IMPORTA MAIS\nFoto tirada em casa, na escola ou em local que se repete todo dia.\n\nO QUE EU VOU VERIFICAR HOJE: ____________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'O QUE CADA FICHA REVELA\n\nFotos 1, 3 e 5: mesmo aparelho. Duas coordenadas distintas. A coordenada A aparece às 07h14 do dia 12 e às 07h11 do dia 13, sempre de manhã. A B aparece às 17h26. Padrão: A é onde a pessoa está de manhã cedo em dias seguidos, provavelmente casa. B é onde ela está no fim da tarde. As duas ficam a menos de dois quilômetros uma da outra.\n\nFoto 2: sem coordenada, mas revela outra coisa. O software de edição registrado identifica ferramenta e versão, o que já é informação sobre a pessoa.\n\nFoto 4: metadados removidos. É a foto que passou por uma plataforma que limpa, ou por alguém que limpou. Vale destacar que ela existe no conjunto de propósito: mostra que dá para limpar, e que às vezes já vem limpo.\n\nA PERGUNTA DIFÍCIL do trajeto é o centro da atividade e deve ser feita com sobriedade, sem dramatizar. A resposta é não: não precisaria de mais nada. Deixar a turma responder e seguir para a folha de ação, para que a aula termine em algo que dá para fazer, e não em susto.\n\nCUIDADO CENTRAL\nNunca analisar metadados de fotos reais de estudantes, nem em demonstração, nem com o próprio celular do professor mostrando à turma. A verificação com foto própria é individual, privada, e nada é compartilhado.\n\nSE A TURMA PERGUNTAR se as plataformas removem: a resposta honesta é que varia por plataforma e por forma de envio, e que muda com o tempo. Por isso a folha pede que eles descubram, em vez de trazer uma lista que envelhece.\n\nLIGAÇÃO com "A viagem do pacote" e "Segredo com cadeado": mesmo com conteúdo criptografado de ponta a ponta, o metadado de quem falou com quem e quando continua existindo. Conteúdo e metadado são coisas diferentes, e é uma distinção que serve para o resto da vida.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Alguma das fotos mostrava rosto, endereço ou uniforme?',
+      'De onde veio o trajeto, então?',
+      'O que a foto 2 revela, mesmo sem coordenada?',
+      'Por que a foto 4 não tem nada?',
+      'Se o conteúdo estiver criptografado, o metadado some junto?',
+      'O que dá para desligar hoje, em menos de um minuto?'
+    ],
+    evitar: [
+      'Analisar metadados de fotos reais de estudantes ou do professor em sala.',
+      'Dramatizar a pergunta do encontro. Ela é sóbria e a aula segue para a ação.',
+      'Trazer lista pronta de quais plataformas removem metadado. Envelhece rápido e tira a investigação.',
+      'Terminar sem a folha de ação. Susto sem ação não muda comportamento.'
+    ]
+  },
+
+  protecao: 'Todas as fichas são fictícias e as coordenadas foram inventadas. Nenhuma foto real, de estudante, professor ou familiar, é analisada, exibida ou tem metadados extraídos em sala, em nenhuma hipótese, nem para demonstração. A verificação com foto própria é individual e privada, e o resultado não é compartilhado com a turma nem com o professor.',
+
+  evidencia: 'A dupla reconstrói o trajeto a partir de coordenadas e horários, reconhece que nenhuma informação veio do conteúdo visível das imagens, e identifica ao menos uma ação concreta de configuração.'
+},
+
+/* ==================================================================== 75 */
+{
+  id: 'a-campanha-da-turma',
+  insightCurto: 'Explicar bem para quem não sabe é mais difícil, e ensina mais, do que criticar quem errou.',
+  n: 75,
+  titulo: 'A campanha da turma',
+  chamada: 'A turma produz e publica uma peça sobre um tema do banco, com crédito, licença e verificação.',
+  faixa: '11-14',
+  duracao: 999,
+  duracaoTexto: 'Projeto de três aulas',
+  formato: 'criacao',
+  formatoDetalhe: 'Produção e publicação de peça de comunicação',
+  contexto: ['escola'],
+  tela: 'hibrido',
+  situacao: ['autoria', 'informacao'],
+  disciplinas: ['Língua Portuguesa', 'Artes', 'Projeto de Vida'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'autoria',
+  nivel: 3,
+  sensibilidade: 'baixa',
+  selos: [],
+
+  bncc: {
+    principal: { codigo: 'EF09CO09', texto: 'Criar ou utilizar conteúdo em meio digital, compreendendo questões éticas relacionadas a direitos autorais e de uso de imagem.' },
+    secundaria: { codigo: 'EF07CO11', texto: 'Criar, documentar e publicar, de forma individual ou colaborativa, produtos (vídeos, podcasts, websites) usando recursos de tecnologia.' }
+  },
+  unesco: { dimensao: 'design', competencia: 'Produzir e publicar conteúdo próprio com atribuição correta, verificação e responsabilidade sobre o que se afirma.' },
+
+  provocacao: 'Vocês já analisaram, auditaram e criticaram bastante. Agora vocês vão para o outro lado: vão produzir uma coisa que outras pessoas vão ler, e vão ter que responder por cada afirmação dela.',
+
+  missao: 'Escolher um tema já estudado no banco, produzir uma peça para o público da escola, e publicar com créditos, licenças e verificação em ordem.',
+
+  virada: 'Na segunda aula, os grupos trocam as peças e viram checadores uns dos outros, com a mesma grade que usaram em "Não adivinhe, verifique" e "O chatbot de certeza demais". Descobrem que afirmar com precisão é muito mais difícil do que apontar erro alheio, e que quase toda peça tem pelo menos uma frase que ninguém consegue sustentar quando é perguntado de onde veio.',
+
+  insight: 'Criticar exige encontrar um erro. Publicar exige sustentar tudo. A segunda é muito mais difícil, e é a que ensina de verdade.',
+
+  transferencia: 'Antes de publicar qualquer coisa, existe uma lista de quatro verificações. Ela vale para trabalho escolar, post e apresentação.',
+
+  roteiro: [
+    { t: 'Aula 1, 0 a 12 min',  o: 'Escolha do tema, entre os já estudados pela turma, e do público: outra turma, responsáveis, ou a escola inteira. Definir o formato.' },
+    { t: 'Aula 1, 12 a 45 min', o: 'Produção da primeira versão, com a ficha de fontes sendo preenchida ao mesmo tempo, e não depois.' },
+    { t: 'Aula 2, 0 a 25 min',  o: 'A virada. Troca de peças. Cada grupo checa a peça de outro com a grade de checagem e devolve o parecer por escrito.' },
+    { t: 'Aula 2, 25 a 45 min', o: 'Correção a partir do parecer recebido. Toda afirmação que não se sustenta sai ou vira pergunta.' },
+    { t: 'Aula 3, 0 a 25 min',  o: 'Acabamento, créditos, licenças das imagens e declaração de uso de IA, se houver.' },
+    { t: 'Aula 3, 25 a 45 min', o: 'Publicação e apresentação. Combinar com a escola onde a peça vai ficar.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro, três aulas. Encaixa em Língua Portuguesa e Artes e produz material avaliável em várias frentes. O melhor destino é uma turma mais nova: escrever para crianças de 8 anos obriga a entender de verdade.',
+    familia: 'Versão curta: produzir um cartaz de uma página para a casa, sobre uma regra que a família combinou. Créditos e verificação valem igual.',
+    jovem: 'Individual: produzir uma peça e submeter a alguém que não conhece o assunto. Se a pessoa não entender, o problema é da peça.'
+  },
+
+  kit: [
+    { nome: 'Cartas de formato', tipo: 'imprimivel', desc: 'Opções de peça, todas viáveis sem equipamento.' },
+    { nome: 'Ficha de fontes', tipo: 'editavel', desc: 'Preenchida durante a produção.' },
+    { nome: 'Grade de checagem cruzada', tipo: 'imprimivel', desc: 'A virada.' },
+    { nome: 'Checklist de publicação', tipo: 'editavel', desc: 'Créditos, licenças, declaração.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'O que avaliar e os erros esperados.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Cartas de formato',
+      tipo: 'cartas',
+      nota: 'Todas viáveis sem equipamento especial. O grupo escolhe.',
+      itens: [
+        'CARTAZ para o corredor. Uma folha grande, uma ideia só, legível a três metros.',
+        'FOLHETO de uma página, dobrado em três, para levar para casa.',
+        'ROTEIRO DE CONVERSA de cinco minutos, para aplicar em outra turma.',
+        'HISTÓRIA EM QUADRINHOS de uma página, para o mural.',
+        'PODCAST de três minutos, gravado no celular, com roteiro escrito antes.',
+        'MURAL COLETIVO em que cada grupo contribui com uma parte.'
+      ]
+    },
+    {
+      titulo: 'Ficha de fontes',
+      tipo: 'editavel',
+      corpo: 'Preencher DURANTE a produção. Cada afirmação da peça precisa de uma linha aqui.\n\nAFIRMAÇÃO NA PEÇA: ____________________________________\nDE ONDE VEIO: ____________________________________\nEU CONFERI? ( ) sim, em ____________ ( ) não\nÉ FATO, ESTIMATIVA OU OPINIÃO? ____________\n\n(repetir para cada afirmação)\n\nIMAGENS USADAS:\nImagem: ____________  De onde: ____________  Pode usar? ( ) sim ( ) não ( ) não sei\nCrédito que vai aparecer: ____________________\n\nUSAMOS IA? ( ) não ( ) sim, em: ____________________\nO que verificamos do que ela produziu: ____________________'
+    },
+    {
+      titulo: 'Grade de checagem cruzada (a virada)',
+      tipo: 'folha',
+      corpo: 'Vocês são os checadores da peça do grupo ______.\n\nRegra: sejam rigorosos. Se vocês passarem a mão na cabeça, quem vai encontrar o erro é o público.\n\n1. QUANTAS AFIRMAÇÕES a peça faz? ______\n2. Quantas delas vocês conseguem RASTREAR até uma fonte na ficha? ______\n3. Alguma afirmação está apresentada como fato mas é opinião? Qual?\n____________________________________\n4. Alguma imagem está sem crédito ou sem licença? Qual?\n____________________________________\n5. Alguma coisa está EXAGERADA para convencer? O quê?\n____________________________________\n6. Alguém do público-alvo entenderia? Teste: leia em voz alta imaginando a pessoa.\n____________________________________\n7. A peça pede alguma ação? Ela é possível de fazer?\n____________________________________\n\nPARECER, em duas linhas:\n____________________________________'
+    },
+    {
+      titulo: 'Checklist de publicação',
+      tipo: 'editavel',
+      corpo: 'ANTES DE PUBLICAR\n\n( ) Toda afirmação tem origem na ficha de fontes\n( ) O que é opinião está marcado como opinião\n( ) Toda imagem tem crédito e pode ser usada\n( ) Se usamos IA, está declarado e verificamos o que ela produziu\n( ) Nenhuma pessoa real aparece sem autorização\n( ) Nenhum dado pessoal de ninguém aparece\n( ) Alguém do público-alvo leu e entendeu\n( ) A peça pede uma ação possível\n( ) Está assinada, para que dê para perguntar\n\nQUEM RESPONDE por esta peça se alguém apontar um erro:\n____________________\n\nONDE ELA VAI FICAR, e por quanto tempo:\n____________________\n\nSE ALGUÉM APONTAR UM ERRO, o que a gente faz:\n____________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'O QUE ESTA ATIVIDADE CORRIGE NO BANCO\nAs outras fichas formam avaliadores. Esta forma produtores, e o framework da UNESCO é explícito em querer estudantes cocriadores, e não só usuários responsáveis. Sem uma atividade assim, o banco ensina a desmontar e nunca a montar.\n\nERROS ESPERADOS, todos produtivos\n\n1. Preencher a ficha de fontes depois de escrever. É o erro mais comum e é o mesmo de "Prompts sob teste": o critério tem que vir antes.\n2. Afirmação de memória. "Todo mundo sabe que..." não tem fonte, e a checagem cruzada pega.\n3. Exagero para convencer. Grupos descobrem que a versão exagerada é mais persuasiva, e é justamente aí que a discussão fica boa: convencer e ser correto às vezes puxam para lados diferentes.\n4. Imagem tirada de busca sem verificar licença. Muito comum e fácil de corrigir: bancos de imagem livre existem, e o crédito é obrigatório mesmo quando o uso é livre.\n5. Escrever para si mesmo em vez de para o público-alvo. O teste da pergunta 6 resolve.\n\nO MOMENTO MAIS FORMATIVO é a devolução do parecer. Grupos que foram duros com os outros e depois recebem parecer duro entendem, sem que ninguém precise dizer, por que publicar é mais difícil que criticar.\n\nSOBRE A PUBLICAÇÃO\nCombinar com a escola ANTES onde a peça vai ficar. Peça produzida e nunca publicada esvazia a atividade: o que muda o comportamento é saber que outras pessoas vão ler.\n\nSE A PEÇA FOR PARA FORA DA ESCOLA, aplicar as regras de proteção com rigor: nenhuma pessoa identificável sem autorização, nenhum dado pessoal, e assinatura da turma e não de estudantes individuais.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantas afirmações da sua peça vocês conseguem rastrear até uma fonte?',
+      'A versão exagerada convence mais? Isso é um problema?',
+      'Foi mais fácil checar a peça do outro grupo ou defender a de vocês?',
+      'Alguém do público-alvo entenderia mesmo?',
+      'A ação que vocês pedem é possível de fazer?',
+      'Se alguém apontar um erro depois de publicado, o que vocês fazem?'
+    ],
+    evitar: [
+      'Deixar a ficha de fontes para o fim. Ela é preenchida durante, senão vira ficção retroativa.',
+      'Aceitar checagem cruzada branda. Se o grupo passar a mão na cabeça do outro, o público encontra o erro.',
+      'Produzir e não publicar. O que muda a qualidade é saber que alguém vai ler.',
+      'Avaliar só o acabamento visual. A ficha de fontes e o parecer valem mais.'
+    ]
+  },
+
+  protecao: 'Nenhuma pessoa identificável aparece na peça sem autorização por escrito, e isso inclui colegas, professores e familiares. Nenhum dado pessoal de ninguém é publicado. Imagens só com licença verificada e crédito. Se a peça for divulgada fora da escola, a assinatura é da turma, e não de estudantes individualmente. Se houver uso de IA, ele é declarado na própria peça.',
+
+  evidencia: 'A peça é publicada com todas as afirmações rastreáveis na ficha de fontes, imagens creditadas e licenciadas, e o grupo revisou a peça a partir de um parecer de checagem recebido de outro grupo.'
+},
+
+/* ==================================================================== 76 */
+{
+  id: 'explique-para-quem-nao-sabe',
+  insightCurto: 'Você só entendeu de verdade quando consegue explicar para quem não sabe nada do assunto.',
+  n: 76,
+  titulo: 'Explique para quem não sabe',
+  chamada: 'Traduzir um tema difícil do banco para quem tem oito anos, ou para quem tem sessenta.',
+  faixa: '15-17',
+  duracao: 999,
+  duracaoTexto: 'Projeto de duas aulas com aplicação real',
+  formato: 'criacao',
+  formatoDetalhe: 'Produção de explicação com público real',
+  contexto: ['escola'],
+  tela: 'hibrido',
+  situacao: ['autoria', 'informacao'],
+  disciplinas: ['Língua Portuguesa', 'Artes', 'Projeto de Vida'],
+  preparo: 'medio',
+  grupo: 'pequeno',
+  eixo: 'autoria',
+  nivel: 3,
+  sensibilidade: 'baixa',
+  selos: [],
+
+  bncc: {
+    principal: { codigo: 'EM13CO21', texto: 'Comunicar ideias complexas de forma clara por meio de objetos digitais como mapas conceituais, infográficos, hipertextos e outros.' },
+    secundaria: { codigo: 'EM13CO20', texto: 'Criar conteúdos, disponibilizando-os em ambientes virtuais para publicação e compartilhamento, avaliando a confiabilidade e as consequências da disseminação dessas informações.' }
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Traduzir conhecimento técnico para públicos diversos sem perder precisão.' },
+
+  provocacao: 'Vocês vão explicar perfilamento, ou criptografia, ou economia da atenção, para uma turma de terceiro ano ou para um grupo de avós. E eles vão dizer, na cara de vocês, se entenderam.',
+
+  missao: 'Produzir uma explicação de um tema difícil para um público real, aplicar de verdade, e medir se funcionou.',
+
+  virada: 'Na aplicação, os grupos descobrem que o que derruba a explicação quase nunca é o conteúdo. É a palavra que eles nem perceberam que era técnica: "plataforma", "dados", "algoritmo", "perfil", "conta". A turma de oito anos trava em "dados" antes de chegar em "perfilamento". Os grupos precisam reescrever eliminando um vocabulário que era invisível para eles.',
+
+  insight: 'A dificuldade de explicar não está no conceito difícil. Está nas palavras fáceis que a gente nem percebe que aprendeu.',
+
+  transferencia: 'Diante de qualquer explicação que você precise dar, existe um teste: sublinhe toda palavra que o outro talvez não saiba. Vai ter mais do que você imagina.',
+
+  roteiro: [
+    { t: 'Aula 1, 0 a 10 min',  o: 'Sorteio do tema entre os já estudados e escolha do público real: uma turma específica ou um grupo de responsáveis.' },
+    { t: 'Aula 1, 10 a 25 min', o: 'Teste do vocabulário: cada grupo escreve a explicação e depois sublinha TODA palavra que o público talvez não conheça. Contar.' },
+    { t: 'Aula 1, 25 a 45 min', o: 'Reescrita eliminando ou explicando cada palavra sublinhada. Escolher o formato da peça.' },
+    { t: 'Entre as aulas',      o: 'Aplicação real com o público escolhido, de dez minutos, com um teste de compreensão simples ao fim.' },
+    { t: 'Aula 2, 0 a 20 min',  o: 'A virada. Cada grupo relata onde o público travou. Montar a lista coletiva das palavras que derrubaram.' },
+    { t: 'Aula 2, 20 a 45 min', o: 'Segunda reescrita a partir do que aconteceu, e produção da versão final para ficar disponível.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Depende de combinar a aplicação real com outra turma ou com a coordenação, e é isso que faz a atividade funcionar. Sem público real, vira exercício de redação. Encaixa em Língua Portuguesa e é excelente como avaliação de conclusão de um ciclo do banco.',
+    familia: 'O adolescente explica um tema para alguém da família que não conhece o assunto, e a pessoa diz honestamente o que não entendeu. Vinte minutos.',
+    jovem: 'Individual: explique um tema para alguém de outra geração e peça que a pessoa repita com as próprias palavras. O que ela não conseguir repetir, você não explicou.'
+  },
+
+  kit: [
+    { nome: 'Cartas de tema', tipo: 'imprimivel', desc: 'Temas difíceis já estudados no banco.' },
+    { nome: 'Teste do vocabulário', tipo: 'editavel', desc: 'A ferramenta central.' },
+    { nome: 'Teste de compreensão', tipo: 'imprimivel', desc: 'Três perguntas para aplicar ao público.' },
+    { nome: 'Folha de relato', tipo: 'editavel', desc: 'Onde o público travou.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'O que observar e como avaliar.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Cartas de tema',
+      tipo: 'cartas',
+      nota: 'Todos já estudados em fichas do banco. Sortear um por grupo.',
+      itens: [
+        'PERFILAMENTO: como um aplicativo deduz coisas sobre você a partir de poucas ações.',
+        'CRIPTOGRAFIA DE PONTA A PONTA: por que quem está no meio não consegue ler.',
+        'ECONOMIA DA ATENÇÃO: por que um serviço de graça precisa que você fique.',
+        'VIÉS EM SISTEMAS QUE APRENDEM: por que um sistema erra mais com um grupo de pessoas.',
+        'METADADOS: o que uma foto guarda além da imagem.',
+        'DISCRIMINAÇÃO INDIRETA: como um sistema exclui sem olhar a característica que exclui.'
+      ]
+    },
+    {
+      titulo: 'Teste do vocabulário',
+      tipo: 'editavel',
+      corpo: 'PASSO 1: escreva a sua explicação do jeito que sairia naturalmente.\n____________________________________\n\nPASSO 2: sublinhe TODA palavra que o seu público talvez não conheça. Seja implacável. Palavras que parecem óbvias para você entram na lista.\n\nQuantas palavras sublinhadas? ______\n\nPASSO 3: para cada uma, decida:\nPalavra: ____________  ( ) trocar por ____________  ( ) explicar antes  ( ) cortar a frase inteira\n(repetir)\n\nPASSO 4: reescreva sem nenhuma palavra sublinhada não resolvida.\n____________________________________\n\nPASSO 5: releia em voz alta imaginando a pessoa. Onde você mesmo hesitaria?\n____________________________________\n\nDICA: palavras que quase sempre precisam de tradução e ninguém percebe:\ndados, plataforma, algoritmo, perfil, conta, aplicativo, sistema, rede, digital, virtual, nuvem, link, conteúdo.'
+    },
+    {
+      titulo: 'Teste de compreensão',
+      tipo: 'folha',
+      corpo: 'Aplicar ao público DEPOIS da explicação. Três perguntas, sem consultar nada.\n\n1. Explique com as suas palavras o que você entendeu.\n(Se a pessoa repetir as palavras exatas de vocês, ela decorou. Se ela usar palavras dela, entendeu.)\n\n2. Dê um exemplo que a gente não deu.\n(Esta é a pergunta que mais separa entender de ouvir.)\n\n3. Tem alguma coisa que você não entendeu e não quis perguntar?\n(Deixar a pessoa responder em papel, sem se identificar, se preferir.)\n\nANOTAR AO LADO: em que momento exato da explicação a pessoa pareceu perder o fio?'
+    },
+    {
+      titulo: 'Folha de relato',
+      tipo: 'editavel',
+      corpo: 'Tema: ____________  Público: ____________  Quantas pessoas: ______\n\nQuantas conseguiram explicar com palavras próprias? ______ de ______\nQuantas deram um exemplo novo? ______ de ______\n\nAS PALAVRAS QUE DERRUBARAM:\n____________________________________\n\nO MOMENTO EXATO em que o público perdeu o fio:\n____________________________________\n\nO QUE FUNCIONOU melhor do que esperávamos:\n____________________________________\n\nO QUE NÓS ACHÁVAMOS que era o difícil, e não era:\n____________________________________\n\nNA SEGUNDA VERSÃO nós vamos mudar:\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'O QUE SEMPRE ACONTECE\n\nOs grupos preveem que o difícil será o conceito e descobrem que é o vocabulário de entrada. Com turma de terceiro ano, a palavra "dados" derruba antes de "perfilamento". Com público idoso, costuma ser "aplicativo", "conta" e "link". Nenhuma delas parece técnica para um adolescente, e é exatamente por isso que o teste do passo 2 precisa ser implacável.\n\nA PERGUNTA 2 DO TESTE DE COMPREENSÃO é a mais importante do instrumento. Repetir a explicação é memória; dar um exemplo novo é compreensão. Grupos costumam ter bom resultado na 1 e resultado ruim na 2, e essa diferença é a aula.\n\nA PERGUNTA 3, sobre o que a pessoa não quis perguntar, revela mais que as outras duas juntas, e é a que ensina sobre público: as pessoas não perguntam por vergonha, e quem explica precisa antecipar.\n\nSOBRE A APLICAÇÃO REAL\nÉ o que separa esta atividade de uma redação. Combinar com a outra turma ou com a coordenação antes da aula 1. Se a aplicação real for impossível, a segunda melhor opção é aplicar com funcionários da escola que não sejam professores, e a pior é aplicar entre os próprios grupos, que compartilham o vocabulário e por isso não travam.\n\nCOMO AVALIAR\nNão avalie pela beleza da peça nem pela quantidade de conteúdo. Avalie pelo resultado da pergunta 2 e pela qualidade da segunda reescrita. Um grupo que teve resultado ruim na aplicação e reescreveu bem aprendeu mais que um que acertou de primeira.\n\nESTA FICHA fecha bem um ciclo do banco: só dá para explicar o que se entendeu, e explicar para quem não sabe é o teste mais honesto que existe.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantas palavras vocês sublinharam? Quantas vocês achavam que eram óbvias?',
+      'O público conseguiu dar um exemplo novo?',
+      'O que derrubou foi o conceito ou foi o vocabulário?',
+      'O que vocês achavam que era o difícil, e não era?',
+      'Alguém disse que não entendeu e não quis perguntar? O que isso ensina?'
+    ],
+    evitar: [
+      'Aplicar entre os próprios grupos da turma. Eles compartilham o vocabulário e não travam, e a atividade não acontece.',
+      'Avaliar pela estética da peça em vez do resultado da compreensão.',
+      'Aceitar teste do vocabulário com poucas palavras sublinhadas. Se sublinharam três, não foram implacáveis.',
+      'Pular a segunda reescrita. É nela que o aprendizado se consolida.'
+    ]
+  },
+
+  protecao: 'A aplicação com outra turma ou com responsáveis é combinada previamente com a coordenação. Nenhum dado pessoal de quem participa do teste é registrado, e as respostas do teste de compreensão são anônimas. Se o público for de crianças menores, valem as regras de proteção da faixa correspondente, e os estudantes que aplicam são orientados a não pedir relatos pessoais.',
+
+  evidencia: 'O grupo identifica no teste do vocabulário palavras que considerava óbvias, relata onde o público real travou, e produz uma segunda versão que corrige especificamente esses pontos.'
+},
+
+/* ==================================================================== 77 */
+{
+  id: 'profissoes-que-a-maquina-mudou',
+  insightCurto: 'A máquina raramente apaga a profissão inteira. Ela come tarefas, e muda quem decide o quê.',
+  n: 77,
+  titulo: 'As profissões que a máquina mudou',
+  chamada: 'Não "sua profissão vai acabar". Quais tarefas dela mudam, quais sobram, e quem decide.',
+  faixa: '15-17',
+  duracao: 50,
+  duracaoCurta: 30,
+  comoEncurtar: 'Em 30 minutos: analise quatro profissões em vez de oito e vá direto à decomposição em tarefas. A pergunta sobre quem decide é o fecho.',
+  formato: 'investigacao',
+  formatoDetalhe: 'Decomposição de profissões em tarefas',
+  contexto: ['escola', 'individual'],
+  tela: 'sem-tela',
+  situacao: ['ia-tarefa', 'algoritmo'],
+  disciplinas: ['Projeto de Vida', 'História', 'Geografia', 'Matemática'],
+  preparo: 'baixo',
+  grupo: 'pequeno',
+  eixo: 'ia',
+  nivel: 5,
+  sensibilidade: 'media',
+  selos: ['pronta-amanha', 'sem-tela'],
+
+  bncc: {
+    principal: { codigo: 'EM13CO09', texto: 'Identificar tecnologias digitais, sua presença e formas de uso, nas diferentes atividades no mundo do trabalho.' },
+    secundaria: { codigo: 'EM13CO10', texto: 'Conhecer os fundamentos da Inteligência Artificial, comparando-a com a inteligência humana, analisando suas potencialidades, riscos e limites.' }
+  },
+  unesco: { dimensao: 'mentalidade', competencia: 'Analisar o efeito da automação sobre tarefas e sobre a distribuição de decisão no trabalho.' },
+
+  provocacao: 'A pergunta que todo mundo faz é "essa profissão vai acabar". É a pergunta errada, e ela não tem resposta. A pergunta que tem resposta é outra: quais tarefas dessa profissão mudam, e quem passa a decidir.',
+
+  missao: 'Decompor oito profissões em tarefas, classificar cada tarefa, e descobrir o que sobra e quem manda depois.',
+
+  virada: 'Depois da classificação, o facilitador entrega as fichas históricas: o que aconteceu com o caixa de banco depois do caixa eletrônico, com o datilógrafo, com o operador de telefonia. Em nenhum dos casos a profissão simplesmente sumiu do jeito previsto. Em alguns, o número de postos até cresceu, e o que mudou foi o conteúdo do trabalho e quem controlava o ritmo. A turma descobre que a previsão de desaparecimento erra com frequência, e que a mudança real acontece em outro lugar: em quem decide.',
+
+  insight: 'A automação come tarefas, não profissões inteiras. E o efeito mais duradouro não é o desemprego previsto: é a mudança de quem controla o ritmo, o critério e a avaliação do trabalho.',
+
+  transferencia: 'Diante de qualquer notícia sobre uma profissão que "vai acabar", dá para decompor em tarefas e perguntar quais delas realmente mudam, o que sobra, e quem passa a decidir.',
+
+  roteiro: [
+    { t: '0 a 8 min',   o: 'Provocação e reformulação da pergunta. Distribuir as oito fichas de profissão, uma ou duas por grupo.' },
+    { t: '8 a 26 min',  o: 'Decompor a profissão em pelo menos seis tarefas e classificar cada uma na grade de quatro categorias.' },
+    { t: '26 a 34 min', o: 'Apresentação. Montar no quadro o que sobra em cada profissão depois da classificação.' },
+    { t: '34 a 42 min', o: 'A virada. Entregar as fichas históricas. Comparar previsão e o que aconteceu.' },
+    { t: '42 a 50 min', o: 'Fechamento com as três perguntas sobre decisão, ritmo e avaliação.' }
+  ],
+
+  versoes: {
+    escola: 'Grupos de quatro. Encaixa em Projeto de Vida e em História, na comparação com transformações anteriores do trabalho. É uma das poucas fichas do banco que fala diretamente do futuro de quem está na sala, e por isso pede cuidado: ver a proteção.',
+    familia: 'Decompor em tarefas a profissão de alguém da família, com essa pessoa participando. Perguntar o que já mudou nos últimos dez anos. Costuma render mais que qualquer previsão.',
+    jovem: 'Individual: decomponha em tarefas uma profissão que você considera seguir, classifique, e escreva o que você faria para desenvolver o que sobra.'
+  },
+
+  kit: [
+    { nome: 'Oito fichas de profissão', tipo: 'imprimivel', desc: 'Variadas em escolaridade e setor.' },
+    { nome: 'Grade de classificação', tipo: 'imprimivel', desc: 'Quatro categorias por tarefa.' },
+    { nome: 'Fichas históricas', tipo: 'imprimivel', desc: 'A virada.' },
+    { nome: 'Folha de conclusão', tipo: 'editavel', desc: 'O que sobra e quem decide.' },
+    { nome: 'Gabarito comentado', tipo: 'gabarito', desc: 'Padrões e cuidados de condução.' }
+  ],
+
+  imprimiveis: [
+    {
+      titulo: 'Oito fichas de profissão',
+      tipo: 'cartas',
+      nota: 'Escolhidas de propósito com escolaridades e setores variados, para não sugerir que o tema é só de quem vai para a universidade.',
+      itens: [
+        'MOTORISTA DE APLICATIVO', 'ENFERMEIRO', 'PROFESSOR DOS ANOS INICIAIS',
+        'CONTADOR', 'ELETRICISTA', 'DESIGNER GRÁFICO',
+        'ATENDENTE DE TELEMARKETING', 'AGRICULTOR FAMILIAR'
+      ]
+    },
+    {
+      titulo: 'Grade de classificação',
+      tipo: 'folha',
+      corpo: 'Profissão: ____________________\n\nListem pelo menos SEIS tarefas concretas do dia a dia dessa pessoa. Não a profissão, as tarefas.\n\nPara cada uma, classifiquem:\n\nA. JÁ É FEITA POR MÁQUINA hoje\nB. PODE SER FEITA POR MÁQUINA, mas ainda é humana\nC. A MÁQUINA AJUDA, e a decisão continua humana\nD. NÃO DÁ para automatizar, e expliquem por quê\n\nTarefa 1: ____________________  Categoria: ___  Por quê: ____________\nTarefa 2: ____________________  Categoria: ___  Por quê: ____________\nTarefa 3: ____________________  Categoria: ___  Por quê: ____________\nTarefa 4: ____________________  Categoria: ___  Por quê: ____________\nTarefa 5: ____________________  Categoria: ___  Por quê: ____________\nTarefa 6: ____________________  Categoria: ___  Por quê: ____________\n\nQuantas em D? ______\nO que essas tarefas D têm em comum?\n____________________________________'
+    },
+    {
+      titulo: 'Fichas históricas (a virada)',
+      tipo: 'cartas',
+      itens: [
+        'O CAIXA DE BANCO E O CAIXA ELETRÔNICO. Previu-se o fim da profissão. O caixa eletrônico barateou muito a operação de uma agência, o que permitiu abrir mais agências. Por um longo período, o número de pessoas empregadas em agências não caiu como se previa, e o trabalho mudou: menos contagem de dinheiro, mais venda de produtos financeiros e mais metas.',
+        'O DATILÓGRAFO. Essa ocupação específica praticamente desapareceu. A tarefa de digitar não desapareceu: ela se espalhou para praticamente todas as outras profissões, e deixou de ser um trabalho para virar uma exigência básica de todos os outros.',
+        'A TELEFONISTA DE MESA. Sumiu com a automação da comutação. Ao mesmo tempo, apareceram centrais de atendimento com muito mais gente, em condições e com controle de ritmo bem diferentes.',
+        'O DIAGRAMADOR DE JORNAL. A editoração eletrônica eliminou etapas manuais inteiras. O trabalho de design não acabou, mas passou a exigir outra formação, e uma parte do que era feito por um profissional passou a ser feita pelo próprio autor do texto.'
+      ]
+    },
+    {
+      titulo: 'Folha de conclusão',
+      tipo: 'editavel',
+      corpo: '1. NA NOSSA PROFISSÃO, o que sobra na categoria D:\n____________________________________\n\n2. O QUE ESSAS TAREFAS TÊM EM COMUM? Marquem o que se aplica:\n( ) exigem julgamento em situação nova\n( ) exigem responsabilidade por consequência sobre pessoas\n( ) exigem presença física\n( ) exigem confiança e relação\n( ) exigem negociar entre interesses\n( ) exigem decidir sem informação completa\n\n3. AS TRÊS PERGUNTAS QUE IMPORTAM MAIS QUE "VAI ACABAR"\n\nDepois da mudança, QUEM DECIDE o que é feito?\n____________________________________\n\nQUEM CONTROLA O RITMO do trabalho?\n____________________________________\n\nQUEM AVALIA se foi bem feito, e com qual critério?\n____________________________________\n\n4. Nas fichas históricas, a previsão de desaparecimento acertou? ______\nO que mudou de verdade? ____________________________________\n\n5. Se essa fosse a sua profissão, o que você desenvolveria a partir de agora?\n____________________________________'
+    },
+    {
+      titulo: 'Gabarito comentado',
+      tipo: 'gabarito',
+      corpo: 'A REFORMULAÇÃO DA PERGUNTA é o conteúdo central. "Essa profissão vai acabar" não tem resposta e produz ansiedade sem ação. "Quais tarefas mudam, o que sobra e quem decide" tem resposta e produz escolha.\n\nO PADRÃO DA CATEGORIA D\nEm praticamente todas as oito profissões, o que sobra tem as mesmas características: julgamento em situação nova, responsabilidade sobre consequência para pessoas, presença física, relação de confiança e negociação entre interesses. Quando a turma monta o quadro e vê o padrão se repetir em profissões tão diferentes quanto enfermeiro e eletricista, a conclusão aparece sozinha, e é bem mais útil que uma lista de "profissões do futuro".\n\nSOBRE AS FICHAS HISTÓRICAS\nElas são apresentadas em ordem de grandeza e sem números precisos de propósito, porque os números variam muito conforme país e período, e o ponto não é quantitativo. O ponto é que a previsão de desaparecimento errou em três dos quatro casos, e que no único em que acertou, a do datilógrafo, a TAREFA não sumiu: ela se espalhou para todo mundo. Se algum grupo quiser números, essa é uma ótima pesquisa complementar, com a ressalva de comparar fontes.\n\nAS TRÊS PERGUNTAS DO FECHAMENTO ligam esta ficha ao resto do banco. Quem decide, quem controla o ritmo e quem avalia é exatamente a estrutura de "Júri do algoritmo de contratação" e de "O ranking invisível da escola", agora aplicada ao trabalho. Vale explicitar a ligação.\n\nCUIDADO DE CONDUÇÃO, importante\nEsta turma vai trabalhar, e muitos já trabalham ou vão trabalhar cedo. As oito profissões incluem de propósito ocupações que não exigem ensino superior, para que ninguém saia com a impressão de que o tema é só de quem vai para a universidade. Não sugerir que existem profissões "seguras" e "condenadas": é falso e é cruel com quem já escolheu ou com quem depende da renda de alguém dessas profissões.\n\nNão perguntar em que trabalham os responsáveis de cada estudante. Se alguém trouxer espontaneamente, acolher e tratar como caso, sem transformar a família de ninguém em objeto de análise da turma.'
+    }
+  ],
+
+  mediacao: {
+    perguntas: [
+      'Quantas tarefas sobraram na categoria D? O que elas têm em comum?',
+      'O padrão se repete entre profissões bem diferentes?',
+      'Nas fichas históricas, a previsão de fim acertou?',
+      'No caso do datilógrafo, a tarefa sumiu ou se espalhou?',
+      'Depois da mudança, quem passou a controlar o ritmo do trabalho?',
+      'Qual pergunta é mais útil: "vai acabar" ou "quem decide"?'
+    ],
+    evitar: [
+      'Listar profissões seguras e condenadas. É falso, não tem base, e atinge estudantes cujas famílias vivem dessas profissões.',
+      'Perguntar em que trabalham os responsáveis dos estudantes.',
+      'Deixar de fora profissões que não exigem ensino superior. A seleção das oito é intencional.',
+      'Terminar em ansiedade. O fechamento é sobre o que se desenvolve, e sobre quem decide.'
+    ]
+  },
+
+  protecao: 'Tema que toca diretamente o futuro e a renda familiar dos estudantes. Não perguntar a profissão dos responsáveis nem a situação de trabalho de ninguém. Não classificar profissões como condenadas: a análise é por tarefa, e a seleção inclui deliberadamente ocupações de diferentes escolaridades. Se um estudante relatar insegurança sobre a renda da família, acolher em particular e encaminhar à orientação educacional, sem exposição da turma.',
+
+  evidencia: 'O grupo decompõe a profissão em tarefas concretas, identifica o padrão comum das tarefas não automatizáveis, e responde quem decide, quem controla o ritmo e quem avalia depois da mudança.'
 }
 
 );
